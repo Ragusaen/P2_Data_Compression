@@ -1,1 +1,2 @@
-# P2_Data_Compression
+# P2 Data Compression
+
