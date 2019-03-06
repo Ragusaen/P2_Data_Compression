@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$USER_HOME$/.Rider2018.3/system/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.Rider2018.3/system/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_compression.407129820.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.Rider2018.3/system/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_compression.1917631989.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="Compression" t="IncludeRecursive">
         <e p="Compression.csproj" t="IncludeRecursive" />
         <e p="Compressor.cs" t="Include" />
-        <e p="File.cs" t="Include" />
+        <e p="DataFile.cs" t="Include" />
         <e p="LZ77.cs" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
@@ -24,6 +24,9 @@
         <e p="UnitTesting.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive" />
+        <e p="res" t="Include">
+          <e p="testfile1" t="Include" />
+        </e>
       </e>
       <e p="compression.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
