@@ -47,17 +47,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Compression\Compression.csproj">
-      <Project>{9d3d7dac-cb58-4dee-8bc9-f3fa8b7a9df6}</Project>
-      <Name>Compression</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="res\empty" />
     <Content Include="res\testfile1" />
+    <Content Include="res\testfile2" />
     <Content Include="testfile" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ressources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\compression\compression.csproj">
+      <Project>{9d3d7dac-cb58-4dee-8bc9-f3fa8b7a9df6}</Project>
+      <Name>compression</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

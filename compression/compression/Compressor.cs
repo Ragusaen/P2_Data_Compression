@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace Compression {
+namespace compression {
     public abstract class Compressor {
         public DataFile Compress(DataFile dataFile) {
             DataFile outputFile = new DataFile();
