@@ -1,2 +1,6 @@
 /home/odum/P2_Data_Compression/compression/Compression/obj/Debug/Compression.csprojAssemblyReference.cache
 /home/odum/P2_Data_Compression/compression/Compression/obj/Debug/Compression.csproj.CoreCompileInputs.cache
+/home/odum/P2_Data_Compression/compression/Compression/bin/Debug/Compression.exe
+/home/odum/P2_Data_Compression/compression/Compression/bin/Debug/Compression.pdb
+/home/odum/P2_Data_Compression/compression/Compression/obj/Debug/Compression.exe
+/home/odum/P2_Data_Compression/compression/Compression/obj/Debug/Compression.pdb

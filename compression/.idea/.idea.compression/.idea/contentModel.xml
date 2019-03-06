@@ -27,6 +27,9 @@
         <e p="res" t="Include">
           <e p="testfile1" t="Include" />
         </e>
+        <e p="ressources.Designer.cs" t="Include" />
+        <e p="ressources.resx" t="Include" />
+        <e p="testfile" t="Include" />
       </e>
       <e p="compression.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
