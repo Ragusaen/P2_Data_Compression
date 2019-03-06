@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ff807f0-1b79-42e1-8f2c-8e462b097ba0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Compression/Compressor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Compression/File.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Compression/LZ77.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Compression/DataFile.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UnitTesting/res/testfile1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.compression/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.compression/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.compression/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.compression/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Compression/Compression.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Compression/Compression.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compression/Compressor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Compression/Compressor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compression/File.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compression/LZ77.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Compression/LZ77.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compression/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Compression/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnitTesting/Tests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/Tests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnitTesting/UnitTesting.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/UnitTesting.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,14 +24,15 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Compression/Program.cs">
+        <entry file="file://$PROJECT_DIR$/Compression/LZ77.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+            <state relative-caret-position="160">
+              <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
               <folding>
-                <marker date="1550738862581" expanded="true" signature="22:172" ph="{...}" />
-                <marker date="1550738862581" expanded="true" signature="51:170" ph="{...}" />
-                <marker date="1550738862581" expanded="true" signature="100:164" ph="{...}" />
+                <marker date="1551795857124" expanded="true" signature="22:329" ph="{...}" />
+                <marker date="1551795857124" expanded="true" signature="59:327" ph="{...}" />
+                <marker date="1551795857124" expanded="true" signature="122:189" ph="{...}" />
+                <marker date="1551795857124" expanded="true" signature="254:321" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -34,39 +41,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Compression/Compressor.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" column="51" lean-forward="true" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
+            <state relative-caret-position="80">
+              <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
               <folding>
-                <marker date="1551704789772" expanded="true" signature="22:173" ph="{...}" />
-                <marker date="1551704789772" expanded="true" signature="61:171" ph="{...}" />
+                <marker date="1551795857116" expanded="true" signature="22:196" ph="{...}" />
+                <marker date="1551795857116" expanded="true" signature="61:194" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Compression/LZ77.cs">
+        <entry file="file://$PROJECT_DIR$/Compression/DataFile.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="1" column="36" lean-forward="true" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
+            <state relative-caret-position="64">
+              <caret line="4" column="57" lean-forward="true" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
               <folding>
-                <marker date="1551709082705" expanded="true" signature="22:305" ph="{...}" />
-                <marker date="1551709082705" expanded="true" signature="59:303" ph="{...}" />
-                <marker date="1551709082705" expanded="true" signature="110:177" ph="{...}" />
-                <marker date="1551709082705" expanded="true" signature="230:297" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Compression/File.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-              <folding>
-                <marker date="1551704756831" expanded="true" signature="22:64" ph="{...}" />
-                <marker date="1551704756831" expanded="true" signature="46:62" ph="{...}" />
+                <marker date="1551795857104" expanded="true" signature="22:210" ph="{...}" />
+                <marker date="1551795857104" expanded="true" signature="49:208" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -75,13 +67,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="13" selection-end-column="1" />
+            <state relative-caret-position="256">
+              <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
               <folding>
-                <marker date="1550738937580" expanded="false" signature="6:56" ph="..." />
-                <marker date="1550738937580" expanded="true" signature="80:218" ph="{...}" />
-                <marker date="1550738937580" expanded="true" signature="123:216" ph="{...}" />
-                <marker date="1550738937580" expanded="true" signature="168:210" ph="{...}" />
+                <marker date="1551796721032" expanded="false" signature="6:56" ph="..." />
+                <marker date="1551796721032" expanded="true" signature="151:502" ph="{...}" />
+                <marker date="1551796721032" expanded="true" signature="209:496" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Compression/Program.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+              <folding>
+                <marker date="1551793893829" expanded="true" signature="51:183" ph="{...}" />
+                <marker date="1551793893829" expanded="true" signature="100:177" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -95,7 +99,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Compression/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Compression/Compressor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Compression/File.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Compression/DataFile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Compression/LZ77.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/UnitTesting/Tests.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -103,11 +107,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/compression/Program.cs" />
-        <option value="$PROJECT_DIR$/Compression/Program.cs" />
-        <option value="$PROJECT_DIR$/UnitTesting/Tests.cs" />
-        <option value="$PROJECT_DIR$/Compression/File.cs" />
-        <option value="$PROJECT_DIR$/Compression/Compressor.cs" />
         <option value="$PROJECT_DIR$/Compression/LZ77.cs" />
+        <option value="$PROJECT_DIR$/Compression/Program.cs" />
+        <option value="$PROJECT_DIR$/Compression/Compressor.cs" />
+        <option value="$PROJECT_DIR$/Compression/File.cs" />
+        <option value="$PROJECT_DIR$/Compression/DataFile.cs" />
+        <option value="$PROJECT_DIR$/UnitTesting/res/testfile1" />
+        <option value="$PROJECT_DIR$/UnitTesting/Tests.cs" />
       </list>
     </option>
   </component>
@@ -119,11 +125,10 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="SolutionExplorer" proportions="" version="1">
+    <navigator currentView="FileSystemExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="FileSystemExplorer" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
@@ -147,6 +152,41 @@
         <option name="show-all-files" value="false" />
       </pane>
       <pane id="AssemblyExplorer" />
+      <pane id="FileSystemExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="P2_Data_Compression" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="P2_Data_Compression" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="compression" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="P2_Data_Compression" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="compression" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="Compression" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="P2_Data_Compression" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="compression" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="UnitTesting" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="P2_Data_Compression" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="compression" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="UnitTesting" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="res" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -200,11 +240,13 @@
       <updated>1550737568372</updated>
       <workItem from="1550737577139" duration="1998000" />
       <workItem from="1551704319896" duration="1820000" />
+      <workItem from="1551794841487" duration="36000" />
+      <workItem from="1551794908371" duration="2466000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3083000" />
+    <option name="totallyTimeSpent" value="6758000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -216,13 +258,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19756502" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.257886" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Build" visible="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -230,13 +274,13 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="NuGet" order="7" />
+      <window_info anchor="bottom" id="NuGet" order="7" weight="0.32937366" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Unit Tests" order="11" />
       <window_info anchor="bottom" id="Terminal" order="12" />
-      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" weight="0.32937366" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -251,62 +295,67 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="13" selection-end-column="1" />
-          <folding>
-            <marker date="1550738937580" expanded="false" signature="6:56" ph="..." />
-            <marker date="1550738937580" expanded="true" signature="80:218" ph="{...}" />
-            <marker date="1550738937580" expanded="true" signature="123:216" ph="{...}" />
-            <marker date="1550738937580" expanded="true" signature="168:210" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Compression/Program.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        <state relative-caret-position="112">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
           <folding>
-            <marker date="1550738862581" expanded="true" signature="22:172" ph="{...}" />
-            <marker date="1550738862581" expanded="true" signature="51:170" ph="{...}" />
-            <marker date="1550738862581" expanded="true" signature="100:164" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Compression/File.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-          <folding>
-            <marker date="1551704756831" expanded="true" signature="22:64" ph="{...}" />
-            <marker date="1551704756831" expanded="true" signature="46:62" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Compression/Compressor.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="51" lean-forward="true" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
-          <folding>
-            <marker date="1551704789772" expanded="true" signature="22:173" ph="{...}" />
-            <marker date="1551704789772" expanded="true" signature="61:171" ph="{...}" />
+            <marker date="1551793893829" expanded="true" signature="51:183" ph="{...}" />
+            <marker date="1551793893829" expanded="true" signature="100:177" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Compression/LZ77.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="36" lean-forward="true" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
+        <state relative-caret-position="160">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding>
-            <marker date="1551709082705" expanded="true" signature="22:305" ph="{...}" />
-            <marker date="1551709082705" expanded="true" signature="59:303" ph="{...}" />
-            <marker date="1551709082705" expanded="true" signature="110:177" ph="{...}" />
-            <marker date="1551709082705" expanded="true" signature="230:297" ph="{...}" />
+            <marker date="1551795857124" expanded="true" signature="22:329" ph="{...}" />
+            <marker date="1551795857124" expanded="true" signature="59:327" ph="{...}" />
+            <marker date="1551795857124" expanded="true" signature="122:189" ph="{...}" />
+            <marker date="1551795857124" expanded="true" signature="254:321" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Compression/Compressor.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding>
+            <marker date="1551795857116" expanded="true" signature="22:196" ph="{...}" />
+            <marker date="1551795857116" expanded="true" signature="61:194" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UnitTesting/res/testfile1">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+          <folding>
+            <marker date="1551796721032" expanded="false" signature="6:56" ph="..." />
+            <marker date="1551796721032" expanded="true" signature="151:502" ph="{...}" />
+            <marker date="1551796721032" expanded="true" signature="209:496" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Compression/DataFile.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="57" lean-forward="true" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
+          <folding>
+            <marker date="1551795857104" expanded="true" signature="22:210" ph="{...}" />
+            <marker date="1551795857104" expanded="true" signature="49:208" ph="{...}" />
           </folding>
         </state>
       </provider>

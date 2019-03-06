@@ -1,7 +1,6 @@
 namespace Compression {
     public abstract class Compressor {
-
-        public abstract File Compress(File file);
-        public abstract File Decompress(File file);
+        public abstract DataFile Compress(DataFile dataFile);
+        public abstract DataFile Decompress(DataFile dataFile);
     }
 }

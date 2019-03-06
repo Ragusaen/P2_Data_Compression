@@ -1,10 +1,10 @@
 namespace Compression {
     public class LZ77 : Compressor {
-        public override File Compress(File file) {
+        public override DataFile Compress(DataFile dataFile) {
             throw new System.NotImplementedException();
         }
 
-        public override File Decompress(File file) {
+        public override DataFile Decompress(DataFile dataFile) {
             throw new System.NotImplementedException();
         }
     }
