@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace Compression {
+namespace compression {
     public class DataFile{
         private byte[] _byteArray;
 
@@ -22,6 +22,10 @@ namespace Compression {
 
         public void LoadFromFile(string path) {
             _byteArray = File.ReadAllBytes(path);
+        }
+
+        public int Length() {
+            return _byteArray.Length;
         }
     }
 }
