@@ -1,7 +1,7 @@
 namespace Compression {
     public class LZ77 : Compressor {
-        public override DataFile Compress(DataFile dataFile) {
-            throw new System.NotImplementedException();
+        protected override void InternalCompress(DataFile input, DataFile output) {
+            
         }
 
         public override DataFile Decompress(DataFile dataFile) {

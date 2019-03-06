@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>compression</RootNamespace>
-    <AssemblyName>Compression</AssemblyName>
+    <AssemblyName>compression</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,8 @@
   <ItemGroup>
     <Compile Include="Compressor.cs" />
     <Compile Include="DataFile.cs" />
-    <Compile Include="LZ77.cs" />
+    <Compile Include="LZ77\LZ77.cs" />
+    <Compile Include="LZ77\SlidingWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
