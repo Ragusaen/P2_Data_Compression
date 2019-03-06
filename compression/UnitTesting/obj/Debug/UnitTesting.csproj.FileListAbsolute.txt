@@ -11,3 +11,16 @@
 /home/odum/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.pdb
 /home/odum/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.ressources.resources
 /home/odum/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.csproj.GenerateResource.cache
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/bin/Debug/UnitTesting.dll
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/bin/Debug/UnitTesting.pdb
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/bin/Debug/Compression.exe
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/bin/Debug/nunit.framework.dll
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/bin/Debug/Compression.pdb
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/bin/Debug/nunit.framework.xml
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.csprojAssemblyReference.cache
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.ressources.resources
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.csproj.GenerateResource.cache
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.csproj.CoreCompileInputs.cache
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.csproj.CopyComplete
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.dll
+/home/ragusa/Documents/P2_Data_Compression/compression/UnitTesting/obj/Debug/UnitTesting.pdb
