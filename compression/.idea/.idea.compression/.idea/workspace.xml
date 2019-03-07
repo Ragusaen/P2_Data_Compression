@@ -2,42 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ff807f0-1b79-42e1-8f2c-8e462b097ba0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/UnitTesting/res/empty" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UnitTesting/res/testfile2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compression/Compressor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compression/bin/Debug/compression.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compression/bin/Debug/compression.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compression/obj/Debug/Compression.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compression/obj/Debug/Compression.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.compression/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.compression/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.compression/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.compression/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/Compression.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/compression/compression.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/Compressor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/DataFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/compression/DataFile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/LZ77.cs" beforeDir="false" afterPath="$PROJECT_DIR$/compression/LZ77/LZ77.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/compression/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/compression/Properties/AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/bin/Debug/Compression.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/bin/Debug/Compression.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/obj/Debug/Compression.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/compression/obj/Debug/Compression.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/obj/Debug/Compression.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/compression/obj/Debug/Compression.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/obj/Debug/Compression.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/compression/obj/Debug/Compression.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/obj/Debug/Compression.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/obj/Debug/Compression.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compression/obj/Debug/compression.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/compression/obj/Debug/compression.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UnitTesting/Tests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/Tests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/UnitTesting.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/UnitTesting.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/bin/Debug/Compression.exe" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/bin/Debug/Compression.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/bin/Debug/Compression.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/bin/Debug/Compression.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/bin/Debug/UnitTesting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/bin/Debug/UnitTesting.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/bin/Debug/UnitTesting.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/bin/Debug/UnitTesting.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csproj.GenerateResource.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csproj.GenerateResource.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compression.sln" beforeDir="false" afterPath="$PROJECT_DIR$/compression.sln" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compression/DataFile.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+            <state relative-caret-position="304">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <marker date="1551882509585" expanded="false" signature="6:69" ph="..." />
                 <marker date="1551882509585" expanded="true" signature="93:763" ph="{...}" />
@@ -106,26 +71,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="70" column="43" lean-forward="true" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
+            <state relative-caret-position="153">
+              <caret line="110" selection-start-line="110" selection-end-line="116" />
               <folding>
-                <marker date="1551883324603" expanded="true" signature="6:116" ph="..." />
-                <marker date="1551883324603" expanded="true" signature="139:3955" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="210:3453" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="268:597" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="656:1146" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="826:980" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="1240:1557" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="1641:1946" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="2020:2339" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="2398:2704" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="2763:3070" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="3145:3447" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="3516:3953" ph="{...}" />
-                <marker date="1551883324603" expanded="true" signature="3578:3947" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="6:116" ph="..." />
+                <marker date="1551883987930" expanded="true" signature="139:4013" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="210:3453" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="268:597" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="656:1146" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="826:980" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="1240:1557" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="1641:1946" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="2020:2339" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="2398:2704" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="2763:3070" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="3145:3447" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="3516:4011" ph="{...}" />
+                <marker date="1551883987930" expanded="true" signature="3578:4005" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -332,7 +297,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16614000" />
+    <option name="totallyTimeSpent" value="17233000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -363,7 +328,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info active="true" anchor="bottom" id="Unit Tests" order="11" visible="true" weight="0.31857452" />
+      <window_info anchor="bottom" id="Unit Tests" order="11" visible="true" weight="0.31857452" />
       <window_info anchor="bottom" id="Terminal" order="12" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Build" order="14" weight="0.32937366" />
@@ -455,29 +420,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="70" column="43" lean-forward="true" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
-          <folding>
-            <marker date="1551883324603" expanded="true" signature="6:116" ph="..." />
-            <marker date="1551883324603" expanded="true" signature="139:3955" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="210:3453" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="268:597" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="656:1146" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="826:980" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="1240:1557" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="1641:1946" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="2020:2339" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="2398:2704" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="2763:3070" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="3145:3447" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="3516:3953" ph="{...}" />
-            <marker date="1551883324603" expanded="true" signature="3578:3947" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compression/LZ77/LZ77.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -493,8 +435,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/compression/DataFile.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        <state relative-caret-position="304">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
           <folding>
             <marker date="1551882509585" expanded="false" signature="6:69" ph="..." />
             <marker date="1551882509585" expanded="true" signature="93:763" ph="{...}" />
@@ -502,6 +444,29 @@
             <marker date="1551882509585" expanded="true" signature="211:567" ph="{...}" />
             <marker date="1551882509585" expanded="true" signature="615:676" ph="{...}" />
             <marker date="1551882509585" expanded="true" signature="706:755" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="110" selection-start-line="110" selection-end-line="116" />
+          <folding>
+            <marker date="1551883987930" expanded="true" signature="6:116" ph="..." />
+            <marker date="1551883987930" expanded="true" signature="139:4013" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="210:3453" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="268:597" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="656:1146" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="826:980" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="1240:1557" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="1641:1946" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="2020:2339" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="2398:2704" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="2763:3070" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="3145:3447" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="3516:4011" ph="{...}" />
+            <marker date="1551883987930" expanded="true" signature="3578:4005" ph="{...}" />
           </folding>
         </state>
       </provider>
