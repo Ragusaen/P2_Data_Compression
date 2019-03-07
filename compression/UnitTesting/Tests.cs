@@ -71,10 +71,10 @@ namespace UnitTesting{
         public void FileLengthIsCorrect() {
             DataFile file = new DataFile();
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
-            int expected = 3;
+            uint expected = 3;
 
             file.LoadFromFile(path);
-            int actual = file.Length();
+            uint actual = file.Length();
 
             Assert.AreEqual(expected, actual);
         }
@@ -82,10 +82,10 @@ namespace UnitTesting{
         public void FileLengthIsCorrect2() {
             DataFile file = new DataFile();
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
-            int expected = 50;
+            uint expected = 50;
 
             file.LoadFromFile(path);
-            int actual = file.Length();
+            uint actual = file.Length();
 
             Assert.AreEqual(expected, actual);
         }
@@ -93,15 +93,15 @@ namespace UnitTesting{
         public void FileLengthIsCorrectZeroFromEmptyFile() {
             DataFile file = new DataFile();
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/empty";
-            int expected = 0;
+            uint expected = 0;
 
             file.LoadFromFile(path);
-            int actual = file.Length();
+            uint actual = file.Length();
 
             Assert.AreEqual(expected, actual);
         }
     }
-
+    
     [TestFixture, Category("LZ77")]
     public class LZ77Test{
         [Test]
@@ -109,15 +109,26 @@ namespace UnitTesting{
             DataFile file = new DataFile();
             DataFile actualFile = new DataFile();
             LZ77 compressor = new LZ77();
-
-            byte[] expected = { };
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+            byte[] expected = { };
 
             file.LoadFromFile(path);
 
             actualFile = compressor.Compress(file);
             
             Assert.Equals(file, actualFile);
+        }
+    }
+
+    [TestFixture, Category("EncodedChar")]
+    public class EncodedChar{
+        [Test]
+        public void PointerBytePointSpanIs4096WhenSize12() {
+            uint expected = 4096;
+
+            uint actual = PointerByte.GetPointerSpan();
+            
+            Assert.AreEqual(expected, actual);
         }
     }
 }
