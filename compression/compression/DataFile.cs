@@ -24,8 +24,8 @@ namespace compression {
             _byteArray = File.ReadAllBytes(path);
         }
 
-        public int Length() {
-            return _byteArray.Length;
+        public uint Length() {
+            return (uint) _byteArray.Length;
         }
     }
 }
