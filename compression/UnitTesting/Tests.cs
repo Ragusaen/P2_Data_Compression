@@ -116,6 +116,8 @@ namespace UnitTesting{
             file.LoadFromFile(path);
 
             actualFile = compressor.Compress(file);
+            
+            Assert.Equals(file, actualFile);
         }
     }
 }
