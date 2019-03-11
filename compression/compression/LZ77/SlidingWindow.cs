@@ -8,7 +8,7 @@ namespace compression.LZ77 {
         private DataFile file;
         private uint currentIndex = 0;
         private uint historyLength = PointerByte.GetPointerSpan();
-        private uint lookAheadLength = PointerByte.GetLengtSpan();
+        private uint lookAheadLength = PointerByte.GetLengthSpan();
 
         public EncodedByte Slide() {
             if (currentIndex == file.Length())

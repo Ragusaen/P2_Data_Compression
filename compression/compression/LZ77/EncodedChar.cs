@@ -21,7 +21,7 @@ namespace compression.LZ77{
             return result;
         }
         
-        public static uint GetLengtSpan() {
+        public static uint GetLengthSpan() {
             uint result = 1;
 
             for (int i = 0; i < LENGTH_SIZE; i++) {

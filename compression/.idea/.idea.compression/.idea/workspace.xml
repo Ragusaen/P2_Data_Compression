@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ff807f0-1b79-42e1-8f2c-8e462b097ba0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/compression/LZ77/EncodedChar.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.compression/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.compression/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.compression/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.compression/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTesting/Tests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/Tests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compression/DataFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/compression/DataFile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UnitTesting/obj/Debug/UnitTesting.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compression/LZ77/EncodedChar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/compression/LZ77/EncodedChar.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compression/compression.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/compression/compression.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compression/obj/Debug/compression.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/compression/obj/Debug/compression.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,12 +20,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compression/Compressor.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
+            <state relative-caret-position="216">
               <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
               <folding>
-                <marker date="1551878811121" expanded="true" signature="47:462" ph="{...}" />
-                <marker date="1551878811121" expanded="true" signature="86:460" ph="{...}" />
-                <marker date="1551878811121" expanded="true" signature="140:298" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="47:462" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="86:460" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="140:298" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -35,13 +34,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compression/LZ77/LZ77.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+            <state relative-caret-position="240">
+              <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
               <folding>
-                <marker date="1551878882430" expanded="true" signature="27:312" ph="{...}" />
-                <marker date="1551878882430" expanded="true" signature="64:310" ph="{...}" />
-                <marker date="1551878882430" expanded="true" signature="148:172" ph="{...}" />
-                <marker date="1551878882430" expanded="true" signature="237:304" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="27:312" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="64:310" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="148:172" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="237:304" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -50,39 +49,39 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="39" column="8" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
+            <state relative-caret-position="240">
+              <caret line="10" column="67" lean-forward="true" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
               <folding>
-                <marker date="1551948977691" expanded="true" signature="6:38" ph="..." />
-                <marker date="1551948977691" expanded="true" signature="67:1313" ph="{...}" />
-                <marker date="1551948977691" expanded="true" signature="99:1311" ph="{...}" />
-                <marker date="1551948977691" expanded="true" signature="407:588" ph="{...}" />
-                <marker date="1551948977691" expanded="true" signature="625:962" ph="{...}" />
-                <marker date="1551948977691" expanded="true" signature="703:752" ph="{...}" />
-                <marker date="1551948977691" expanded="true" signature="752:846" ph="{...}" />
-                <marker date="1551948977691" expanded="true" signature="1001:1210" ph="{...}" />
-                <marker date="1551948977691" expanded="true" signature="1264:1305" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="6:38" ph="..." />
+                <marker date="1552329186025" expanded="true" signature="67:1314" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="99:1312" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="408:589" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="626:963" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="704:753" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="753:847" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="1002:1211" ph="{...}" />
+                <marker date="1552329186025" expanded="true" signature="1265:1306" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/compression/LZ77/EncodedChar.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+            <state relative-caret-position="96">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
               <folding>
-                <marker date="1551948977683" expanded="true" signature="26:999" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="66:82" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="127:851" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="337:502" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="420:464" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="554:718" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="636:680" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="774:845" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="892:997" ph="{...}" />
-                <marker date="1551948977683" expanded="true" signature="955:991" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="26:1000" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="66:82" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="127:852" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="337:502" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="420:464" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="555:719" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="637:681" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="775:846" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="893:998" ph="{...}" />
+                <marker date="1552329186081" expanded="true" signature="956:992" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -91,42 +90,42 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compression/DataFile.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="30" column="1" lean-forward="true" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
+            <state>
+              <caret column="13" selection-start-column="13" selection-end-column="13" />
               <folding>
-                <marker date="1551948977675" expanded="false" signature="6:69" ph="..." />
-                <marker date="1551948977675" expanded="true" signature="93:771" ph="{...}" />
-                <marker date="1551948977675" expanded="true" signature="120:769" ph="{...}" />
-                <marker date="1551948977675" expanded="true" signature="211:567" ph="{...}" />
-                <marker date="1551948977675" expanded="true" signature="615:676" ph="{...}" />
-                <marker date="1551948977675" expanded="true" signature="707:763" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="6:69" ph="..." />
+                <marker date="1552325996955" expanded="true" signature="93:771" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="120:769" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="211:567" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="615:676" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="707:763" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="761">
-              <caret line="126" column="33" lean-forward="true" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+            <state relative-caret-position="1056">
+              <caret line="49" column="52" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
               <folding>
-                <marker date="1551958481074" expanded="true" signature="6:116" ph="..." />
-                <marker date="1551958481074" expanded="true" signature="139:4339" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="210:3459" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="268:597" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="656:1146" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="826:980" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="1240:1557" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="1641:1946" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="2020:2339" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="2398:2706" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="2765:3074" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="3149:3453" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="3526:4020" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="3588:4014" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="4093:4337" ph="{...}" />
-                <marker date="1551958481074" expanded="true" signature="4169:4331" ph="{...}" />
+                <marker date="1552325996943" expanded="false" signature="6:116" ph="..." />
+                <marker date="1552325996943" expanded="true" signature="139:4339" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="210:3459" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="268:597" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="656:1146" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="826:980" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="1240:1557" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="1641:1946" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="2020:2339" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="2398:2706" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="2765:3074" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="3149:3453" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="3526:4020" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="3588:4014" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="4093:4337" ph="{...}" />
+                <marker date="1552325996943" expanded="true" signature="4169:4331" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -135,12 +134,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compression/Program.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
+            <state relative-caret-position="168">
               <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
               <folding>
-                <marker date="1551878811137" expanded="true" signature="22:185" ph="{...}" />
-                <marker date="1551878811137" expanded="true" signature="51:183" ph="{...}" />
-                <marker date="1551878811137" expanded="true" signature="100:177" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="22:185" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="51:183" ph="{...}" />
+                <marker date="1552325996955" expanded="true" signature="100:177" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -152,16 +151,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/compression/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/compression/Compressor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/compression/LZ77/EncodedChar.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/compression/DataFile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/compression/LZ77/LZ77.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/UnitTesting/Tests.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/UnitTesting/ressources.resx" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/UnitTesting/ressources.Designer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/compression/DataFile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/compression/Compressor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/UnitTesting/test.Designer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/compression/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UnitTesting/ressources.Designer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UnitTesting/ressources.resx" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/compression/LZ77/EncodedChar.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -178,18 +177,18 @@
         <option value="$PROJECT_DIR$/compression/LZ77/LZ77.cs" />
         <option value="$PROJECT_DIR$/UnitTesting/res/testfile2" />
         <option value="$PROJECT_DIR$/compression/LZ77/LZ77EncodedChar.cs" />
-        <option value="$PROJECT_DIR$/compression/LZ77/EncodedChar.cs" />
         <option value="$PROJECT_DIR$/compression/DataFile.cs" />
-        <option value="$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs" />
         <option value="$PROJECT_DIR$/UnitTesting/Tests.cs" />
+        <option value="$PROJECT_DIR$/compression/LZ77/EncodedChar.cs" />
+        <option value="$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="293" />
-    <option name="y" value="53" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="1983" />
+    <option name="y" value="27" />
+    <option name="width" value="1857" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -199,6 +198,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AssemblyExplorer" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
@@ -227,7 +227,6 @@
         </subPane>
         <option name="show-all-files" value="false" />
       </pane>
-      <pane id="AssemblyExplorer" />
       <pane id="FileSystemExplorer">
         <subPane>
           <expand>
@@ -265,6 +264,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -312,11 +312,15 @@
       <workItem from="1551704319896" duration="1820000" />
       <workItem from="1551794841487" duration="36000" />
       <workItem from="1551794908371" duration="4762000" />
+      <workItem from="1552326081892" duration="300000" />
+      <workItem from="1552326751043" duration="33000" />
+      <workItem from="1552327282543" duration="18000" />
+      <workItem from="1552329149810" duration="38000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22990000" />
+    <option name="totallyTimeSpent" value="23379000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -328,10 +332,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="1983" y="27" width="1857" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20199226" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21093318" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -347,7 +351,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info active="true" anchor="bottom" id="Unit Tests" order="11" visible="true" weight="0.31857452" />
+      <window_info active="true" anchor="bottom" id="Unit Tests" order="11" visible="true" weight="0.31926408" />
       <window_info anchor="bottom" id="Terminal" order="12" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Build" order="14" weight="0.32937366" />
@@ -397,18 +401,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compression/Compressor.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-          <folding>
-            <marker date="1551878811121" expanded="true" signature="47:462" ph="{...}" />
-            <marker date="1551878811121" expanded="true" signature="86:460" ph="{...}" />
-            <marker date="1551878811121" expanded="true" signature="140:298" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UnitTesting/ressources.resx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -416,104 +408,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compression/Program.cs">
+    <entry file="file://$PROJECT_DIR$/compression/Compressor.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+        <state relative-caret-position="216">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
-            <marker date="1551878811137" expanded="true" signature="22:185" ph="{...}" />
-            <marker date="1551878811137" expanded="true" signature="51:183" ph="{...}" />
-            <marker date="1551878811137" expanded="true" signature="100:177" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="47:462" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="86:460" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="140:298" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compression/LZ77/LZ77.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        <state relative-caret-position="240">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding>
-            <marker date="1551878882430" expanded="true" signature="27:312" ph="{...}" />
-            <marker date="1551878882430" expanded="true" signature="64:310" ph="{...}" />
-            <marker date="1551878882430" expanded="true" signature="148:172" ph="{...}" />
-            <marker date="1551878882430" expanded="true" signature="237:304" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compression/LZ77/EncodedChar.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-          <folding>
-            <marker date="1551948977683" expanded="true" signature="26:999" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="66:82" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="127:851" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="337:502" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="420:464" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="554:718" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="636:680" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="774:845" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="892:997" ph="{...}" />
-            <marker date="1551948977683" expanded="true" signature="955:991" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="39" column="8" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
-          <folding>
-            <marker date="1551948977691" expanded="true" signature="6:38" ph="..." />
-            <marker date="1551948977691" expanded="true" signature="67:1313" ph="{...}" />
-            <marker date="1551948977691" expanded="true" signature="99:1311" ph="{...}" />
-            <marker date="1551948977691" expanded="true" signature="407:588" ph="{...}" />
-            <marker date="1551948977691" expanded="true" signature="625:962" ph="{...}" />
-            <marker date="1551948977691" expanded="true" signature="703:752" ph="{...}" />
-            <marker date="1551948977691" expanded="true" signature="752:846" ph="{...}" />
-            <marker date="1551948977691" expanded="true" signature="1001:1210" ph="{...}" />
-            <marker date="1551948977691" expanded="true" signature="1264:1305" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="27:312" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="64:310" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="148:172" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="237:304" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compression/DataFile.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="30" column="1" lean-forward="true" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
           <folding>
-            <marker date="1551948977675" expanded="false" signature="6:69" ph="..." />
-            <marker date="1551948977675" expanded="true" signature="93:771" ph="{...}" />
-            <marker date="1551948977675" expanded="true" signature="120:769" ph="{...}" />
-            <marker date="1551948977675" expanded="true" signature="211:567" ph="{...}" />
-            <marker date="1551948977675" expanded="true" signature="615:676" ph="{...}" />
-            <marker date="1551948977675" expanded="true" signature="707:763" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="6:69" ph="..." />
+            <marker date="1552325996955" expanded="true" signature="93:771" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="120:769" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="211:567" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="615:676" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="707:763" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UnitTesting/Tests.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="761">
-          <caret line="126" column="33" lean-forward="true" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+        <state relative-caret-position="1056">
+          <caret line="49" column="52" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
           <folding>
-            <marker date="1551958481074" expanded="true" signature="6:116" ph="..." />
-            <marker date="1551958481074" expanded="true" signature="139:4339" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="210:3459" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="268:597" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="656:1146" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="826:980" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="1240:1557" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="1641:1946" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="2020:2339" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="2398:2706" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="2765:3074" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="3149:3453" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="3526:4020" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="3588:4014" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="4093:4337" ph="{...}" />
-            <marker date="1551958481074" expanded="true" signature="4169:4331" ph="{...}" />
+            <marker date="1552325996943" expanded="false" signature="6:116" ph="..." />
+            <marker date="1552325996943" expanded="true" signature="139:4339" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="210:3459" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="268:597" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="656:1146" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="826:980" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="1240:1557" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="1641:1946" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="2020:2339" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="2398:2706" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="2765:3074" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="3149:3453" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="3526:4020" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="3588:4014" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="4093:4337" ph="{...}" />
+            <marker date="1552325996943" expanded="true" signature="4169:4331" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compression/Program.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding>
+            <marker date="1552325996955" expanded="true" signature="22:185" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="51:183" ph="{...}" />
+            <marker date="1552325996955" expanded="true" signature="100:177" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compression/LZ77/SlidingWindow.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="67" lean-forward="true" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
+          <folding>
+            <marker date="1552329186025" expanded="true" signature="6:38" ph="..." />
+            <marker date="1552329186025" expanded="true" signature="67:1314" ph="{...}" />
+            <marker date="1552329186025" expanded="true" signature="99:1312" ph="{...}" />
+            <marker date="1552329186025" expanded="true" signature="408:589" ph="{...}" />
+            <marker date="1552329186025" expanded="true" signature="626:963" ph="{...}" />
+            <marker date="1552329186025" expanded="true" signature="704:753" ph="{...}" />
+            <marker date="1552329186025" expanded="true" signature="753:847" ph="{...}" />
+            <marker date="1552329186025" expanded="true" signature="1002:1211" ph="{...}" />
+            <marker date="1552329186025" expanded="true" signature="1265:1306" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compression/LZ77/EncodedChar.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <marker date="1552329186081" expanded="true" signature="26:1000" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="66:82" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="127:852" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="337:502" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="420:464" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="555:719" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="637:681" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="775:846" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="893:998" ph="{...}" />
+            <marker date="1552329186081" expanded="true" signature="956:992" ph="{...}" />
           </folding>
         </state>
       </provider>
