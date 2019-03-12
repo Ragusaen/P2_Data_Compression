@@ -1,7 +1,32 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace compression.LZ77{
-    public abstract class EncodedByte {
-        
+    public struct UnevenBits{
+        public uint Data;
+        public uint Length;
+
+        public UnevenBits(uint data, uint length) {
+            Data = data;
+            Length = length;
+        }
+
+        public byte GetBits(uint count) {
+            return (byte)((Data >> (int)(Length - count)) % (1 << (int)(Length + 1)));
+        }
+        public static int ArrayByteCount(UnevenBits[] array) {
+            int res = 0;
+            for (int i = 0; i < array.Length; i++)
+                res += (int)array[i].Length;
+            
+            return res % 8 == 0 ? res / 8 : res / 8 + 1;
+        }
     }
+    
+    public abstract class EncodedByte{
+        public abstract UnevenBits ToUnevenBits();
+    }
+    
+    
 
     public class PointerByte : EncodedByte {
         public const uint POINTER_SIZE = 12;
@@ -35,6 +60,13 @@ namespace compression.LZ77{
             Pointer = pointer;
             Length = length;
         }
+        
+        public override UnevenBits ToUnevenBits() {
+            uint data = (1 << (int) POINTER_SIZE) + Pointer;
+            data = (data << (int) LENGTH_SIZE) + Length;
+            
+            return new UnevenBits(data,9);
+        }
     }
 
     public class RawByte : EncodedByte {
@@ -42,6 +74,12 @@ namespace compression.LZ77{
 
         public RawByte(byte data) {
             Data = data;
+        }
+
+        public override UnevenBits ToUnevenBits() {
+            uint data = (1 << 8) + (uint)Data;
+            
+            return new UnevenBits(data,9);
         }
     }
 }
