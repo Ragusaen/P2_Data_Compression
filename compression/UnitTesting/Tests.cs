@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using NUnit.Framework;
@@ -137,7 +138,7 @@ namespace UnitTesting{
     [TestFixture, Category("FindMatchingBytes")]
     public class TestFindMatchingBytes {
         [Test]
-        public void AssertArraySegments() {
+        public void CompareArraySegmentsResultAsTrue() {
             byte[] firstBytes = {102, 103, 104};
             ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
             byte[] secondBytes = {102, 103, 104};
@@ -145,31 +146,97 @@ namespace UnitTesting{
             
             Assert.IsTrue(FindMatchingBytes.CompareByteArraySegment(first, second));
         }
+        [Test]
+        public void CompareArraySegmentsResultAsFalse() {
+            byte[] firstBytes = {102, 103, 104};
+            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
+            byte[] secondBytes = {102, 103, 105};
+            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
+            
+            Assert.IsFalse(FindMatchingBytes.CompareByteArraySegment(first, second));
+        }
+        [Test]
+        public void CompareArraySegmentsDifferentLengths() {
+            byte[] firstBytes = {102, 103};
+            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
+            byte[] secondBytes = {102, 103, 104};
+            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
+            
+            Assert.IsFalse(FindMatchingBytes.CompareByteArraySegment(first, second));
+        }
+        [Test]
+        public void CompareArraySegmentsSingleArrayIsZero() {
+            byte[] firstBytes = {};
+            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
+            byte[] secondBytes = {102, 103, 104};
+            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
+            
+            Assert.IsFalse(FindMatchingBytes.CompareByteArraySegment(first, second));
+        }
+        [Test]
+        public void CompareArraySegmentsBothArraysAreZero() {
+            byte[] firstBytes = {};
+            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
+            byte[] secondBytes = {};
+            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
+            
+            Assert.IsTrue(FindMatchingBytes.CompareByteArraySegment(first, second));
+        }
         
         [Test]        
-        public void FindMatchingBytesFindNeedle() {
+        public void FindArraySegmentFindNeedle() {
             byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 108, 116, 100, 105, 110, 102, 97, 114};
             byte[] needle = {114, 101, 115, 117, 108, 116};
             uint expected = 5;
-            ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,6);
+            ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
             uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
             
             Assert.AreEqual(expected, actual);
-        }                
-        
+        }          
+        [Test]        
+        public void FindArraySegmentDoNotFindNeedle() {
+            byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 108, 116, 100, 105, 110, 102, 97, 114};
+            byte[] needle = {114, 101, 115, 100, 108, 116};
+            uint expected = 5;
+            ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
+            
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+            
+            Assert.AreNotEqual(expected, actual);
+        }
+        [Test]        
+        public void FindArraySegmentDoNotFindEmptyHaystack() {
+            byte[] haystack = {};
+            byte[] needle = {114, 101, 115, 117, 108, 116};
+            uint expected = 5;
+            ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
+            
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+            
+            Assert.AreNotEqual(expected, actual);
+        }             
+        [Test]        
+        public void FindArraySegmentDoNotFindEmptyNeedle() {
+            byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 108, 116, 100, 105, 110, 102, 97, 114};
+            byte[] needle = {};
+            uint expected = 0;
+            ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
+            
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+                        
+            Assert.AreEqual(expected, actual);
+        }
         [Test]
         public void FindMatchingBytesFindFullLengthNeedle() {
             byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 108, 116, 100, 105, 110, 102, 97, 114};
             byte[] needle = {114, 101, 115, 117, 108, 116};
-            Nullable<MatchPointer> expected = new MatchPointer(5, 6);
+            Nullable<MatchPointer> expected = new MatchPointer(5, (uint) needle.Length);
 
             Nullable<MatchPointer> actual = FindMatchingBytes.FindLongestMatch(haystack, needle);
             
             Assert.AreEqual(expected, actual);
         }
     }
-    
-    
 }
             
