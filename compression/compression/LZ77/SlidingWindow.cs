@@ -1,10 +1,9 @@
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace compression.LZ77 {
     public class SlidingWindow{
-        private byte[] history;
-        private byte[] lookAhead;
         private DataFile file;
         private uint currentIndex = 0;
         private uint historyLength = PointerByte.GetPointerSpan();
@@ -18,13 +17,13 @@ namespace compression.LZ77 {
             if (AtEnd())
                 return null;
             
-            LoadHistory();
-            LoadLookAhead();
+            byte[] history = LoadHistory();
+            byte[] lookAhead = LoadLookAhead();
             
-            Nullable<MatchPointer> match = FindMatchingBytes.FindLongestMatch(history, lookAhead);
+            MatchPointer? match = FindMatchingBytes.FindLongestMatch(history, lookAhead);
             
             EncodedByte r;
-            if (match != null) {
+            if (match.HasValue) {
                 r = new PointerByte((uint) history.Length - match.Value.Offset - 1, match.Value.Length - 1);
                 currentIndex += match.Value.Length;
             }
@@ -36,7 +35,7 @@ namespace compression.LZ77 {
             return r;
         }
         
-        private void LoadHistory() {
+        private byte[] LoadHistory() {
             uint historyIndex;
             if(historyLength > currentIndex) {
                 historyIndex = 0;
@@ -45,14 +44,13 @@ namespace compression.LZ77 {
                 historyIndex = currentIndex - historyLength;
             }
             
-            history = file.GetBytes(historyIndex, currentIndex - historyIndex);
-            
+            return file.GetBytes(historyIndex, currentIndex - historyIndex);
         }
 
-        private void LoadLookAhead() {
+        private byte[] LoadLookAhead() {
             if (lookAheadLength + currentIndex > file.Length)
                 lookAheadLength = file.Length - currentIndex;
-            lookAhead = file.GetBytes(currentIndex, lookAheadLength);
+            return file.GetBytes(currentIndex, lookAheadLength);
         }
 
         public Boolean AtEnd() {

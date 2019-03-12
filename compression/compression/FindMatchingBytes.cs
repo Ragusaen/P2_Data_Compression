@@ -13,11 +13,11 @@ namespace compression{
     }
     
     public class FindMatchingBytes{
-        public static Nullable<MatchPointer> FindLongestMatch(byte[] haystack, byte[] needle) {
-            for (int l = needle.Length; l > 2; l--) {
+        public static MatchPointer? FindLongestMatch(byte[] haystack, byte[] needle) {
+            for (int l = needle.Length; l >= 2; l--) {
                 ArraySegment<byte> match = new ArraySegment<byte>(needle, 0, l);
 
-                Nullable<uint> offset = FindArraySegment(haystack, match);
+                uint? offset = FindArraySegment(haystack, match);
                 
                 if(offset.HasValue)
                     return new MatchPointer(offset.Value, (uint) l);
@@ -25,11 +25,11 @@ namespace compression{
             return null;
         }
 
-        public static Nullable<uint> FindArraySegment(byte[] haystack, ArraySegment<byte> match) {
+        public static uint? FindArraySegment(byte[] haystack, ArraySegment<byte> match) {
             if (match.Count == 0)
                 return null;
             
-            for (int i = 0; i < haystack.Length - match.Count; i++) {
+            for (int i = 0; i <= haystack.Length - match.Count; i++) {
                 ArraySegment<byte> currentArray = new ArraySegment<byte>(haystack, i, match.Count);
                 
                 if (CompareByteArraySegment(currentArray, match))
