@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using NUnit.Framework;
 
 using compression;
@@ -20,6 +16,16 @@ namespace UnitTesting{
             file.LoadFromFile(path);
             byte[] actual = file.GetBytes(0, 3);
 
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void FileLoadsCorrectlyByConstructor() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/comparefile1";
+            byte[] expected = {97, 98, 99, 100, 101, 102, 49, 48, 49, 48};
+            DataFile file = new DataFile(path);
+
+            byte[] actual = file.GetBytes(0, 10);
+            
             Assert.AreEqual(expected, actual);
         }
 
@@ -77,7 +83,7 @@ namespace UnitTesting{
             uint expected = 3;
 
             file.LoadFromFile(path);
-            uint actual = file.Length();
+            uint actual = file.Length;
 
             Assert.AreEqual(expected, actual);
         }
@@ -88,7 +94,7 @@ namespace UnitTesting{
             uint expected = 50;
 
             file.LoadFromFile(path);
-            uint actual = file.Length();
+            uint actual = file.Length;
 
             Assert.AreEqual(expected, actual);
         }
@@ -99,9 +105,50 @@ namespace UnitTesting{
             uint expected = 0;
 
             file.LoadFromFile(path);
-            uint actual = file.Length();
+            uint actual = file.Length;
 
             Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void LoadBytesFromArray() {
+            DataFile file = new DataFile();
+            byte[] inputArray = {97, 98, 99};
+            
+            file.LoadBytes(inputArray);
+            
+            Assert.AreEqual(inputArray, file.GetBytes(0,(uint)inputArray.Length));
+        }
+        [Test]
+        public void WriteToFile_abc() {
+            DataFile file = new DataFile();
+            byte[] inputArray = {97, 98, 99};
+            file.LoadBytes(inputArray);
+            string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/outputfile1";
+            
+            file.WriteToFile(inputPath);
+
+            DataFile actualFile = new DataFile(inputPath);
+            byte[] actual = actualFile.GetBytes(0, 3);
+            
+            Assert.AreEqual(inputArray, actual);
+        }
+        [Test]
+        public void CompareDatafilesBothEqualReturnsTrue2() {
+            string path1 = TestContext.CurrentContext.TestDirectory + "../../../res/comparefile1";
+            string path2 = TestContext.CurrentContext.TestDirectory + "../../../res/comparefile2";
+            DataFile file1 = new DataFile(path1);
+            DataFile file2 = new DataFile(path2);
+
+            Assert.IsTrue(DataFile.Compare(file1,file2));
+        }
+        [Test]
+        public void CompareDatafilesBothEmpty() {
+            string path1 = TestContext.CurrentContext.TestDirectory + "../../../res/empty";
+            string path2 = TestContext.CurrentContext.TestDirectory + "../../../res/empty2";
+            DataFile file1 = new DataFile(path1);
+            DataFile file2 = new DataFile(path2);
+
+            Assert.IsTrue(DataFile.Compare(file1,file2));
         }
     }
     
@@ -109,27 +156,67 @@ namespace UnitTesting{
     public class LZ77Test{
         [Test]
         public void CompressSimpleText() {
-            DataFile file = new DataFile();
-            DataFile actualFile = new DataFile();
-            LZ77 compressor = new LZ77();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
-            byte[] expected = { };
-
-            file.LoadFromFile(path);
-
-            actualFile = compressor.Compress(file);
+            string expectedPath = TestContext.CurrentContext.TestDirectory + "../../../res/compressedTestFile";
+            DataFile expectedFile = new DataFile(expectedPath);
+            string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+            DataFile inputFile = new DataFile(inputPath);
             
-            Assert.Equals(file, actualFile);
+            LZ77 comp = new LZ77();
+            DataFile actualFile = comp.Compress(inputFile);
+            actualFile.WriteToFile("/home/odum/output");
+            
+            Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
+        }
+        [Test]
+        public void CompressSimpleText2() {
+            string expectedPath = TestContext.CurrentContext.TestDirectory + "../../../res/compressedTestFile";
+            DataFile expectedFile = new DataFile(expectedPath);
+            string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+            DataFile inputFile = new DataFile(inputPath);
+            
+            LZ77 comp = new LZ77();
+            DataFile actualFile = comp.Compress(inputFile);
+            actualFile.WriteToFile("/home/odum/output");
+            
+            Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
         }
     }
 
-    [TestFixture, Category("EncodedChar")]
-    public class EncodedChar{
+    [TestFixture, Category("EncodedByte")]
+    public class TestEncodedByte{
         [Test]
         public void PointerBytePointSpanIs4096WhenSize12() {
             uint expected = 4096;
 
             uint actual = PointerByte.GetPointerSpan();
+            
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ToUnevenBitsPointerByte_150_9_returns_67945() {
+            uint expected = 67945;
+            PointerByte pb = new PointerByte(150,9);
+
+            uint actual = pb.ToUnevenBits().Data;
+            
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void ToUnevenBitsRawByte_189_returns_445() {
+            uint expected = 445;
+            RawByte pb = new RawByte(189);
+
+            uint actual = pb.ToUnevenBits().Data;
+            
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void GetBits_3_from_1000() {
+            byte expected = 7;
+            UnevenBits ub = new UnevenBits(1000,10);
+
+            byte actual = ub.GetBits(3);
             
             Assert.AreEqual(expected, actual);
         }
@@ -278,7 +365,7 @@ namespace UnitTesting{
 
 
     [TestFixture, Category("SlidingWindow")]
-    public class SlidingWindowTest {
+    public class TestSlidingWindow {
         [Test]
         public void SlideReturnsRawByte_a_AsFirstByte() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
@@ -319,6 +406,27 @@ namespace UnitTesting{
             Assert.AreEqual(expected, actual.Length);
         }
     }
-    
+
+    [TestFixture, Category("ByteEncoder")]
+    public class TestByteEncoder{
+        [Test]
+        public void ByteEncoderConvert3_UnevenBits_abc() {
+            UnevenBits[] array = {new UnevenBits(97, 8), new UnevenBits(98,8), new UnevenBits(99, 8)};
+            byte[] expected = {97, 98, 99};
+
+            byte[] actual = ByteEncoder.EncodeBytes(array);
+            
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void ByteEncoderConvertLen_9_17_3() {
+            UnevenBits[] array = {new UnevenBits(500, 9), new UnevenBits(78642,17), new UnevenBits(5, 3)};
+            byte[] expected = {250, 76, 204, 168};
+
+            byte[] actual = ByteEncoder.EncodeBytes(array);
+            
+            Assert.AreEqual(expected, actual);
+        }
+    }
 }
             

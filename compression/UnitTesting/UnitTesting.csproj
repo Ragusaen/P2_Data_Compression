@@ -46,7 +46,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\comparefile1" />
+    <Content Include="res\comparefile2" />
     <Content Include="res\empty" />
+    <Content Include="res\empty2" />
     <Content Include="res\testfile1" />
     <Content Include="res\testfile2" />
   </ItemGroup>

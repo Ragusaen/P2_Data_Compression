@@ -15,8 +15,9 @@ namespace compression.LZ77 {
         }
 
         public EncodedByte Slide() {
-            if (currentIndex == file.Length())
+            if (AtEnd())
                 return null;
+            
             LoadHistory();
             LoadLookAhead();
             
@@ -49,11 +50,13 @@ namespace compression.LZ77 {
         }
 
         private void LoadLookAhead() {
-            if (lookAheadLength + currentIndex > file.Length())
-                lookAheadLength = file.Length() - currentIndex;
+            if (lookAheadLength + currentIndex > file.Length)
+                lookAheadLength = file.Length - currentIndex;
             lookAhead = file.GetBytes(currentIndex, lookAheadLength);
         }
 
-
+        public Boolean AtEnd() {
+            return currentIndex == file.Length;
+        }
     }
 }
