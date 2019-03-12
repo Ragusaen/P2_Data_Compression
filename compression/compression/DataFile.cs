@@ -6,6 +6,12 @@ namespace compression {
     public class DataFile{
         private byte[] _byteArray;
 
+        public DataFile(string path) {
+            LoadFromFile(path);
+        }       
+        
+        public DataFile() {}
+
         public byte[] GetBytes(uint start, uint len) {
             if (len == 0)
                 return new byte[0];

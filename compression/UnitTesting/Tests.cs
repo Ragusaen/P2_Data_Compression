@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using NUnit.Framework;
 
@@ -105,7 +107,7 @@ namespace UnitTesting{
     [TestFixture, Category("LZ77")]
     public class LZ77Test{
         [Test]
-        public void LZ77CompressSimpleText() {
+        public void CompressSimpleText() {
             DataFile file = new DataFile();
             DataFile actualFile = new DataFile();
             LZ77 compressor = new LZ77();
@@ -131,5 +133,43 @@ namespace UnitTesting{
             Assert.AreEqual(expected, actual);
         }
     }
+
+    [TestFixture, Category("FindMatchingBytes")]
+    public class TestFindMatchingBytes {
+        [Test]
+        public void AssertArraySegments() {
+            byte[] firstBytes = {102, 103, 104};
+            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
+            byte[] secondBytes = {102, 103, 104};
+            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
+            
+            Assert.IsTrue(FindMatchingBytes.CompareByteArraySegment(first, second));
+        }
+        
+        [Test]        
+        public void FindMatchingBytesFindNeedle() {
+            byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 108, 116, 100, 105, 110, 102, 97, 114};
+            byte[] needle = {114, 101, 115, 117, 108, 116};
+            uint expected = 5;
+            ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,6);
+            
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+            
+            Assert.AreEqual(expected, actual);
+        }                
+        
+        [Test]
+        public void FindMatchingBytesFindFullLengthNeedle() {
+            byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 108, 116, 100, 105, 110, 102, 97, 114};
+            byte[] needle = {114, 101, 115, 117, 108, 116};
+            Nullable<MatchPointer> expected = new MatchPointer(5, 6);
+
+            Nullable<MatchPointer> actual = FindMatchingBytes.FindLongestMatch(haystack, needle);
+            
+            Assert.AreEqual(expected, actual);
+        }
+    }
+    
+    
 }
             
