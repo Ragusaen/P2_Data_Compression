@@ -26,6 +26,8 @@ namespace compression{
         }
 
         public static uint FindArraySegment(byte[] haystack, ArraySegment<byte> match) {
+            if (match.Count == 0)
+                return 0;
             
             for (int i = 0; i < haystack.Length - match.Count; i++) {
                 ArraySegment<byte> currentArray = new ArraySegment<byte>(haystack, i, match.Count);
