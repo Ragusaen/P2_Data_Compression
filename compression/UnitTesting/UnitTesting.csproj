@@ -42,7 +42,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ressources.Designer.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,10 +49,6 @@
     <Content Include="res\empty" />
     <Content Include="res\testfile1" />
     <Content Include="res\testfile2" />
-    <Content Include="testfile" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ressources.resx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\compression\compression.csproj">
