@@ -24,7 +24,7 @@ namespace compression.LZ77 {
 
             EncodedByte r;
             if (match != null) {
-                r = new PointerByte((uint) history.Length - match.Value.Offset, match.Value.Length);
+                r = new PointerByte((uint) history.Length - match.Value.Offset - 1, match.Value.Length - 1);
                 currentIndex += match.Value.Length;
             }
             else {
