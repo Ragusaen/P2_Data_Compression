@@ -238,5 +238,50 @@ namespace UnitTesting{
             Assert.AreEqual(expected, actual);
         }
     }
+
+
+    [TestFixture, Category("SlidingWindow")]
+    public class SlidingWindowTest {
+        [Test]
+        public void SlideReturnsRawByte_a_AsFirstByte() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+            DataFile file  = new DataFile(path);
+            SlidingWindow sw = new SlidingWindow(file);
+            RawByte expected = new RawByte(97);
+            
+            RawByte actual = (RawByte)sw.Slide();
+            
+            Assert.AreEqual(expected.Data, actual.Data);
+        }
+        
+        [Test]
+        public void SlideReturnsPointer_5_FromTestFile2AtPos10() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+            DataFile file  = new DataFile(path);
+            SlidingWindow sw = new SlidingWindow(file);
+            uint expected = 5;
+
+            for (int i = 0; i < 9; i++)
+                sw.Slide();
+            PointerByte actual = (PointerByte)sw.Slide();
+            
+            Assert.AreEqual(expected, actual.Pointer);
+        }
+        
+        [Test]
+        public void SlideReturnsPointerLength_2_FromTestFile2AtPos10() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+            DataFile file  = new DataFile(path);
+            SlidingWindow sw = new SlidingWindow(file);
+            uint expected = 2;
+
+            for (int i = 0; i < 9; i++)
+                sw.Slide();
+            PointerByte actual = (PointerByte)sw.Slide();
+            
+            Assert.AreEqual(expected, actual.Length);
+        }
+    }
+    
 }
             
