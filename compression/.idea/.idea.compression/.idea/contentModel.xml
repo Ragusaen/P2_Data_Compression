@@ -24,6 +24,7 @@
       <e p="compression" t="IncludeRecursive">
         <e p="Compressor.cs" t="Include" />
         <e p="DataFile.cs" t="Include" />
+        <e p="FindMatchingBytes.cs" t="Include" />
         <e p="LZ77" t="Include">
           <e p="EncodedChar.cs" t="Include" />
           <e p="LZ77.cs" t="Include" />
