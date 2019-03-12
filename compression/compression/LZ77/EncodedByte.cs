@@ -25,8 +25,6 @@ namespace compression.LZ77{
     public abstract class EncodedByte{
         public abstract UnevenBits ToUnevenBits();
     }
-    
-    
 
     public class PointerByte : EncodedByte {
         public const uint POINTER_SIZE = 12;
