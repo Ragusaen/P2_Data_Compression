@@ -62,8 +62,8 @@ namespace compression.LZ77{
         public override UnevenBits ToUnevenBits() {
             uint data = (1 << (int) POINTER_SIZE) + Pointer;
             data = (data << (int) LENGTH_SIZE) + Length;
-            
-            return new UnevenBits(data,9);
+
+            return new UnevenBits(data, 17);
         }
     }
 

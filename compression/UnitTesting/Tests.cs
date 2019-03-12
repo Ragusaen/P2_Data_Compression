@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 using compression;
 using compression.LZ77;
-using NUnit.Framework.Constraints;
 
 namespace UnitTesting{
     [TestFixture, Category("DataFile")]
@@ -201,7 +200,7 @@ namespace UnitTesting{
         public void CompressSimpleTextPointers() {
             string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
             DataFile inputFile = new DataFile(inputPath);
-            byte[] expectedData = {48, 152, 140, 112, 2, 32};
+            byte[] expectedData = {48, 152, 140, 102, 72, 1, 152};
             DataFile expected = new DataFile();
             expected.LoadBytes(expectedData);
             
@@ -230,7 +229,7 @@ namespace UnitTesting{
         [Test]
         public void ToUnevenBitsPointerByte_150_9_returns_67945() {
             uint expected = 67945;
-            PointerByte pb = new PointerByte(150,9);
+            EncodedByte pb = new PointerByte(150,9);
 
             uint actual = pb.ToUnevenBits().Data;
             
@@ -322,7 +321,7 @@ namespace UnitTesting{
             uint expected = 5;
             ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
-            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment).Value;
+            Nullable<uint>  actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
             
             Assert.AreNotEqual(expected, actual);
         }
@@ -330,23 +329,22 @@ namespace UnitTesting{
         public void FindArraySegmentDoNotFindEmptyHaystack() {
             byte[] haystack = {};
             byte[] needle = {114, 101, 115, 117, 108, 116};
-            uint expected = 5;
+            Nullable<uint> expected = null;
             ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
-            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment).Value;
+            Nullable<uint> actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
             
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }             
         [Test]        
         public void FindArraySegmentDoNotFindEmptyNeedle() {
             byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 108, 116, 100, 105, 110, 102, 97, 114};
             byte[] needle = {};
-            uint expected = 0;
             ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
-            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment).Value;
+            Nullable<uint>  actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
             
-            Assert.AreEqual(expected, actual);
+            Assert.IsNull(actual);
         }
         [Test]
         public void FindMatchingBytesFindFullLengthNeedle() {
@@ -405,6 +403,17 @@ namespace UnitTesting{
             Nullable<MatchPointer> actual = FindMatchingBytes.FindLongestMatch(haystack, needle);
             
             Assert.IsNull(actual);
+        }
+
+        [Test]
+        public void FindMathingBytesFindsDuplicateABCD() {
+            byte[] haystack = {97, 98, 99, 100, 97, 98, 99, 100};
+            byte[] needle = {97, 98, 99, 100};
+            MatchPointer expected = new MatchPointer(0,4);
+
+            Nullable<MatchPointer> actual = FindMatchingBytes.FindLongestMatch(haystack, needle);
+            
+            Assert.AreEqual(expected, actual);
         }
     }
 
@@ -467,6 +476,34 @@ namespace UnitTesting{
                 sw.Slide();
             
             Assert.IsTrue(sw.AtEnd());
+        }
+
+        [Test]
+        public void SlideReturnsPointer_3_FromTestFile3AtPos4() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
+            DataFile file  = new DataFile(path);
+            SlidingWindow sw = new SlidingWindow(file);
+            uint expected = 3;
+
+            for (int i = 0; i < 4; i++)
+                sw.Slide();
+            PointerByte actual = (PointerByte)sw.Slide();
+            
+            Assert.AreEqual(expected, actual.Pointer);
+        }
+        
+        [Test]
+        public void SlideReturnsPointerLength_3_FromTestFile3AtPos4() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
+            DataFile file  = new DataFile(path);
+            SlidingWindow sw = new SlidingWindow(file);
+            uint expected = 3;
+
+            for (int i = 0; i < 4; i++)
+                sw.Slide();
+            PointerByte actual = (PointerByte)sw.Slide();
+            
+            Assert.AreEqual(expected, actual.Length);
         }
     }
 
