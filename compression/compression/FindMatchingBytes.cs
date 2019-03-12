@@ -17,17 +17,17 @@ namespace compression{
             for (int l = needle.Length; l > 2; l--) {
                 ArraySegment<byte> match = new ArraySegment<byte>(needle, 0, l);
 
-                uint offset = FindArraySegment(haystack, match);
+                Nullable<uint> offset = FindArraySegment(haystack, match);
                 
-                if(offset != 0)
-                    return new MatchPointer(offset, (uint) l);
+                if(offset.HasValue)
+                    return new MatchPointer(offset.Value, (uint) l);
             }
             return null;
         }
 
-        public static uint FindArraySegment(byte[] haystack, ArraySegment<byte> match) {
+        public static Nullable<uint> FindArraySegment(byte[] haystack, ArraySegment<byte> match) {
             if (match.Count == 0)
-                return 0;
+                return null;
             
             for (int i = 0; i < haystack.Length - match.Count; i++) {
                 ArraySegment<byte> currentArray = new ArraySegment<byte>(haystack, i, match.Count);
@@ -35,7 +35,7 @@ namespace compression{
                 if (CompareByteArraySegment(currentArray, match))
                     return (uint) i;
             }
-            return 0;
+            return null;
         }
 
         public static Boolean CompareByteArraySegment(ArraySegment<byte> a, ArraySegment<byte> b) {

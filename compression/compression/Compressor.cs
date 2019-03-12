@@ -5,12 +5,10 @@ namespace compression {
         public DataFile Compress(DataFile dataFile) {
             DataFile outputFile = new DataFile();
 
-            InternalCompress(dataFile, outputFile);
-            
-            return outputFile;
+            return InternalCompress(dataFile);
         }
         public abstract DataFile Decompress(DataFile dataFile);
         
-        protected abstract void InternalCompress(DataFile input, DataFile output);
+        protected abstract DataFile InternalCompress(DataFile input);
     }
 }

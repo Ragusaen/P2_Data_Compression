@@ -52,6 +52,7 @@
     <Content Include="res\empty2" />
     <Content Include="res\testfile1" />
     <Content Include="res\testfile2" />
+    <Content Include="res\testfile3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\compression\compression.csproj">
