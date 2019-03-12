@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 using compression;
 using compression.LZ77;
+using NUnit.Framework.Constraints;
 
 namespace UnitTesting{
     [TestFixture, Category("DataFile")]
@@ -163,22 +164,55 @@ namespace UnitTesting{
             
             LZ77 comp = new LZ77();
             DataFile actualFile = comp.Compress(inputFile);
-            actualFile.WriteToFile("/home/odum/output");
+            
+            ByteArrayPrinter.PrintBits(actualFile.GetBytes(0, actualFile.Length));
             
             Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
         }
         [Test]
-        public void CompressSimpleText2() {
-            string expectedPath = TestContext.CurrentContext.TestDirectory + "../../../res/compressedTestFile";
-            DataFile expectedFile = new DataFile(expectedPath);
-            string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
-            DataFile inputFile = new DataFile(inputPath);
+        public void CompressSimpleTextNoPointersByteArraysOnly() {
+            byte[] inputBytes = {97, 98, 99};
+            DataFile inputFile = new DataFile();
+            inputFile.LoadBytes(inputBytes);
+            byte[] expected = {48, 152, 140, 96};
             
             LZ77 comp = new LZ77();
-            DataFile actualFile = comp.Compress(inputFile);
-            actualFile.WriteToFile("/home/odum/output");
+            DataFile output = comp.Compress(inputFile);
+            byte[] actual = output.GetBytes(0, output.Length);
             
-            Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [Test]
+        public void CompressSimpleTextNoPointersDataFile() {
+            string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+            DataFile inputFile = new DataFile(inputPath);
+            byte[] expectedData = {48, 152, 140, 96};
+            DataFile expected = new DataFile();
+            expected.LoadBytes(expectedData);
+            
+            LZ77 comp = new LZ77();
+            DataFile actual = comp.Compress(inputFile);
+            
+            Assert.IsTrue(DataFile.Compare(expected, actual));
+        }
+        
+        [Test]
+        public void CompressSimpleTextPointers() {
+            string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
+            DataFile inputFile = new DataFile(inputPath);
+            byte[] expectedData = {48, 152, 140, 112, 2, 32};
+            DataFile expected = new DataFile();
+            expected.LoadBytes(expectedData);
+            
+            LZ77 comp = new LZ77();
+            DataFile actual = comp.Compress(inputFile);
+            
+            ByteArrayPrinter.PrintBits(expected.GetBytes(0, expected.Length));
+            Console.WriteLine();
+            ByteArrayPrinter.PrintBits(actual.GetBytes(0,actual.Length));
+            
+            Assert.AreEqual(expected.GetBytes(0, expected.Length), actual.GetBytes(0, actual.Length));
         }
     }
 
@@ -277,7 +311,7 @@ namespace UnitTesting{
             uint expected = 5;
             ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
-            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment).Value;
             
             Assert.AreEqual(expected, actual);
         }          
@@ -288,7 +322,7 @@ namespace UnitTesting{
             uint expected = 5;
             ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
-            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment).Value;
             
             Assert.AreNotEqual(expected, actual);
         }
@@ -299,7 +333,7 @@ namespace UnitTesting{
             uint expected = 5;
             ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
-            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment).Value;
             
             Assert.AreNotEqual(expected, actual);
         }             
@@ -310,7 +344,7 @@ namespace UnitTesting{
             uint expected = 0;
             ArraySegment<byte> needleAsSegment= new ArraySegment<byte>(needle,0,needle.Length);
             
-            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment);
+            uint actual = FindMatchingBytes.FindArraySegment(haystack, needleAsSegment).Value;
             
             Assert.AreEqual(expected, actual);
         }

@@ -77,9 +77,7 @@ namespace compression.LZ77{
         }
 
         public override UnevenBits ToUnevenBits() {
-            uint data = (1 << 8) + (uint)Data;
-            
-            return new UnevenBits(data,9);
+            return new UnevenBits(Data,9);
         }
     }
 }

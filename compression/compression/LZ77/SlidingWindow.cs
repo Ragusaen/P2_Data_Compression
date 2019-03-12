@@ -22,7 +22,7 @@ namespace compression.LZ77 {
             LoadLookAhead();
             
             Nullable<MatchPointer> match = FindMatchingBytes.FindLongestMatch(history, lookAhead);
-
+            
             EncodedByte r;
             if (match != null) {
                 r = new PointerByte((uint) history.Length - match.Value.Offset - 1, match.Value.Length - 1);
@@ -56,7 +56,7 @@ namespace compression.LZ77 {
         }
 
         public Boolean AtEnd() {
-            return currentIndex == file.Length;
+            return currentIndex >= file.Length;
         }
     }
 }
