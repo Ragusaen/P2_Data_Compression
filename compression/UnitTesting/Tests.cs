@@ -359,6 +359,17 @@ namespace UnitTesting{
             Assert.AreEqual(expected, actual);
         }
         [Test]
+        public void FindMatchingBytesFindNeedleAsFirstElementInHistory() {
+            byte[] haystack = {97, 98, 99, 102, 152};
+            byte[] needle = {97, 98, 99, 102};
+            Nullable<MatchPointer> expected = new MatchPointer(0, (uint) 4);
+
+            Nullable<MatchPointer> actual = FindMatchingBytes.FindLongestMatch(haystack, needle);
+            
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [Test]
         public void FindMatchingBytesFindSemiLengthNeedle() {
             byte[] haystack = {97, 98, 99, 100, 101, 114, 101, 115, 117, 107, 116, 100, 105, 110, 102, 97, 114};
             byte[] needle = {114, 101, 115, 117, 108, 116};
@@ -425,7 +436,6 @@ namespace UnitTesting{
             
             Assert.AreEqual(expected, actual.Pointer);
         }
-        
         [Test]
         public void SlideReturnsPointerLength_2_FromTestFile2AtPos10() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
@@ -438,6 +448,25 @@ namespace UnitTesting{
             PointerByte actual = (PointerByte)sw.Slide();
             
             Assert.AreEqual(expected, actual.Length);
+        }
+        [Test]
+        public void SlideNotAtEndWhenInBeginningOfFile() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+            DataFile file  = new DataFile(path);
+            SlidingWindow sw = new SlidingWindow(file);
+            
+            Assert.IsFalse(sw.AtEnd());
+        }
+        [Test]
+        public void SlideAtEndWhenAtEnd() {
+            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+            DataFile file  = new DataFile(path);
+            SlidingWindow sw = new SlidingWindow(file);
+
+            for (int i = 0; i < 3; i++)
+                sw.Slide();
+            
+            Assert.IsTrue(sw.AtEnd());
         }
     }
 
