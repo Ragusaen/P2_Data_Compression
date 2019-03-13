@@ -19,10 +19,6 @@ namespace compression.LZ {
             for (int i = 0; i < encodedByteArray.Count; i++)
                 unevenBitsArray[i] = encodedByteArray[i].ToUnevenBits();
 
-            foreach (UnevenBits ub in unevenBitsArray) {
-                Console.Write(ub.Length + ", ");
-            }
-
             byte[] encodedBytes = ByteEncoder.EncodeBytes(unevenBitsArray);
             
             DataFile output = new DataFile();
