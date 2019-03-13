@@ -34,7 +34,7 @@ namespace compression.LZ {
             }
             
             // Console print
-            if (currentIndex % 1000 == 0) {
+            if (currentIndex % 100 == 0) {
                 string str = (Math.Truncate((decimal) currentIndex / file.Length * 10000)/100).ToString();
                 Console.Write("\rPercentage complete: "  + str + "%");
             }
