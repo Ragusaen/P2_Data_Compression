@@ -51,11 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\big.txt" />
-<<<<<<< HEAD
     <Content Include="res\hcandersen.txt" />
-=======
-    <Content Include="res\hcandersen" />
->>>>>>> 3ae8102a534b9fc5e20874d1cad3f7d4c6b6f84b
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
