@@ -236,8 +236,8 @@ namespace UnitTesting{
             Assert.AreEqual(expected, actual);
         }
         [Test]
-        public void ToUnevenBitsRawByte_189_returns_445() {
-            uint expected = 445;
+        public void ToUnevenBitsRawByte_189_returns_189() {
+            uint expected = 189;
             RawByte pb = new RawByte(189);
 
             uint actual = pb.ToUnevenBits().Data;
