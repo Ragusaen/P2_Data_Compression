@@ -12,16 +12,10 @@ namespace compression.LZ {
             while(!slidingWindow.AtEnd()) {
                 encodedByteArray.Add(slidingWindow.Slide());
             }
-
-            encodedByteArray.ForEach(Console.WriteLine);
             
             UnevenBits[] unevenBitsArray = new UnevenBits[encodedByteArray.Count];
             for (int i = 0; i < encodedByteArray.Count; i++)
                 unevenBitsArray[i] = encodedByteArray[i].ToUnevenBits();
-
-            foreach (UnevenBits ub in unevenBitsArray) {
-                Console.Write(ub.Length + ", ");
-            }
 
             byte[] encodedBytes = ByteEncoder.EncodeBytes(unevenBitsArray);
             
