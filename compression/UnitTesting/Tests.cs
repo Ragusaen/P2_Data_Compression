@@ -2,7 +2,7 @@
 using NUnit.Framework;
 
 using compression;
-using compression.LZ77;
+using compression.LZ;
 
 namespace UnitTesting{
     [TestFixture, Category("DataFile")]

@@ -41,13 +41,16 @@
     <Compile Include="Compressor.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="FindMatchingBytes.cs" />
-    <Compile Include="LZ77\ByteArrayPrinter.cs" />
-    <Compile Include="LZ77\ByteEncoder.cs" />
-    <Compile Include="LZ77\LZ77.cs" />
-    <Compile Include="LZ77\EncodedByte.cs" />
-    <Compile Include="LZ77\SlidingWindow.cs" />
+    <Compile Include="LZ\ByteArrayPrinter.cs" />
+    <Compile Include="LZ\ByteEncoder.cs" />
+    <Compile Include="LZ\LZ77.cs" />
+    <Compile Include="LZ\EncodedByte.cs" />
+    <Compile Include="LZ\SlidingWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="res\big.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

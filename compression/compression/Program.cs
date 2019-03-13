@@ -1,7 +1,16 @@
-﻿namespace compression {
+﻿using System;
+using compression.LZ;
+
+namespace compression {
     internal class Program {
         public static void Main(string[] args) {
-            System.Console.WriteLine("Hello World");
+
+            string path = "../../res/big.txt";
+            
+            LZ77 lz77 = new LZ77();
+            DataFile compressed_file = lz77.Compress(new DataFile(path));
+            
+            compressed_file.WriteToFile("../../res/out");
         }
     }
 }
