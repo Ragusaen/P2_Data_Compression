@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -31,9 +32,12 @@ namespace compression.LZ {
                 r = new RawByte(lookAhead[0]);
                 currentIndex++;                
             }
-
-            if ( currentIndex % 1000 == 0 )
-                Console.WriteLine((double)currentIndex / file.Length);
+            
+            // Console print
+            if (currentIndex % 1000 == 0) {
+                string str = (Math.Truncate((decimal) currentIndex / file.Length * 10000)/100).ToString();
+                Console.Write("\rPercentage complete: "  + str + "%");
+            }
 
             return r;
         }
