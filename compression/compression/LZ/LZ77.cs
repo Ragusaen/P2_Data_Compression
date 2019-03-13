@@ -8,7 +8,7 @@ namespace compression.LZ {
         protected override DataFile InternalCompress(DataFile input) {
             SlidingWindow slidingWindow = new SlidingWindow(input);
             List<EncodedByte> encodedByteArray = new List<EncodedByte>(0);
-
+            
             while(!slidingWindow.AtEnd()) {
                 encodedByteArray.Add(slidingWindow.Slide());
             }
@@ -21,6 +21,7 @@ namespace compression.LZ {
             
             DataFile output = new DataFile();
             output.LoadBytes(encodedBytes);
+            
             return output;
         }
 
