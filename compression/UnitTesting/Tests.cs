@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Web.UI;
 using NUnit.Framework;
 
 using compression;
 using compression.NBWT;
 using compression.LZ;
+using compression.RLE;
 
 namespace UnitTesting{
     [TestFixture, Category("BurrowsWheelerTransform")]
@@ -602,6 +604,23 @@ namespace UnitTesting{
             byte[] expected = {250, 76, 204, 168};
 
             byte[] actual = ByteEncoder.EncodeBytes(array);
+            
+            Assert.AreEqual(expected, actual);
+        }
+    }
+
+    [TestFixture, Category("ByteChangeEncoding")]
+    public class ByteChangeEncodingTests {
+        [Test]
+        public void AddsEntries_AAABAAABAA_as_ABABA_1001100110() {
+            byte[] input = BWT.StringToByteArray("AAABAAABAA");
+            byte[] expected = new byte[7];
+            byte[] a = BWT.StringToByteArray("ABABA");
+            byte[] b = {153, 128};
+            a.CopyTo(expected, 0);
+            b.CopyTo(expected, a.Length);
+
+            byte[] actual = ByteChangeEncoder.EncodeBytes(input).ToBytes();
             
             Assert.AreEqual(expected, actual);
         }

@@ -11,7 +11,7 @@ namespace compression{
             Length = length;
         }
     }
-    
+
     public class FindMatchingBytes{
         public static MatchPointer? FindLongestMatch(byte[] haystack, byte[] needle) {
             for (int l = needle.Length; l >= 2; l--) {
