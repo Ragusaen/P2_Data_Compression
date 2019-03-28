@@ -59,7 +59,7 @@ namespace compression.LZ {
                 lookAheadLength = file.Length - currentIndex;
             return file.GetBytes(currentIndex, lookAheadLength);
         }
-
+    
         public Boolean AtEnd() {
             return currentIndex >= file.Length;
         }

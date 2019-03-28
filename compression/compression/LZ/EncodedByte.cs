@@ -29,8 +29,7 @@ namespace compression.LZ{
     public class PointerByte : EncodedByte {
         public const uint POINTER_SIZE = 12;
         public const uint LENGTH_SIZE = 4;
-        
-        
+
         public uint Pointer;
         public uint Length;
 
@@ -45,13 +44,7 @@ namespace compression.LZ{
         }
         
         public static uint GetLengthSpan() {
-            uint result = 1;
-
-            for (int i = 0; i < LENGTH_SIZE; i++) {
-                result *= 2;
-            }
-
-            return result;
+            return 1 << (int)POINTER_SIZE;
         }
 
         public PointerByte(uint pointer, uint length) {
