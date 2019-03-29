@@ -1,6 +1,6 @@
 using System;
 
-namespace compression.LZ {
+namespace Compression.LZ {
     public class ByteArrayPrinter {
         public static void PrintBits(byte[] a) {
             foreach (byte b in a) {

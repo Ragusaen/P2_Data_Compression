@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>compression</RootNamespace>
-    <AssemblyName>compression</AssemblyName>
+    <AssemblyName>Compression</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -69,19 +69,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BWT\BWT.cs" />
-    <Compile Include="ByteArrayComparer.cs" />
-    <Compile Include="Compression.cs" />
-    <Compile Include="Compressor.cs" />
+    <Compile Include="ByteStructures\ByteArrayComparer.cs" />
+    <Compile Include="ByteStructures\ByteArrayPrinter.cs" />
+    <Compile Include="ByteStructures\EncodedByte.cs" />
+    <Compile Include="ByteStructures\UnevenByte.cs" />
+    <Compile Include="ICompressor.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="FindMatchingBytes.cs" />
-    <Compile Include="LZ\ByteArrayPrinter.cs" />
-    <Compile Include="LZ\ByteEncoder.cs" />
     <Compile Include="LZ\LZ77.cs" />
-    <Compile Include="LZ\EncodedByte.cs" />
+    <Compile Include="LZ\EncodedLZByte.cs" />
     <Compile Include="LZ\SlidingWindow.cs" />
+    <Compile Include="PDC\EndcodedContextByte.cs" />
+    <Compile Include="PDC\PDC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RLE\ByteChangeEncode.cs" />
+    <Compile Include="RLE\RunLengthEncoding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\big.txt" />

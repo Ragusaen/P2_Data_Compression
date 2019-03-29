@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace compression{
+namespace Compression{
     public struct MatchPointer{
         public uint Offset;
         public uint Length;

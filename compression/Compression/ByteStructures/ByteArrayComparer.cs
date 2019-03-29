@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace compression {
+namespace Compression {
     public class ByteArrayComparer : IComparer<byte[]> {
         public int Compare(byte[] x, byte[] y) {
             

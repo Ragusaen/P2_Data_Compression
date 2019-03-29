@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Hosting;
 
-namespace compression.RLE {
+namespace Compression.RLE {
 
     public class EncodedByteChanges {
         private List<byte> _dataStream;

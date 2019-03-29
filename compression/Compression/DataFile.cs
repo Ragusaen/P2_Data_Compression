@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace compression {
+namespace Compression {
     public class DataFile{
         private byte[] _byteArray;
         public uint Length {
@@ -12,7 +12,11 @@ namespace compression {
 
         public DataFile(string path) {
             LoadFromFile(path);
-        }       
+        }
+
+        public DataFile(byte[] data) {
+            LoadBytes(data);
+        }
         
         public DataFile() {}
 
