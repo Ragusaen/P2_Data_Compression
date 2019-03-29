@@ -72,6 +72,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BWT\BWTTest.cs" />
+    <Compile Include="ByteStructures\EncodedLZBytesTest.cs" />
+    <Compile Include="ByteStructures\UnevenByteTest.cs" />
+    <Compile Include="DataFileTest.cs" />
+    <Compile Include="FindMatchingBytesTest.cs" />
+    <Compile Include="LZ\LZ77Test.cs" />
+    <Compile Include="LZ\SlidingWindowTest.cs" />
+    <Compile Include="RLE\ByteChangeEncode.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,13 +94,13 @@
     <Content Include="res\testfile3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\compression\compression.csproj">
-      <Project>{9d3d7dac-cb58-4dee-8bc9-f3fa8b7a9df6}</Project>
-      <Name>compression</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Compression\Compression.csproj">
+      <Project>{9d3d7dac-cb58-4dee-8bc9-f3fa8b7a9df6}</Project>
+      <Name>Compression</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,9 +1,7 @@
 using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
+using Compression.ByteStructures;
 
-namespace compression.LZ {
+namespace Compression.LZ {
     public class SlidingWindow{
         private DataFile file;
         private uint currentIndex = 0;

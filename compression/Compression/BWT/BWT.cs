@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Deployment.Internal;
-using System.Linq;
-using System.Web.UI.HtmlControls;
-using compression.LZ;
 
-namespace compression.NBWT {
+namespace Compression.NBWT {
     public class BWT {
 
-        public static byte[] Transform(byte[] input) {
+        public byte[] Transform(byte[] input) {
             List<byte[]> transformMatrix = new List<byte[]>();
 
             for (int i = 0; i < input.Length; i++) {
@@ -24,7 +20,7 @@ namespace compression.NBWT {
             return result;
         }
 
-        public static byte[] InverseTransform(byte[] input) {
+        public byte[] InverseTransform(byte[] input) {
             List<byte[]> itm = new List<byte[]>();
 
             for (int i = 0; i < input.Length; i++)
