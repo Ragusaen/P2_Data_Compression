@@ -68,7 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BWT\BWT.cs" />
+    <Compile Include="BWT\BurrowWheelerTransform.cs" />
     <Compile Include="ByteStructures\ByteArrayComparer.cs" />
     <Compile Include="ByteStructures\ByteArrayPrinter.cs" />
     <Compile Include="ByteStructures\EncodedByte.cs" />
