@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace Compression.NBWT {
-    public class BWT {
+namespace Compression.BWT {
+    public class BurrowWheelerTransform {
 
         public byte[] Transform(byte[] input) {
             List<byte[]> transformMatrix = new List<byte[]>();

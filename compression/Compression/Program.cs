@@ -1,6 +1,7 @@
 ﻿using System;
+using Compression.BWT;
 using Compression.LZ;
-using Compression.NBWT;
+using Compression.BWT;
 using Compression.RLE;
 using StackExchange.Profiling;
 
@@ -16,7 +17,7 @@ namespace Compression {
             DataFile compressed_file = new DataFile();
             DataFile recreated_file = new DataFile();
             
-            BWT bwt = new BWT();
+            BurrowWheelerTransform bwt = new BurrowWheelerTransform();
 
             byte[] data = input_file.GetBytes(0, input_file.Length);
 
