@@ -46,6 +46,7 @@
     <Compile Include="LZ\LZ77.cs" />
     <Compile Include="LZ\EncodedByte.cs" />
     <Compile Include="LZ\SlidingWindow.cs" />
+    <Compile Include="PPM\PPM.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
