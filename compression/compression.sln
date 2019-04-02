@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "compression", "compression\compression.csproj", "{9D3D7DAC-CB58-4DEE-8BC9-F3FA8B7A9DF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compression", "Compression\Compression.csproj", "{9D3D7DAC-CB58-4DEE-8BC9-F3FA8B7A9DF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{4184BAA8-152C-4E6E-9C01-36929B89ADF8}"
 EndProject
