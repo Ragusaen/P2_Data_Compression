@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
-        private int Order;
-        private List<ContextTable> _contextTableList;
+        private int order;
+        private List<ContextTable> _orderList;
 
         public PredictionByPartialMatching(int order) {
-            Order = order;
+            this.order = order;
         }
         
         public DataFile Compress(DataFile to_compress) {
@@ -17,9 +17,9 @@ namespace Compression.PPM{
             throw new System.NotImplementedException();
         }
 
-        private void MakeTable(DataFile file) {
-            for (int i = 0; i < Order; i++) {
-                _contextTableList[i] = new ContextTable();
+        private void MakeTables(DataFile file) {
+            for (int i = 0; i < order; i++) {
+                _orderList[i] = new ContextTable();
             }
         }
     }

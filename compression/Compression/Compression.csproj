@@ -82,7 +82,7 @@
     <Compile Include="PDC\EndcodedContextByte.cs" />
     <Compile Include="PDC\PDC.cs" />
     <Compile Include="PPM\ContextTable.cs" />
-    <Compile Include="PPM\ContextTableContent.cs" />
+    <Compile Include="PPM\Context.cs" />
     <Compile Include="PPM\PredictionByPartialMatching.cs" />
     <Compile Include="PPM\Symbol.cs" />
     <Compile Include="Program.cs" />
