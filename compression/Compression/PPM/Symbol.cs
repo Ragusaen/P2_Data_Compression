@@ -1,11 +1,16 @@
 namespace Compression.PPM{
     public class Symbol {
-        public byte Letter;
+        public SymbolData Data;
         public uint Count;
         public uint CumulativeCount;
 
         public Symbol(byte letter) {
-            Letter = letter;
+            Data = new Letter(letter);
+            Count = 1;
+        }
+
+        public Symbol() {
+            Data = new EscapeSymbol();
             Count = 1;
         }
     }
