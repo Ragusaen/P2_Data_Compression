@@ -16,7 +16,7 @@ namespace Compression.PPM{
             }
             else { // execute if context was not found in table
                 ContextList.Add(new Context(context));
-                ContextList[0].Update(symbol);
+                ContextList[ContextList.Count-1].Update(symbol);
             }
         }
 
@@ -37,6 +37,17 @@ namespace Compression.PPM{
             for (int i = 0; i < ContextList.Count; i++) {
                 for (int j = 0; j < ContextList[i].SymbolList.Count; j++) {
                     TotalCount += ContextList[i].SymbolList[j].Count;
+                }
+            }
+        }
+
+        public void UpdateCumulativeCount() {
+            uint cumCount = 0;
+            
+            for (int i = 0; i < ContextList.Count; i++) {
+                for (int j = 0; j < ContextList[i].SymbolList.Count; j++) {
+                    cumCount += ContextList[i].SymbolList[j].Count;
+                    ContextList[i].SymbolList[j].CumulativeCount = cumCount;
                 }
             }
         }
