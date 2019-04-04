@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Compression;
 using Compression.PPM;
@@ -15,7 +16,6 @@ namespace UnitTesting.PPM{
 
                 Assert.IsInstanceOf<EscapeSymbol>(actual);
             }
-
             [Test]
             public void NewSymbolWithParamsHasCorrectData() {
                 Letter expected = new Letter(25);
@@ -39,7 +39,6 @@ namespace UnitTesting.PPM{
 
                 Assert.AreEqual(expected, actual);
             }
-
             [Test]
             public void NewSymbolCountIsOne() {
                 byte letter = 65; // 'e'
@@ -52,7 +51,6 @@ namespace UnitTesting.PPM{
 
                 Assert.AreEqual(expected, actual);
             }
-
             [Test]
             public void UpdateNoPreviousContextAddsNewContext() {
                 byte letter = 65; // 'e'
@@ -66,7 +64,6 @@ namespace UnitTesting.PPM{
                 ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
                 Assert.AreEqual(0, byteArrayComparer.Compare(expected, actual));
             }
-
             [Test]
             public void UpdatePreviousContextUpdatesContextWithNewSymbol() {
                 byte letter = 65; // 'e'
@@ -79,7 +76,6 @@ namespace UnitTesting.PPM{
                 a.Update(letter2);
                 byte actual = ((Letter) a.SymbolList[1].Data).Data;
 
-                ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
                 Assert.AreEqual(expected, actual);
             }
 
@@ -94,7 +90,6 @@ namespace UnitTesting.PPM{
                 a.Update(letter);
                 uint actual = a.SymbolList[0].Count;
 
-                ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
                 Assert.AreEqual(expected, actual);
             }
         }
@@ -112,7 +107,82 @@ namespace UnitTesting.PPM{
                 orderX.CalculateTotalCount();
                 uint actual = orderX.TotalCount;
 
-                ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
+                Assert.AreEqual(expected, actual);
+            }
+
+            [Test]
+            public void UpdateCumCountIncrementsCumulativeCount() {
+                byte letter = 65; // 'e'
+                byte letter2 = 61;
+                byte[] context = {74, 68}; // "th"
+                uint expected = 2;
+                
+                ContextTable orderX = new ContextTable();
+                orderX.UpdateContext(context, letter);
+                orderX.UpdateContext(context, letter2);
+                orderX.UpdateCumulativeCount();
+                uint actual = orderX.ContextList[0].SymbolList[1].CumulativeCount;
+
+                Assert.AreEqual(expected, actual);
+            }
+            [Test]
+            public void UpdateCumCountWithOneSymbolArray() {
+                byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
+                byte[] context = {74, 68}; // "th"             
+                uint expected = (uint)letterArray.Length;
+                
+                ContextTable orderX = new ContextTable();
+                for (int i = 0; i < letterArray.Length; i++) {
+                    orderX.UpdateContext(context, letterArray[i]);
+                }
+                orderX.UpdateCumulativeCount();
+                uint actual = orderX.ContextList[0].SymbolList[9].CumulativeCount;
+
+                Assert.AreEqual(expected, actual);
+            }
+            [Test]
+            public void UpdateCumCountWithTwoSymbolArrays() {
+                byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
+                byte[] context = {74, 68}; // "th"
+                byte[] context2 = {68, 61}; // "tha"
+                uint expected = (uint)letterArray.Length * 2;
+                
+                ContextTable orderX = new ContextTable();
+                for (int i = 0; i < letterArray.Length; i++) {
+                    orderX.UpdateContext(context, letterArray[i]);
+                }
+                for (int i = 0; i < letterArray.Length; i++) {
+                    orderX.UpdateContext(context2, letterArray[i]);
+                }
+
+                orderX.UpdateCumulativeCount();
+                uint actual = orderX.ContextList[1].SymbolList[9].CumulativeCount;
+
+                Assert.AreEqual(expected, actual);
+            }
+            [Test]
+            public void SymbolListHasCorrectTotalCount() {
+                byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
+                byte[] context = {74, 68}; // "th"
+                byte[] context2 = {42, 77}; // "th"
+                byte[] context3 = {55, 22};
+                uint expected = 10;
+                
+                ContextTable orderX = new ContextTable();
+                for (int i = 0; i < letterArray.Length; i++) {
+                    orderX.UpdateContext(context, letterArray[i]);
+                }
+                for (int i = 0; i < letterArray.Length; i++) {
+                    orderX.UpdateContext(context2, letterArray[i]);
+                }
+                for (int i = 0; i < letterArray.Length; i++) {
+                    orderX.UpdateContext(context3, letterArray[i]);
+                }
+                uint actual = 0;
+                for (int i = 0; i < orderX.ContextList[0].SymbolList.Count; i++) {
+                    actual += orderX.ContextList[0].SymbolList[i].Count;
+                }
+                
                 Assert.AreEqual(expected, actual);
             }
         }
