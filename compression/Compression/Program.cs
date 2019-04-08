@@ -31,6 +31,9 @@ namespace Compression {
             var elapsedMs = watch.ElapsedMilliseconds;
             Console.WriteLine("\nTime elapsed: " + elapsedMs + " ms");
             Console.WriteLine("\nStørrelse før: " + input_file.Length + "\nStørrelse efter: " + compressed_file.Length + "\nKomprimeringsratio: " + (double)compressed_file.Length/input_file.Length);
+            
+            //PPM:
+
         }
     }
 }
