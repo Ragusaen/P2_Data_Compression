@@ -1,5 +1,5 @@
+using Compression;
 using NUnit.Framework;
-using Compression.BWT;
 using Compression.RLE;
 
 namespace UnitTesting.RLE {
@@ -7,9 +7,9 @@ namespace UnitTesting.RLE {
     public class ByteChangeEncodingTests {
         [Test]
         public void AddsEntries_AAABAAABAA_as_ABABA_1001100110() {
-            byte[] input = BurrowWheelerTransform.StringToByteArray("AAABAAABAA");
+            byte[] input = ByteMethods.StringToByteArray("AAABAAABAA");
             byte[] expected = new byte[7];
-            byte[] a = BurrowWheelerTransform.StringToByteArray("ABABA");
+            byte[] a = ByteMethods.StringToByteArray("ABABA");
             byte[] b = {153, 128};
             a.CopyTo(expected, 0);
             b.CopyTo(expected, a.Length);

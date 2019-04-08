@@ -33,9 +33,9 @@ namespace UnitTesting.BWT_Test {
             string expected = "åemtter|llfeeaøøaaldddfl  ^    ffllooffebb eeddpll"; //Has not been validated
             BurrowWheelerTransform bwt = new BurrowWheelerTransform();
             
-            byte[] inArr = BurrowWheelerTransform.StringToByteArray(input);
+            byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.Transform(inArr);
-            string actual = BurrowWheelerTransform.ByteArrayToString(output);
+            string actual = ByteMethods.ByteArrayToString(output);
             
             Assert.AreEqual(expected, actual);
         }
@@ -46,9 +46,9 @@ namespace UnitTesting.BWT_Test {
             string input = "åemtter|llfeeaøøaaldddfl  ^    ffllooffebb eeddpll"; //Has not been validated
             BurrowWheelerTransform bwt = new BurrowWheelerTransform();
             
-            byte[] inArr = BurrowWheelerTransform.StringToByteArray(input);
+            byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.InverseTransform(inArr);
-            string actual = BurrowWheelerTransform.ByteArrayToString(output);
+            string actual = ByteMethods.ByteArrayToString(output);
             
             Assert.AreEqual(expected, actual);
         }
@@ -59,9 +59,9 @@ namespace UnitTesting.BWT_Test {
             string expected = "..hdsseltnnyetseetootes,seeeege  ^|emw hhehc   enaid slrsmnrlrcrlbbrtdeghh enits t T T hltfr  h   wliiPlaesoeeeoi  iaadtsonfbhnoae eoaiiitau   oiiaoni s na  n."; //Has not been validated
             BurrowWheelerTransform bwt = new BurrowWheelerTransform();
             
-            byte[] inArr = BurrowWheelerTransform.StringToByteArray(input);
+            byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.Transform(inArr);
-            string actual = BurrowWheelerTransform.ByteArrayToString(output);
+            string actual = ByteMethods.ByteArrayToString(output);
             
             Assert.AreEqual(expected, actual);
         }
@@ -72,9 +72,9 @@ namespace UnitTesting.BWT_Test {
             string input = "..hdsseltnnyetseetootes,seeeege  ^|emw hhehc   enaid slrsmnrlrcrlbbrtdeghh enits t T T hltfr  h   wliiPlaesoeeeoi  iaadtsonfbhnoae eoaiiitau   oiiaoni s na  n."; //Has not been validated
             BurrowWheelerTransform bwt = new BurrowWheelerTransform();
             
-            byte[] inArr = BurrowWheelerTransform.StringToByteArray(input);
+            byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.InverseTransform(inArr);
-            string actual = BurrowWheelerTransform.ByteArrayToString(output);
+            string actual = ByteMethods.ByteArrayToString(output);
             
             Assert.AreEqual(expected, actual);
         }
