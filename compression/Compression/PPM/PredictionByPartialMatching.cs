@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
         private int order;
-        private List<ContextTable> _orderList;
+        private List<ContextTable> _orderList = new List<ContextTable>();
 
         public PredictionByPartialMatching(int order) {
             this.order = order;
