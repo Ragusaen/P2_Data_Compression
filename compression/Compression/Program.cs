@@ -2,7 +2,6 @@
 using Compression.BWT;
 using Compression.LZ;
 using Compression.RLE;
-using StackExchange.Profiling;
 
 namespace Compression {
     internal class Program {
@@ -22,8 +21,6 @@ namespace Compression {
 
             Console.WriteLine("ARL before: " + RunLengthEncoding.AverageRunLength(data));
             
-            var profiler = MiniProfiler.StartNew("Full Program");
-            using (profiler.Step("Main Work")) {
                 //compressed_file = lz77.Compress(input_file);
                 byte[] output = bwt.Transform(data);
                 //input_file.LoadBytes(output);
@@ -31,7 +28,6 @@ namespace Compression {
                 compressed_file.LoadBytes(output);
 
                 //Console.WriteLine("ARL after: " + AverageRunLength(output));
-            }
             
             compressed_file.WriteToFile("../../res/out");
             //recreated_file.WriteToFile("../../res/rec");
