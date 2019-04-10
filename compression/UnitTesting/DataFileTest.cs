@@ -5,108 +5,132 @@ using Compression;
 namespace UnitTesting {
     [TestFixture, Category("DataFile")]
     public class DataFileTest{
-        [Test]
-        public void FileLoadsCorrectly() {
-            DataFile file = new DataFile();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
-            byte[] expected = {97, 98, 99};
 
-            file.LoadFromFile(path);
-            byte[] actual = file.GetBytes(0, 3);
+        public class LoadFromFileTests {
+            [Test]
+            public void Loads_abc_From_testfile1() {
+                DataFile file = new DataFile();
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+                byte[] expected = {97, 98, 99};
 
-            Assert.AreEqual(expected, actual);
-        }
-        [Test]
-        public void FileLoadsCorrectlyByConstructor() {
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/comparefile1";
-            byte[] expected = {97, 98, 99, 100, 101, 102, 49, 48, 49, 48};
-            DataFile file = new DataFile(path);
+                file.LoadFromFile(path);
+                byte[] actual = file.GetBytes(0, 3);
 
-            byte[] actual = file.GetBytes(0, 10);
+                Assert.AreEqual(expected, actual);
+            }
             
-            Assert.AreEqual(expected, actual);
-        }
+            [Test]
+            public void Loads_comparefile1_WithConstructor() {
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/comparefile1";
+                byte[] expected = {97, 98, 99, 100, 101, 102, 49, 48, 49, 48};
+                DataFile file = new DataFile(path);
 
-        [Test]
-        public void FileLoadsBinProgram() {
-            DataFile file = new DataFile();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testbin1";
-            byte[] expected = {127, 69, 76, 70, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 62, 
-                0, 1, 0, 0, 0, 16, 6, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 176, 25};
-
-            file.LoadFromFile(path);
-            byte[] actual = file.GetBytes(0, (uint)expected.Length);
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void ThrowsOutOfBoundsExceptionWhenGetStartAtLargerThanSize() {
-            DataFile file = new DataFile();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+                byte[] actual = file.GetBytes(0, 10);
             
-            file.LoadFromFile(path);
-            TestDelegate act = () => file.GetBytes(4, 1);
+                Assert.AreEqual(expected, actual);
+            }
+            
+            [Test]
+            public void LoadsBinaryTestFile_testbin1() {
+                DataFile file = new DataFile();
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testbin1";
+                byte[] expected = {127, 69, 76, 70, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 62, 
+                    0, 1, 0, 0, 0, 16, 6, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 176, 25};
 
-            Assert.Throws<IndexOutOfRangeException>(act);
+                file.LoadFromFile(path);
+                byte[] actual = file.GetBytes(0, (uint)expected.Length);
+
+                Assert.AreEqual(expected, actual);
+            }
         }
 
-        [Test]
-        public void ThrowsOutOfBoundsExceptionWhenLengthTooLarge() {
-            DataFile file = new DataFile();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+        public class GetBytesTests {
+            [Test]
+            public void ThrowsOutOfBoundsExceptionWhenGetStartAtLargerThanSize() {
+                DataFile file = new DataFile();
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+            
+                file.LoadFromFile(path);
+                TestDelegate act = () => file.GetBytes(4, 1);
 
-            file.LoadFromFile(path);
-            TestDelegate act = () => file.GetBytes(1, 3);
+                Assert.Throws<IndexOutOfRangeException>(act);
+            }
+            
+            [Test]
+            public void ThrowsOutOfBoundsExceptionWhenLengthTooLarge() {
+                DataFile file = new DataFile();
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
 
-            Assert.Throws<IndexOutOfRangeException>(act);
+                file.LoadFromFile(path);
+                TestDelegate act = () => file.GetBytes(1, 3);
+
+                Assert.Throws<IndexOutOfRangeException>(act);
+            }
+            
+            [Test]
+            public void GetBytesLenIsZeroOutputsEmptyArray() {
+                DataFile file = new DataFile();
+                byte[] expected = {};
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+
+                file.LoadFromFile(path);
+                byte[] actual = file.GetBytes(0, 0);
+
+                Assert.AreEqual(expected, actual);
+            }
         }
 
-        [Test]
-        public void GetBytesLenIsZeroOutputsEmptyArray() {
-            DataFile file = new DataFile();
-            byte[] expected = {};
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+        public class GetAllBytes {
+            [Test]
+            public void ReturnsAllBytesFrom_testfile1() {
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+                DataFile input = new DataFile(path);
+                byte[] expected = {97, 98, 99};
 
-            file.LoadFromFile(path);
-            byte[] actual = file.GetBytes(0, 0);
-
-            Assert.AreEqual(expected, actual);
+                byte[] actual = input.GetAllBytes();
+                
+                Assert.AreEqual(expected, actual);
+            }
         }
 
-        [Test]
-        public void FileLengthIsCorrect() {
-            DataFile file = new DataFile();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
-            uint expected = 3;
+        public class LengthTests {
+            [Test]
+            public void FileLengthIsCorrect() {
+                DataFile file = new DataFile();
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+                uint expected = 3;
 
-            file.LoadFromFile(path);
-            uint actual = file.Length;
+                file.LoadFromFile(path);
+                uint actual = file.Length;
 
-            Assert.AreEqual(expected, actual);
+                Assert.AreEqual(expected, actual);
+            }
+        
+            [Test]
+            public void FileLengthIsCorrect2() {
+                DataFile file = new DataFile();
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+                uint expected = 50;
+
+                file.LoadFromFile(path);
+                uint actual = file.Length;
+
+                Assert.AreEqual(expected, actual);
+            }
+        
+            [Test]
+            public void FileLengthIsCorrectZeroFromEmptyFile() {
+                DataFile file = new DataFile();
+                string path = TestContext.CurrentContext.TestDirectory + "../../../res/empty";
+                uint expected = 0;
+
+                file.LoadFromFile(path);
+                uint actual = file.Length;
+
+                Assert.AreEqual(expected, actual);
+            }
         }
-        [Test]
-        public void FileLengthIsCorrect2() {
-            DataFile file = new DataFile();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
-            uint expected = 50;
-
-            file.LoadFromFile(path);
-            uint actual = file.Length;
-
-            Assert.AreEqual(expected, actual);
-        }
-        [Test]
-        public void FileLengthIsCorrectZeroFromEmptyFile() {
-            DataFile file = new DataFile();
-            string path = TestContext.CurrentContext.TestDirectory + "../../../res/empty";
-            uint expected = 0;
-
-            file.LoadFromFile(path);
-            uint actual = file.Length;
-
-            Assert.AreEqual(expected, actual);
-        }
+        
         [Test]
         public void LoadBytesFromArray() {
             DataFile file = new DataFile();

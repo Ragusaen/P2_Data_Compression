@@ -1,16 +1,11 @@
-using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using Compression.ByteStructures;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
         private DataFile file;
         private int _maxOrder;
         private uint _defaultEscaping;
-        public List<ContextTable> OrderList { get; private set; }
+        public List<ContextTable> OrderList = new List<ContextTable>();
 
         public PredictionByPartialMatching(DataFile file, int maxOrder, uint defaultEscaping = 0) {
             _maxOrder = maxOrder;

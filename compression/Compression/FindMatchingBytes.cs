@@ -24,6 +24,14 @@ namespace Compression{
             }
             return null;
         }
+        
+        public static void FindLongestMostProbableSequenceMatch(byte[] haystack, byte[] context, byte[] prediction) {
+            for (int l = 0; l < prediction.Length; l++) {
+                ArraySegment<byte> match = new ArraySegment<byte>(prediction, l, prediction.Length - l);
+                
+                
+            }
+        }
 
         public static uint? FindArraySegment(byte[] haystack, ArraySegment<byte> match) {
             if (match.Count == 0)
