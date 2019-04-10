@@ -1,16 +1,38 @@
+using System;
+using System.Linq;
+using PDC;
+
 namespace Compression.ByteStructures{
     public struct UnevenByte{
         public uint Data;
         public uint Length;
-
+        
         public UnevenByte(uint data, uint length) {
             Data = data;
             Length = length;
         }
 
-        public byte GetBits(uint count) {
-            return (byte)((Data >> (int)(Length - count)) % (1 << (int)(Length + 1)));
+        public UnevenByte(byte[] input, uint bitStartIndex, uint bitLength) {
+            Length = bitLength;
+            Data = (uint)(input[0] % (1 << (int)(8 - bitStartIndex)));
+
+            for (int i = 1; i < input.Length - 1; ++i) {
+                Data <<= 8;
+                Data += input[i];
+            }
+            
+            uint bitsInLastByte = (bitLength - (8 - bitStartIndex)) % 8;
+            if (bitsInLastByte == 0)
+                bitsInLastByte = 8;
+                
+            Data <<= (int)bitsInLastByte;
+            Data += (uint)(input.Last() >> (int)(8 - bitsInLastByte));
         }
+
+        public byte GetBits(uint count) {
+            return (byte)((Data >> (int)(Length - count)) % (1 << (int)Length));
+        }
+        
         public static int ArrayByteCount(UnevenByte[] array) {
             int res = 0;
             for (int i = 0; i < array.Length; i++)
@@ -45,6 +67,14 @@ namespace Compression.ByteStructures{
             }
 
             return resultArray;
+        }
+
+        public override string ToString() {
+            uint d = (uint) (Data % (1 << (int) (Length)));
+            string s = Convert.ToString(d, 2);
+            while (s.Length < Length)
+                s = "0" + s;
+            return s;
         }
     }
 }
