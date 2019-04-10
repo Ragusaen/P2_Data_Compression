@@ -53,20 +53,4 @@ namespace Compression.Arithmetic
             return new double[prevLow + (count *(prevHigh - prevLow))/totalCount,prevLow + (cumCount * (prevHigh - prevLow)) / totalCount];
         }      
     }
-
-    public double calcEntropy(List<ContextTable> ppmTables)
-    {
-        double entropy = 0; 
-        foreach(contexTable table in ppmTables)
-        {
-            foreach(contexTable content in table)
-            {
-                foreach(symbol s in content)
-                {
-
-                }
-            }
-        }
-        return entropy; 
-    }
 }   
