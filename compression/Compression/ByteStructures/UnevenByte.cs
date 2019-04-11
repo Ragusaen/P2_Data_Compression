@@ -41,15 +41,15 @@ namespace Compression.ByteStructures{
             return res % 8 == 0 ? res / 8 : res / 8 + 1;
         }
         
-        public static byte[] UnEvenBytesToBytes(UnevenByte[] unevenByteArray) {
-            byte[] resultArray = new byte[UnevenByte.ArrayByteCount(unevenByteArray)];
+        public static byte[] UnEvenBytesToBytes(UnevenByte[] unevenBytes) {
+            byte[] resultArray = new byte[UnevenByte.ArrayByteCount(unevenBytes)];
             uint resultIndex = 0;
             uint bitIndex = 0;
             
             
             // ubai = unevenBitsArrayIndex 
-            for (int ubai = 0; ubai < unevenByteArray.Length; ubai++) {
-                UnevenByte ub = unevenByteArray[ubai];
+            for (int ubai = 0; ubai < unevenBytes.Length; ubai++) {
+                UnevenByte ub = unevenBytes[ubai];
                 
                 while (ub.Length != 0) {
                     if (ub.Length >= 8 - bitIndex) {

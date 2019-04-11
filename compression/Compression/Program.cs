@@ -21,14 +21,14 @@ namespace Compression {
             compressed_file = lz77.Compress(input_file);
             Console.WriteLine("ARL before: " + RunLengthEncoding.AverageRunLength(data));
             
-                //compressed_file = lz77.Compress(input_file);
-                byte[] output = bwt.Transform(data);
-                //input_file.LoadBytes(output);
-                output = ByteChangeEncoder.EncodeBytes(output).ToBytes();
-                compressed_file.LoadBytes(output);
-
-                //Console.WriteLine("ARL after: " + AverageRunLength(output));
+            //compressed_file = lz77.Compress(input_file);
+            byte[] output = bwt.Transform(data);
             
+            //input_file.LoadBytes(output);
+            output = ByteChangeEncoder.EncodeBytes(output).ToBytes();
+            compressed_file.LoadBytes(output);
+            
+            //Console.WriteLine("ARL after: " + AverageRunLength(output));
             compressed_file.WriteToFile("../../res/out");
             
             DataFile restoredFile = lz77.Decompress(compressed_file);
