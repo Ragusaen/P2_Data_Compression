@@ -27,21 +27,36 @@ namespace Compression.Entropy {
        * @returns result: entropy of string
        */
         public double CalcEntropy(string s) {
-           var table = new Dictionary<char, int>();
-            foreach (char c in s) {
-                if (!table.ContainsKey(c))
-                    table.Add(c,1);
-                else
-                    table[c] += 1;
+            //check if string is not empty
+            if (s != null) {
+                //Convert string to byte[]
+                byte[] b = new byte[s.Length];
+                int num = 0;
+                foreach (char item in s.ToCharArray()) {
+                    b[num++] = (byte) item;
+                }
+                
+                //count byte frequencies into dictionary
+                var table = new Dictionary<byte, int>();
+                foreach (byte bt in b) {
+                    if (!table.ContainsKey(bt))
+                        table.Add(bt, 1);
+                    else
+                        table[bt] += 1;
+                }
+                
+                //calculate entropy
+                int len = b.Length;
+                double result = 0.0;
+                foreach (var item in table) {
+                    double freq = (double) item.Value / len;
+                    result += -(freq * LogCalc(freq, 2));
+                }
+
+                return result;
             }
 
-            int len = s.Length;
-            double result = 0.0;
-            foreach (var item in table) {
-                double freq = (double) item.Value / len;
-                result += -(freq * LogCalc(freq,2));
-            }
-            return result;
+            throw new ArgumentNullException(nameof(s));
         }
     }  
 }
