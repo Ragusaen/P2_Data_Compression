@@ -26,14 +26,12 @@ namespace UnitTesting.Entropy {
             [Test]
             public void StringFrequency() {
                 var cef = new Compression.Entropy.Entropy();
-                var results = cef.CalcEntropy("fem flade fldeboller p et fladt fldebollefad");
-
+                double results = cef.CalcEntropy("fem flade fldeboller p et fladt fldebollefad");
+                
                 const double expectedResult = 3.2540779268269016; 
                 
                 Assert.AreEqual(expectedResult,results);
-
             }
-            
         }
     }
 }
