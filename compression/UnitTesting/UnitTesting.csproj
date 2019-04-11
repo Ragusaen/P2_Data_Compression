@@ -77,6 +77,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\alphabet" />
     <Content Include="res\comparefile1" />
     <Content Include="res\comparefile2" />
     <Content Include="res\empty" />
