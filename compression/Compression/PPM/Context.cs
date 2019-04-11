@@ -1,7 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Compression.PPM{
-    public class Context {
+    public class Context : IEnumerable<Symbol> {
         public byte[] ContextBytes;
         public List<Symbol> SymbolList = new List<Symbol>();
         
@@ -19,6 +20,14 @@ namespace Compression.PPM{
             SymbolList[0].Count++; // Increments EscapeSymbol if a new symbol is added to that context
             SymbolList.Add(new Symbol(a));
             return true;
+        }
+
+        public IEnumerator<Symbol> GetEnumerator() {
+            return SymbolList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }
