@@ -17,8 +17,10 @@ namespace Compression {
         public DataFile(byte[] data) {
             LoadBytes(data);
         }
-        
-        public DataFile() {}
+
+        public DataFile() {
+            _byteArray = new byte[0];
+        }
 
         public byte[] GetBytes(uint start, uint len) {
             if (len == 0)
@@ -33,10 +35,16 @@ namespace Compression {
             
             return result;
         }
+        public byte GetByte(uint i) {
+            if(i >= _byteArray.Length)
+                throw new IndexOutOfRangeException();
+            
+            return _byteArray[i];
+        }
 
         public byte[] GetAllBytes() {
             return _byteArray;
-        }
+        }    
 
         public void LoadBytes(byte[] array) {
             _byteArray = array;

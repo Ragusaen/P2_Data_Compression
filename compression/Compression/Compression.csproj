@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AC\ArithmeticCoding.cs" />
+    <Compile Include="AC\ArithmeticEncoding.cs" />
     <Compile Include="BWT\BurrowWheelerTransform.cs" />
     <Compile Include="ByteMethods.cs" />
     <Compile Include="ByteStructures\ByteArrayComparer.cs" />
@@ -78,6 +80,8 @@
     <Compile Include="PDC\PredictionByDefinedContext.cs" />
     <Compile Include="PPM\ContextTable.cs" />
     <Compile Include="PPM\Context.cs" />
+    <Compile Include="PPM\ContextTablePrinter.cs" />
+    <Compile Include="PPM\Entry.cs" />
     <Compile Include="PPM\Letter.cs" />
     <Compile Include="PPM\PredictionByPartialMatching.cs" />
     <Compile Include="PPM\Symbol.cs" />

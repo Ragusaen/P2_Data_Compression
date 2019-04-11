@@ -1,24 +1,41 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
 
 namespace Compression.PPM{
-    public class ContextTable{
+    public class ContextTable : IEnumerable<Context> {
         public List<Context> ContextList = new List<Context>();
         public uint TotalCount;
+        private uint _defaultEscaping;
+        
+        
+        public ContextTable(uint defaultEscaping) {
+            _defaultEscaping = defaultEscaping;
+        }
+        
+        
 
-        public void UpdateContext(byte[] context, byte symbol) {
+        public bool UpdateContext(byte[] context, byte symbol) {
             int i = ContextAlreadyExist(context);
             
             if (i >= 0) { // execute if context was found in table
-                ContextList[i].Update(symbol);
+                bool newSymbol = ContextList[i].Update(symbol);
+                if (newSymbol)
+                    return false;
+                return true;
             }
-            else { // execute if context was not found in table
-                ContextList.Add(new Context(context));
-                ContextList[ContextList.Count-1].Update(symbol);
-            }
-        }
+            
+            // execute if context was not found in table
+            ContextList.Add(new Context(context));
+            ContextList[ContextList.Count-1].SymbolList.Add(new Symbol()); // Adds instance of Default Escaping Symbol
+            ContextList[ContextList.Count-1].SymbolList[0].Count = _defaultEscaping; // Sets count of <esc> to the desired Default Escaping
+            ContextList[ContextList.Count-1].Update(symbol);
+            return false;
+        } 
 
         private int ContextAlreadyExist(byte[] currentContext) {
             ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
@@ -50,6 +67,14 @@ namespace Compression.PPM{
                     ContextList[i].SymbolList[j].CumulativeCount = cumCount;
                 }
             }
+        }
+
+        public IEnumerator<Context> GetEnumerator() {
+            return ContextList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }
