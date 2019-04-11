@@ -36,7 +36,7 @@ namespace Compression {
 
         public byte[] GetAllBytes() {
             return _byteArray;
-        }
+        }    
 
         public void LoadBytes(byte[] array) {
             _byteArray = array;
