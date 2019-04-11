@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using Compression;
 using Compression.LZ;
+using Compression.ByteStructures;
 
 namespace UnitTesting.LZ {
     [TestFixture, Category("LZ77")]
