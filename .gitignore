@@ -1,5 +1,8 @@
 # Common IntelliJ Platform excludes
 
+compression/Compression/res/out
+compression/Compression/res/restored
+
 # User specific
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
