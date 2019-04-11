@@ -1,28 +1,23 @@
-using System;
 using System.Collections.Generic;
-using Compression.PPM;
 using System.Linq;
+using Compression.PPM;
 
-namespace Compression.Arithmetic
-{
-    public class ArithmeticEncoding
-    {
-
-        public DataFile encodingArithmetic(DataFile input, List<ContextTable> ppmTables)
-        {
-
-
+namespace Compression.Arithmetic{
+    public class ArithmeticEncoding{
+        public DataFile EncodingArithmetic(DataFile input, List<ContextTable> ppmTables){
             return null;
         }
 
-        public Dictionary<double[,], byte> setIntervals(List<CotextTable> ppmTables)
-        {
-            Dictionary<double[,], byte> byteIntervals = new Dictionary<double[,], byte>();
+        public Dictionary<byte, int> ProcessPpmTables(List<ContextTable> ppmTables){
+            return null;
+        }
+
+        public Dictionary<double[], byte> SetIntervals(List<ContextTable> ppmTables){
+            var byteIntervals = new Dictionary<double[], byte>();
             double resTag, low = 0, high = 1;
             int cumCount;
 
-            foreach (ContextTable table in ppmTables)
-            {
+            foreach (ContextTable table in ppmTables){
                 /*foreach(ContextInTable content in table) {
                  double tempLow = low, tempHigh = high;
                  
@@ -40,33 +35,17 @@ namespace Compression.Arithmetic
             return byteIntervals;
         }
 
-        public int calcTag(Dictionary<double[,], byte> byteIntervals)
-        {
-            double[,] uniqueTag = byteIntervals.Keys;
-            double[,] uniqueFinalTag = byteIntervals.Keys.Last;
+        public int CalcTag(Dictionary<double[,], byte> byteIntervals){
+            var uniqueFinalTag = byteIntervals.Keys.Last();
 
-            return null;
+            return 0;
         }
 
-        public double[,] calcInterval(double prevLow, double prevHigh, int count, int cumCount)
-        {
-            return new double[prevLow + (count *(prevHigh - prevLow))/totalCount,prevLow + (cumCount * (prevHigh - prevLow)) / totalCount];
-        }      
-    }
-
-    public double calcEntropy(List<ContextTable> ppmTables)
-    {
-        double entropy = 0; 
-        foreach(contexTable table in ppmTables)
-        {
-            foreach(contexTable content in table)
-            {
-                foreach(symbol s in content)
-                {
-
-                }
-            }
+        public double[] CalcInterval(double prevLow, double prevHigh, int count, int cumCount){
+            double totalCount = 0; // Skal fixes;
+            double lowInterval = prevLow + (double) count * (prevHigh - prevLow) / totalCount;
+            double highInterval = prevLow + (double) cumCount * (prevHigh - prevLow) / totalCount;
+            return new double[2] {lowInterval, highInterval};;
         }
-        return entropy; 
     }
-}   
+}

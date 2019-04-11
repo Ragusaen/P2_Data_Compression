@@ -1,13 +1,9 @@
-using Compression.PPM;
 using System.Collections.Generic;
+using Compression.PPM;
 
-namespace Compression.Arithmetic
-{
-    public class ArithmeticCoding
-    {
-        DataFile compress(DataFile input, List<ContextTable> ppmTables)
-        {
-            
+namespace Compression.Arithmetic{
+    public class ArithmeticCoding{
+        private DataFile compress(DataFile input, List<ContextTable> ppmTables){
             return input;
         }
     }
