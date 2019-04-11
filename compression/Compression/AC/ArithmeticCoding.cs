@@ -1,11 +1,11 @@
 using Compression.PPM;
 using System.Collections.Generic;
 
-namespace Compression.Arithmetic
+namespace Compression.AC
 {
     public class ArithmeticCoding
     {
-        DataFile compress(DataFile input, List<ContextTable> ppmTables)
+        public DataFile Compress(DataFile input, List<ContextTable> ppmTables)
         {
             
             return input;
