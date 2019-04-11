@@ -1,5 +1,5 @@
-using Compression.PPM;
 using System.Collections.Generic;
+using Compression.PPM;
 
 namespace Compression.AC{
     public class ArithmeticCoding{
