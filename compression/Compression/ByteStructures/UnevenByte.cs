@@ -16,17 +16,19 @@ namespace Compression.ByteStructures{
             Length = bitLength;
             Data = (uint)(input[0] % (1 << (int)(8 - bitStartIndex)));
 
-            for (int i = 1; i < input.Length - 1; ++i) {
-                Data <<= 8;
-                Data += input[i];
+            if (input.Length > 1) {
+                for (int i = 1; i < input.Length - 1; ++i) {
+                    Data <<= 8;
+                    Data += input[i];
+                }
+
+                uint bitsInLastByte = (bitLength - (8 - bitStartIndex)) % 8;
+                if (bitsInLastByte == 0)
+                    bitsInLastByte = 8;
+
+                Data <<= (int) bitsInLastByte;
+                Data += (uint) (input.Last() >> (int) (8 - bitsInLastByte));
             }
-            
-            uint bitsInLastByte = (bitLength - (8 - bitStartIndex)) % 8;
-            if (bitsInLastByte == 0)
-                bitsInLastByte = 8;
-                
-            Data <<= (int)bitsInLastByte;
-            Data += (uint)(input.Last() >> (int)(8 - bitsInLastByte));
         }
 
         public byte GetBits(uint count) {

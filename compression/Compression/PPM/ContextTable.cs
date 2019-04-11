@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
 
 namespace Compression.PPM{
-    public class ContextTable{
+    public class ContextTable : IEnumerable<Context> {
         public List<Context> ContextList = new List<Context>();
         public uint TotalCount;
         private uint _defaultEscaping;
@@ -15,6 +16,8 @@ namespace Compression.PPM{
         public ContextTable(uint defaultEscaping) {
             _defaultEscaping = defaultEscaping;
         }
+        
+        
 
         public bool UpdateContext(byte[] context, byte symbol) {
             int i = ContextAlreadyExist(context);
@@ -64,6 +67,14 @@ namespace Compression.PPM{
                     ContextList[i].SymbolList[j].CumulativeCount = cumCount;
                 }
             }
+        }
+
+        public IEnumerator<Context> GetEnumerator() {
+            return ContextList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }
