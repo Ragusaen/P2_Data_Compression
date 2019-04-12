@@ -2,24 +2,22 @@ using System.Collections.Generic;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
-        private DataFile file;
-        private int _maxOrder;
-        private uint _defaultEscaping;
+        private readonly uint _maxOrder;
+        private readonly uint _defaultEscaping;
         public List<ContextTable> OrderList = new List<ContextTable>();
 
-        public PredictionByPartialMatching(DataFile file, int maxOrder, uint defaultEscaping = 0) {
+        public PredictionByPartialMatching(uint maxOrder = 5, uint defaultEscaping = 0) {
             _maxOrder = maxOrder;
             _defaultEscaping = defaultEscaping;
-            this.file = file;
-            InitializeTables();
-            FillTables();
         }
         
-        public DataFile Compress(DataFile to_compress) {
-            throw new System.NotImplementedException();
+        public DataFile Compress(DataFile toCompress) {
+            InitializeTables();
+            FillTables(toCompress);
+            return toCompress;
         }
 
-        public DataFile Decompress(DataFile to_decompress) {
+        public DataFile Decompress(DataFile toDecompress) {
             throw new System.NotImplementedException();
         }
 
@@ -31,14 +29,13 @@ namespace Compression.PPM{
             }
         }
 
-        private void FillTables() {
+        private void FillTables(DataFile file) {
             if (file.Length == 0) // return if file is empty
                 return;
             
             for (uint i = 0; i < file.Length; i++) {
-                AddEntryToTable(new Entry(GetContextFromFile(i, _maxOrder), file.GetByte(i)));
+                AddEntryToTable(new Entry(GetContextFromFile(file, i), file.GetByte(i)));
             }
-
             CreateMinusFirstOrder();
         }
 
@@ -50,13 +47,13 @@ namespace Compression.PPM{
             }
         }
         
-        private byte[] GetContextFromFile(uint i, int currentOrder) {
-            if (currentOrder > 0) {
-                if (i >= _maxOrder)
-                    return file.GetBytes(i - (uint) currentOrder, (uint) currentOrder);
-                return file.GetBytes(0, i);
-            }
-            return new byte[0];
+        private byte[] GetContextFromFile(DataFile file, uint i) {
+            if (_maxOrder == 0)
+                return new byte[0];
+            
+            if(i > _maxOrder)
+                return file.GetBytes(i - _maxOrder, _maxOrder);
+            return file.GetBytes(0, i);
         }
 
         private void CreateMinusFirstOrder() {
