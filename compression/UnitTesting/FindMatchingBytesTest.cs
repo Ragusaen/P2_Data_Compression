@@ -3,7 +3,7 @@ using System.ComponentModel;
 using compression.ByteStructures;
 using Compression;
 using NUnit.Framework;
-
+/*
 namespace UnitTesting {
     [TestFixture, NUnit.Framework.Category("FindMatchingBytes")]
     public class TestFindMatchingBytes {
@@ -79,45 +79,6 @@ namespace UnitTesting {
             
             Assert.IsFalse(actual);
         }
-        
-        /*
-        [Test]
-        public void CompareArraySegmentsResultAsFalse() {
-            byte[] firstBytes = {102, 103, 104};
-            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
-            byte[] secondBytes = {102, 103, 105};
-            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
-            
-            Assert.IsFalse(FindMatchingBytes.CompareByteArraySegment(first, second));
-        }
-        [Test]
-        public void CompareArraySegmentsDifferentLengths() {
-            byte[] firstBytes = {102, 103};
-            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
-            byte[] secondBytes = {102, 103, 104};
-            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
-            
-            Assert.IsFalse(FindMatchingBytes.CompareByteArraySegment(first, second));
-        }
-        [Test]
-        public void CompareArraySegmentsSingleArrayIsZero() {
-            byte[] firstBytes = {};
-            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
-            byte[] secondBytes = {102, 103, 104};
-            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
-            
-            Assert.IsFalse(FindMatchingBytes.CompareByteArraySegment(first, second));
-        }
-        [Test]
-        public void CompareArraySegmentsBothArraysAreZero() {
-            byte[] firstBytes = {};
-            ArraySegment<byte> first = new ArraySegment<byte>(firstBytes);
-            byte[] secondBytes = {};
-            ArraySegment<byte> second = new ArraySegment<byte>(secondBytes);
-            
-            Assert.IsTrue(FindMatchingBytes.CompareByteArraySegment(first, second));
-        }
-        */
         
         [Test]        
         public void FindMatchFindNeedle() {
@@ -266,4 +227,4 @@ namespace UnitTesting {
             Assert.AreEqual(expected, actual);
         }
     }
-}
+}*/
