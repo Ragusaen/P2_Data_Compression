@@ -1,4 +1,5 @@
 using System;
+using compression.ByteStructures;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
@@ -12,16 +13,16 @@ namespace Compression.LZ {
             this.file = file;
         }
 
-        public EncodedByte Slide() {
+        public EncodedLZByte Slide() {
             if (AtEnd())
                 return null;
             
-            byte[] history = LoadHistory();
-            byte[] lookAhead = LoadLookAhead();
+            var history = LoadHistory();
+            var lookAhead = LoadLookAhead();
             
             MatchPointer? match = FindMatchingBytes.FindLongestMatch(history, lookAhead);
             
-            EncodedByte r;
+            EncodedLZByte r;
             if (match.HasValue) {
                 r = new PointerByte((uint) history.Length - match.Value.Offset - 1, match.Value.Length - 1);
                 currentIndex += match.Value.Length;
@@ -40,7 +41,7 @@ namespace Compression.LZ {
             return r;
         }
         
-        private byte[] LoadHistory() {
+        private ArrayIndexer<byte> LoadHistory() {
             uint historyIndex;
             if(historyLength > currentIndex) {
                 historyIndex = 0;
@@ -48,14 +49,13 @@ namespace Compression.LZ {
             else {
                 historyIndex = currentIndex - historyLength;
             }
-            
-            return file.GetBytes(historyIndex, currentIndex - historyIndex);
+            return file.GetArrayIndexer((int)historyIndex, (int)currentIndex - (int)historyIndex);
         }
 
-        private byte[] LoadLookAhead() {
+        private ArrayIndexer<byte> LoadLookAhead() {
             if (lookAheadLength + currentIndex > file.Length)
                 lookAheadLength = file.Length - currentIndex;
-            return file.GetBytes(currentIndex, lookAheadLength);
+            return file.GetArrayIndexer((int)currentIndex, (int)lookAheadLength);
         }
     
         public Boolean AtEnd() {

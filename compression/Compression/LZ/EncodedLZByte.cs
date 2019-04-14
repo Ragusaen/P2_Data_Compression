@@ -1,32 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
+using compression.ByteStructures;
 using Compression.ByteStructures;
 
 namespace Compression.LZ{
 
-    public abstract class EncodedLZByte : EncodedByte {
-        public sealed override EncodedByte UnevenByteToEncodedByte(UnevenByte unevenByte) {
-            if (unevenByte.GetBits(1) == 1) {
-                unevenByte.Length--;
-                uint pointerData = unevenByte.GetBits(PointerByte.POINTER_SIZE);
-                unevenByte.Length -= PointerByte.POINTER_SIZE;
-                uint lengthData = unevenByte.GetBits(PointerByte.LENGTH_SIZE);
-                return new PointerByte(pointerData + 1, lengthData + 1);
-            }
-            else {
-                unevenByte.Length--;
-                return new RawByte(unevenByte.GetBits(8));
-            }
-        }
+    public abstract class EncodedLZByte : EncodedByte { }
 
-        public override uint GetUnevenByteLength(byte firstByte) {
-            return ((firstByte & 0x80) != 0)
-                ? 1 + PointerByte.POINTER_SIZE + PointerByte.LENGTH_SIZE
-                : 1 + RawByte.RAW_SIZE;
-        }
-    }
-    
-    public class PointerByte : EncodedLZByte {
+    public class PointerByte : EncodedLZByte, IEquatable<PointerByte> {
         public const uint POINTER_SIZE = 12;
         public const uint LENGTH_SIZE = 4;
 
@@ -39,25 +21,37 @@ namespace Compression.LZ{
         }
 
         public static uint GetPointerSpan() {
-            uint result = 1;
-
-            for (int i = 0; i < POINTER_SIZE; i++) {
-                result *= 2;
-            }
-
-            return result;
-        }
-        
-        public static uint GetLengthSpan() {
             return 1 << (int)POINTER_SIZE;
         }
         
-        public override UnevenByte ToUnevenByte() {
-            uint data = (1 << (int) POINTER_SIZE) + Pointer;
-            data = (data << (int) LENGTH_SIZE) + Length;
-
-            return new UnevenByte(data, 17);
+        public static uint GetLengthSpan() {
+            return 1 << (int)LENGTH_SIZE;
         }
+
+        public override string ToString() {
+            return "Pointer: (" + Pointer + ", " + Length + ")";
+        }
+
+        #region IEquatable
+        public bool Equals(PointerByte other) {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Pointer == other.Pointer && Length == other.Length;
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((PointerByte) obj);
+        }
+
+        public override int GetHashCode() {
+            unchecked {
+                return ((int) Pointer * 397) ^ (int) Length;
+            }
+        }
+        #endregion
     }
 
     public class RawByte : EncodedLZByte {
@@ -69,8 +63,8 @@ namespace Compression.LZ{
             Data = data;
         }
 
-        public override UnevenByte ToUnevenByte() {
-            return new UnevenByte(Data,9);
+        public override string ToString() {
+            return "RawByte: " + (char)Data;
         }
     }
 }
