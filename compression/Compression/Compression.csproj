@@ -70,6 +70,7 @@
     <Compile Include="ByteStructures\EncodedByte.cs" />
     <Compile Include="ByteStructures\IEncodedByteConverter.cs" />
     <Compile Include="ByteStructures\UnevenByte.cs" />
+    <Compile Include="Entropy\Entropy.cs" />
     <Compile Include="ICompressor.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="FindMatchingBytes.cs" />

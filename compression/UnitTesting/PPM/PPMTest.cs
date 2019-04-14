@@ -371,70 +371,70 @@ namespace UnitTesting.PPM{
             [Test]
             public void InitializesCorrectNumberOfTables() {
                 DataFile file = new DataFile();
-                int order = 5;
                 int expected = 7;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 int actual = PPM.OrderList.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void CorrectNumberOfSymbolsInMinusFirstOrderFromTestFile1() {
-                int order = 5;
-                int expected = 3;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                int expected = 3;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 int actual = PPM.OrderList[0].ContextList[0].SymbolList.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void CorrectNumberOfSymbolsInMinusFirstOrderFromTestFile2() {
-                int order = 5;
-                int expected = 15;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
+                int expected = 15;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 int actual = PPM.OrderList[0].ContextList[0].SymbolList.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void CorrectNumberOfSymbolsInMinusFirstOrderFromTestFile3() {
-                int order = 5;
-                int expected = 4;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
                 DataFile file = new DataFile(inputPath);
+                int expected = 4;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 int actual = PPM.OrderList[0].ContextList[0].SymbolList.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void CorrectNumberOfSymbolsInZerothOrderFromTestFile1() {
-                int order = 5;
-                int expected = 4;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                int expected = 4;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 int actual = PPM.OrderList[1].ContextList[0].SymbolList.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void CorrectTotalCountInZerothOrder() {
-                int order = 5;
-                uint expected = 9;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
                 DataFile file = new DataFile(inputPath);
+                uint expected = 9;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 PPM.OrderList[1].CalculateTotalCount();
                 uint actual = PPM.OrderList[1].TotalCount;
                 
@@ -442,83 +442,83 @@ namespace UnitTesting.PPM{
             }
             [Test]
             public void AddsFirstSymbolToMinusFirstOrder() {
-                int order = 5;
-                byte expected = 97; // 'a'
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                byte expected = 97; // 'a'
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 byte actual = ((Letter)PPM.OrderList[0].ContextList[0].SymbolList[0].Data).Data;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void AddsSecondSymbolToMinusFirstOrder() {
-                int order = 5;
-                byte expected = 98; // 'b'
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                byte expected = 98; // 'b'
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 byte actual = ((Letter)PPM.OrderList[0].ContextList[0].SymbolList[1].Data).Data;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void AddsSymbolZerothOrder() {
-                int order = 5;
-                byte expected = 97; // 'a'
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                byte expected = 97; // 'a'
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 byte actual = ((Letter)PPM.OrderList[1].ContextList[0].SymbolList[1].Data).Data;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void AddsSymbolCInSecondContextFromAbcFile() {
-                int order = 5;
-                byte expected = 99; // c
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                byte expected = 99; // c
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 byte actual = ((Letter)PPM.OrderList[3].ContextList[0].SymbolList[1].Data).Data;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void AddsContextAbInSecondContextFromAbcFile() {
-                int order = 5;
-                byte[] expected = {97, 98}; // ab
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                byte[] expected = {97, 98}; // ab
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 byte[] actual = PPM.OrderList[3].ContextList[0].ContextBytes;
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void AddsCorrectNumberOfContextsInSecondOrder() {
-                int order = 5;
-                int expected = 4;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
                 DataFile file = new DataFile(inputPath);
+                int expected = 4;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 int actual = PPM.OrderList[3].ContextList.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void SecondOrderHasCorrectTotalCount() {
-                int order = 5;
-                int expected = 9; // abc:1    d:2   <esc>:4
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
                 DataFile file = new DataFile(inputPath);
+                int expected = 9; // abc:1    d:2   <esc>:4
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 PPM.OrderList[3].CalculateTotalCount();
                 int actual = (int)PPM.OrderList[3].TotalCount;
                 
@@ -526,10 +526,14 @@ namespace UnitTesting.PPM{
             }
             [Test]
             public void PrintTables() {
-                int order = 5;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
+                
+                ContextTablePrinter CTP = new ContextTablePrinter();
+                CTP.ConsolePrint(PPM.OrderList[0]);
                 
                 Assert.AreEqual(true,true);
             }
@@ -538,12 +542,12 @@ namespace UnitTesting.PPM{
         public class InputOrderTest{
             [Test]
             public void InputOrderIsZeroHasCorrectTotalCountInMinusFirstOrder() {
-                int order = 0;
-                int expected = 15;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
+                int expected = 15;
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 PPM.OrderList[0].CalculateTotalCount();
                 int actual = (int)PPM.OrderList[0].TotalCount;
 
@@ -551,12 +555,12 @@ namespace UnitTesting.PPM{
             }
             [Test]
             public void InputOrderIsZeroHasCorrectTotalCountInZerothOrder() {
-                int order = 0;
-                int expected = 50 + 15; // 50 from symbols + 15 from <esc>
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
+                int expected = 50 + 15; // 50 from symbols + 15 from <esc>
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching(0);
+                PPM.Compress(file);
                 PPM.OrderList[1].CalculateTotalCount();
                 int actual = (int) PPM.OrderList[1].TotalCount;
                 
@@ -564,12 +568,12 @@ namespace UnitTesting.PPM{
             }
             [Test]
             public void InputOrderIsOneHasCorrectTotalCountInZerothOrder() {
-                int order = 1;
-                int expected = 30 + 15;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
+                int expected = 30 + 15;
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
+                PPM.Compress(file);
                 PPM.OrderList[1].CalculateTotalCount();
                 int actual = (int)PPM.OrderList[1].TotalCount;
 
@@ -577,14 +581,14 @@ namespace UnitTesting.PPM{
             }
             [Test]
             public void InputOrderIsOneHasCorrectTotalCountInFirstOrder() {
-                int order = 1;
-                int expected = 49 + 29;
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
+                int expected = 49 + 29;
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(file, order);
+                PredictionByPartialMatching PPM = new PredictionByPartialMatching(1);
+                PPM.Compress(file);
                 PPM.OrderList[2].CalculateTotalCount();
-                int actual = (int)PPM.OrderList[2].TotalCount;
+                int actual = (int) PPM.OrderList[2].TotalCount;
 
                 Assert.AreEqual(expected, actual);
             }

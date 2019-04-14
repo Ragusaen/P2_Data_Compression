@@ -9,15 +9,14 @@ using System.Security.Cryptography;
 namespace Compression.PPM{
     public class ContextTable : IEnumerable<Context> {
         public List<Context> ContextList = new List<Context>();
+        public Dictionary<Context, List<Symbol>> ContextDict = new Dictionary<Context, List<Symbol>>();
         public uint TotalCount;
-        private uint _defaultEscaping;
+        private readonly uint _defaultEscaping;
         
         
         public ContextTable(uint defaultEscaping) {
             _defaultEscaping = defaultEscaping;
         }
-        
-        
 
         public bool UpdateContext(byte[] context, byte symbol) {
             int i = ContextAlreadyExist(context);
