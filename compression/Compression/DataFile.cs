@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using compression.ByteStructures;
 
 namespace Compression {
     public class DataFile{
@@ -35,6 +36,11 @@ namespace Compression {
             
             return result;
         }
+
+        public ArrayIndexer<byte> GetArrayIndexer(int start, int len) {
+            return new ArrayIndexer<byte>(_byteArray, start, len);
+        }
+        
         public byte GetByte(uint i) {
             if(i >= _byteArray.Length)
                 throw new IndexOutOfRangeException();
