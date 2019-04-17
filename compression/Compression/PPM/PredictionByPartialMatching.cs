@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
@@ -57,11 +60,17 @@ namespace Compression.PPM{
         }
 
         private void CreateMinusFirstOrder() {
-            OrderList[0] = new ContextTable(0);
-            OrderList[0].ContextList.Add(new Context(new byte[0]));
+            OrderList[0].ContextDict.Add(new SymbolList(), new SymbolDictionary());
+            ISymbol[] zeroOrderSymbols = OrderList[1].ContextDict[new SymbolList()].Keys.ToArray();
+            foreach(var u in zeroOrderSymbols)
+                Console.WriteLine(u);
+            int len = zeroOrderSymbols.Length;
             
-            for (var i = 1; i < OrderList[1].ContextList[0].SymbolList.Count; i++) {
-                OrderList[0].ContextList[0].SymbolList.Add(new Symbol(((Letter) OrderList[1].ContextList[0].SymbolList[i].Data).Data));
+            SymbolList empty = new SymbolList();
+            
+            for (int i = 0; i < len; i++) {
+                if(zeroOrderSymbols[i] is Letter)
+                    OrderList[0].ContextDict[empty].Add(zeroOrderSymbols[i], new SymbolInfo());
             }
         }
     }
