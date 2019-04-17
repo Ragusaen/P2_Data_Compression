@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using compression.ByteStructures;
 
 namespace Compression{
     public struct MatchPointer{
@@ -10,48 +11,34 @@ namespace Compression{
             Offset = offset;
             Length = length;
         }
+
+        public override string ToString() {
+            return "(" + Offset + ", " + Length + ")";
+        }
     }
 
     public class FindMatchingBytes{
-        public static MatchPointer? FindLongestMatch(byte[] haystack, byte[] needle) {
-            for (int l = needle.Length; l >= 2; l--) {
-                ArraySegment<byte> match = new ArraySegment<byte>(needle, 0, l);
-
-                uint? offset = FindArraySegment(haystack, match);
+        public static MatchPointer? FindLongestMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> needle) {
+            for (; needle.Length >= 2; --needle.Length) {
+                uint? offset = FindMatch(haystack, needle);
                 
                 if(offset.HasValue)
-                    return new MatchPointer(offset.Value, (uint) l);
+                    return new MatchPointer(offset.Value, (uint) needle.Length);
             }
             return null;
         }
-        
-        public static void FindLongestMostProbableSequenceMatch(byte[] haystack, byte[] context, byte[] prediction) {
-            for (int l = 0; l < prediction.Length; l++) {
-                ArraySegment<byte> match = new ArraySegment<byte>(prediction, l, prediction.Length - l);
-                
-                
-            }
-        }
 
-        public static uint? FindArraySegment(byte[] haystack, ArraySegment<byte> match) {
-            if (match.Count == 0)
-                return null;
-            
-            for (int i = 0; i <= haystack.Length - match.Count; i++) {
-                ArraySegment<byte> currentArray = new ArraySegment<byte>(haystack, i, match.Count);
-                
-                if (CompareByteArraySegment(currentArray, match))
+        public static uint? FindMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> match) {
+            for (int i = 0; i <= haystack.Length - match.Length; i++) {
+                if (CompareByteArraysByIndexing(haystack, i, match))
                     return (uint) i;
             }
             return null;
         }
 
-        public static Boolean CompareByteArraySegment(ArraySegment<byte> a, ArraySegment<byte> b) {
-            if (a.Count != b.Count)
-                return false;
-
-            for (int i = 0; i < a.Count; i++)
-                if (a.ElementAt(i) != b.ElementAt(i))
+        public static Boolean CompareByteArraysByIndexing(ArrayIndexer<byte> a, int index, ArrayIndexer<byte> b ) {
+            for (int i = 0; i < b.Length; ++i)
+                if (a[index + i] != b[i])
                     return false;
 
             return true;
