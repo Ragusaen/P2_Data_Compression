@@ -62,11 +62,13 @@
   <ItemGroup>
     <Compile Include="AC\ArithmeticCoding.cs" />
     <Compile Include="AC\ArithmeticEncoding.cs" />
+    <Compile Include="ArrayIndexer.cs" />
     <Compile Include="BWT\BurrowWheelerTransform.cs" />
     <Compile Include="ByteMethods.cs" />
     <Compile Include="ByteStructures\ByteArrayComparer.cs" />
     <Compile Include="ByteStructures\ByteArrayPrinter.cs" />
     <Compile Include="ByteStructures\EncodedByte.cs" />
+    <Compile Include="ByteStructures\IEncodedByteConverter.cs" />
     <Compile Include="ByteStructures\UnevenByte.cs" />
     <Compile Include="Entropy\Entropy.cs" />
     <Compile Include="ICompressor.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="FindMatchingBytes.cs" />
     <Compile Include="LZ\LZ77.cs" />
     <Compile Include="LZ\EncodedLZByte.cs" />
+    <Compile Include="LZ\LZByteConverter.cs" />
     <Compile Include="LZ\SlidingWindow.cs" />
     <Compile Include="PDC\ContextWindow.cs" />
     <Compile Include="PDC\EndcodedContextByte.cs" />

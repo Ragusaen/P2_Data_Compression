@@ -8,15 +8,17 @@ namespace Compression.LZ {
     public class LZ77 : ICompressor {
         public DataFile Compress(DataFile input) {
             SlidingWindow slidingWindow = new SlidingWindow(input);
-            List<EncodedByte> encodedByteArray = new List<EncodedByte>(0);
+            List<EncodedLZByte> encodedByteArray = new List<EncodedLZByte>(0);
             
             while(!slidingWindow.AtEnd()) {
                 encodedByteArray.Add(slidingWindow.Slide());
             }
+
+            LZByteConverter lzByteConverter = new LZByteConverter();
             
             UnevenByte[] unevenByteArray = new UnevenByte[encodedByteArray.Count];
             for (int i = 0; i < encodedByteArray.Count; i++)
-                unevenByteArray[i] = encodedByteArray[i].ToUnevenByte();
+                unevenByteArray[i] = lzByteConverter.ToUnevenByte(encodedByteArray[i]);
 
             byte[] bytes = UnevenByte.UnEvenBytesToBytes(unevenByteArray);
             
@@ -27,14 +29,14 @@ namespace Compression.LZ {
             byte[] inputBytes = dataFile.GetAllBytes();
             List<byte> outputBytes = new List<byte>();
             
-            PointerByte StupidMethodCallerObject = new PointerByte(0,0);
+            LZByteConverter lzByteConverter = new LZByteConverter();
 
             uint bitIndex = 0;
 
             for (int i = 0; i < inputBytes.Length;) {
                 // Calculate the UnevenByte length in bits
                 uint ubLength =
-                    StupidMethodCallerObject.GetUnevenByteLength((byte) (inputBytes[i] << (int)bitIndex));
+                    lzByteConverter.GetUnevenByteLength((byte) (inputBytes[i] << (int)bitIndex));
                 
                 // If it cannot fit within the remaining bits, we must be done
                 if (ubLength > (inputBytes.Length - i) * 8 - (bitIndex + 1))
@@ -51,21 +53,19 @@ namespace Compression.LZ {
                 UnevenByte ub = new UnevenByte(relevantBytes, bitIndex, ubLength);
                 
                 // Convert UnevenByte to EncodedLZByte
-                EncodedLZByte eb = (EncodedLZByte) StupidMethodCallerObject.UnevenByteToEncodedByte(ub);
+                EncodedLZByte eb =lzByteConverter.ToEncodedByte(ub);
                 
                 // Determine which type it is
                 if (eb is PointerByte) {
                     // If it is pointer by, add the bytes, that it points to, to the output
                     PointerByte pb = (PointerByte) eb;
                     int bi = (int) (outputBytes.Count - pb.Pointer);
-                    Console.WriteLine("Pointer(" + pb.Pointer + ", " + pb.Length + ")");
                     for (int ai = 0; ai < pb.Length; ++ai) {
                         outputBytes.Add(outputBytes[bi + ai]);
                     }
                 } else {
                     // If it is a raw byte, add the raw bytes to the output
                     outputBytes.Add(((RawByte) eb).Data);
-                    Console.WriteLine( "BI: " + bitIndex +  " " + (char)outputBytes.Last());
                 }
                 
                 // Update input array index
@@ -74,9 +74,6 @@ namespace Compression.LZ {
                 // Update the bit index
                 bitIndex = (bitIndex + (ubLength % 8)) % 8;
             }
-            
-            outputBytes.ForEach((b) => Console.Write((char)b));
-            Console.WriteLine();
             
             return new DataFile(outputBytes.ToArray());
         }

@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using Compression;
 using Compression.LZ;
@@ -36,13 +37,14 @@ namespace UnitTesting.LZ {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
             DataFile file = new DataFile(path);
             SlidingWindow sw = new SlidingWindow(file);
-            uint expected = 2;
+            var expected = new PointerByte(5, 2);
 
             for (int i = 0; i < 9; i++)
-                sw.Slide();
+                Console.WriteLine(sw.Slide());
+            
             PointerByte actual = (PointerByte) sw.Slide();
 
-            Assert.AreEqual(expected, actual.Length);
+            Assert.AreEqual(expected, actual);
         }
 
         [Test]

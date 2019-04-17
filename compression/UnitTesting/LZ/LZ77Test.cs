@@ -18,8 +18,6 @@ namespace UnitTesting.LZ {
                 LZ77 comp = new LZ77();
                 DataFile actualFile = comp.Compress(inputFile);
                 
-                ByteArrayPrinter.PrintBits(actualFile.GetBytes(0, actualFile.Length));
-                
                 Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
             }
             [Test]
