@@ -74,6 +74,7 @@
     <Compile Include="ICompressor.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="FindMatchingBytes.cs" />
+    <Compile Include="LZ\CFindMatchingBytes.cs" />
     <Compile Include="LZ\LZ77.cs" />
     <Compile Include="LZ\EncodedLZByte.cs" />
     <Compile Include="LZ\LZByteConverter.cs" />
@@ -96,6 +97,9 @@
     <Compile Include="RLE\RunLengthEncoding.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CWrappers\libfindmatchingbytes.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\big.txt" />
     <Content Include="res\hcandersen.txt" />
   </ItemGroup>
