@@ -38,7 +38,7 @@ namespace UnitTesting {
                     0, 1, 0, 0, 0, 16, 6, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 176, 25};
 
                 file.LoadFromFile(path);
-                byte[] actual = file.GetBytes(0, (uint)expected.Length);
+                byte[] actual = file.GetBytes(0, expected.Length);
 
                 Assert.AreEqual(expected, actual);
             }
@@ -98,10 +98,10 @@ namespace UnitTesting {
             public void FileLengthIsCorrect() {
                 DataFile file = new DataFile();
                 string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
-                uint expected = 3;
+                int expected = 3;
 
                 file.LoadFromFile(path);
-                uint actual = file.Length;
+                int actual = file.Length;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -110,10 +110,10 @@ namespace UnitTesting {
             public void FileLengthIsCorrect2() {
                 DataFile file = new DataFile();
                 string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
-                uint expected = 50;
+                int expected = 50;
 
                 file.LoadFromFile(path);
-                uint actual = file.Length;
+                int actual = file.Length;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -122,10 +122,10 @@ namespace UnitTesting {
             public void FileLengthIsCorrectZeroFromEmptyFile() {
                 DataFile file = new DataFile();
                 string path = TestContext.CurrentContext.TestDirectory + "../../../res/empty";
-                uint expected = 0;
+                int expected = 0;
 
                 file.LoadFromFile(path);
-                uint actual = file.Length;
+                int actual = file.Length;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -138,7 +138,7 @@ namespace UnitTesting {
             
             file.LoadBytes(inputArray);
             
-            Assert.AreEqual(inputArray, file.GetBytes(0,(uint)inputArray.Length));
+            Assert.AreEqual(inputArray, file.GetBytes(0,(int)inputArray.Length));
         }
         [Test]
         public void WriteToFile_abc() {

@@ -9,23 +9,23 @@ namespace Compression.LZ{
     public abstract class EncodedLZByte : EncodedByte { }
 
     public class PointerByte : EncodedLZByte, IEquatable<PointerByte> {
-        public const uint POINTER_SIZE = 12;
-        public const uint LENGTH_SIZE = 4;
+        public const int POINTER_SIZE = 12;
+        public const int LENGTH_SIZE = 4;
 
-        public uint Pointer;
-        public uint Length;
+        public int Pointer;
+        public int Length;
         
-        public PointerByte(uint pointer, uint length) {
+        public PointerByte(int pointer, int length) {
             Pointer = pointer;
             Length = length;
         }
 
-        public static uint GetPointerSpan() {
-            return 1 << (int)POINTER_SIZE;
+        public static int GetPointerSpan() {
+            return 1 << POINTER_SIZE;
         }
         
-        public static uint GetLengthSpan() {
-            return 1 << (int)LENGTH_SIZE;
+        public static int GetLengthSpan() {
+            return 1 << LENGTH_SIZE;
         }
 
         public override string ToString() {

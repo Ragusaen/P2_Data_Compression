@@ -10,11 +10,11 @@ namespace Compression.PPM{
     public class ContextTable : IEnumerable<Context> {
         public List<Context> ContextList = new List<Context>();
         public Dictionary<Context, List<Symbol>> ContextDict = new Dictionary<Context, List<Symbol>>();
-        public uint TotalCount;
-        private readonly uint _defaultEscaping;
+        public int TotalCount;
+        private readonly int _defaultEscaping;
         
         
-        public ContextTable(uint defaultEscaping) {
+        public ContextTable(int defaultEscaping) {
             _defaultEscaping = defaultEscaping;
         }
 
@@ -58,7 +58,7 @@ namespace Compression.PPM{
         }
 
         public void UpdateCumulativeCount() {
-            uint cumCount = 0;
+            int cumCount = 0;
             
             for (int i = 0; i < ContextList.Count; i++) {
                 for (int j = 0; j < ContextList[i].SymbolList.Count; j++) {
