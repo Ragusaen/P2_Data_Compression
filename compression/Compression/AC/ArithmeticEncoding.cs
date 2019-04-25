@@ -46,7 +46,7 @@ namespace Compression.Arithmetic{
             return 0;
         }
 
-        public double[] CalcInterval(double prevLow, double prevHigh, uint count, uint cumCount, uint totalCount){
+        public double[] CalcInterval(double prevLow, double prevHigh, int count, int cumCount, int totalCount){
             double lowInterval = prevLow + (double) count * (prevHigh - prevLow) / totalCount;
             double highInterval = prevLow + (double) cumCount * (prevHigh - prevLow) / totalCount;
             return new double[2] {lowInterval, highInterval};
