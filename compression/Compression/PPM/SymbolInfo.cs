@@ -1,9 +1,9 @@
 namespace Compression.PPM{
     public class SymbolInfo{
-        public uint Count;
-        public uint CumulativeCount;
+        public int Count;
+        public int CumulativeCount;
 
-        public SymbolInfo(uint count = 1, uint cumulative = 0) {
+        public SymbolInfo(int count = 1, int cumulative = 0) {
             Count = count;
             CumulativeCount = cumulative;
         }

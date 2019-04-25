@@ -7,10 +7,10 @@ using Microsoft.SqlServer.Server;
 namespace Compression.PPM{
     public class ContextTable : IEnumerable<Dictionary<ISymbol, SymbolInfo>> {
         public Dictionary<SymbolList, SymbolDictionary> ContextDict = new Dictionary<SymbolList, SymbolDictionary>();
-        public uint TotalCount;
-        private readonly uint _defaultEscaping;
+        public int TotalCount;
+        private readonly int _defaultEscaping;
         
-        public ContextTable(uint defaultEscaping = 0) {
+        public ContextTable(int defaultEscaping = 0) {
             _defaultEscaping = defaultEscaping;
         }
 
@@ -36,11 +36,11 @@ namespace Compression.PPM{
         }
 
         public void CalculateTotalCount() {
-            TotalCount = (uint) ContextDict.Values.Sum(p => p.Sum(q => q.Value.Count));
+            TotalCount = ContextDict.Values.Sum(p => p.Sum(q => q.Value.Count));
         }
 
         public void UpdateCumulativeCount() {
-            uint cumCount = 0;
+            int cumCount = 0;
 
             foreach (var t in ContextDict.Values) {
                 foreach (var t1 in t) {
