@@ -1,75 +1,56 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Cryptography;
+using Microsoft.SqlServer.Server;
 
 namespace Compression.PPM{
-    public class ContextTable : IEnumerable<Context> {
-        public List<Context> ContextList = new List<Context>();
-        public Dictionary<Context, List<Symbol>> ContextDict = new Dictionary<Context, List<Symbol>>();
+    public class ContextTable : IEnumerable<Dictionary<ISymbol, SymbolInfo>> {
+        public Dictionary<SymbolList, SymbolDictionary> ContextDict = new Dictionary<SymbolList, SymbolDictionary>();
         public int TotalCount;
         private readonly int _defaultEscaping;
         
-        
-        public ContextTable(int defaultEscaping) {
+        public ContextTable(int defaultEscaping = 0) {
             _defaultEscaping = defaultEscaping;
         }
 
-        public bool UpdateContext(byte[] context, byte symbol) {
-            int i = ContextAlreadyExist(context);
+        public bool UpdateContext(byte[] inputContext, byte inputSymbol) {
+            SymbolList context = new SymbolList(inputContext);
+            ISymbol symbol = ByteToISymbol.ConvertSingle(inputSymbol);
+            ISymbol escape = new EscapeSymbol();
             
-            if (i >= 0) { // execute if context was found in table
-                bool newSymbol = ContextList[i].Update(symbol);
-                if (newSymbol)
-                    return false;
+            if (!ContextDict.ContainsKey(context)) {
+                ContextDict.Add(context, new SymbolDictionary());
+                ContextDict[context].Add(escape, new SymbolInfo(count:_defaultEscaping));
+                ContextDict[context].AddNew(symbol);
+                return false;
+            }
+
+            if (ContextDict[context].ContainsKey(symbol)) {
+                ContextDict[context][symbol].Count++;
                 return true;
             }
             
-            // execute if context was not found in table
-            ContextList.Add(new Context(context));
-            ContextList[ContextList.Count-1].SymbolList.Add(new Symbol()); // Adds instance of Default Escaping Symbol
-            ContextList[ContextList.Count-1].SymbolList[0].Count = _defaultEscaping; // Sets count of <esc> to the desired Default Escaping
-            ContextList[ContextList.Count-1].Update(symbol);
+            ContextDict[context].AddNew(symbol);
             return false;
-        } 
-
-        private int ContextAlreadyExist(byte[] currentContext) {
-            ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
-            
-            // Looks for context in order table, if found returns the index value
-            for (int i = 0; i < ContextList.Count; i++) {
-                if(byteArrayComparer.Compare(ContextList[i].ContextBytes, currentContext) == 0)
-                    return i; 
-            }
-            return -1;
         }
 
         public void CalculateTotalCount() {
-            TotalCount = 0;
-            
-            for (int i = 0; i < ContextList.Count; i++) {
-                for (int j = 0; j < ContextList[i].SymbolList.Count; j++) {
-                    TotalCount += ContextList[i].SymbolList[j].Count;
-                }
-            }
+            TotalCount = ContextDict.Values.Sum(p => p.Sum(q => q.Value.Count));
         }
 
         public void UpdateCumulativeCount() {
             int cumCount = 0;
-            
-            for (int i = 0; i < ContextList.Count; i++) {
-                for (int j = 0; j < ContextList[i].SymbolList.Count; j++) {
-                    cumCount += ContextList[i].SymbolList[j].Count;
-                    ContextList[i].SymbolList[j].CumulativeCount = cumCount;
+
+            foreach (var t in ContextDict.Values) {
+                foreach (var t1 in t) {
+                    t1.Value.CumulativeCount = cumCount += t1.Value.Count;
                 }
             }
         }
 
-        public IEnumerator<Context> GetEnumerator() {
-            return ContextList.GetEnumerator();
+        public IEnumerator<Dictionary<ISymbol, SymbolInfo>> GetEnumerator() {
+            return ContextDict.Values.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {

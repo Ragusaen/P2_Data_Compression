@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Compression;
+using Compression.ByteStructures;
 using Compression.PPM;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
@@ -8,34 +10,15 @@ using NUnit.Framework.Constraints;
 namespace UnitTesting.PPM{
     [TestFixture, Category("PPM")]
     public class PPMTest{
-        public class SymbolTest{
+        /*public class ContextTest{
             [Test]
-            public void NewSymbolNoParamsHasTypeOfEscapeSymbol() {
-                EscapeSymbol expected = new EscapeSymbol();
-
-                SymbolData actual = new Symbol().Data;
-
-                Assert.IsInstanceOf<EscapeSymbol>(actual);
-            }
-            [Test]
-            public void NewSymbolWithParamsHasCorrectData() {
-                Letter expected = new Letter(25);
-
-                SymbolData actual = new Symbol(25).Data;
-
-                Assert.IsInstanceOf<Letter>(actual);
-            }
-        }
-
-        public class ContextTest{
-            [Test]
-            public void NewSymbolAddsToList() {
+            public void NewSymbolAddsToDict() {
                 byte letter = 65;
                 byte[] context = {74, 68};
                 byte expected = 65;
 
                 Context a = new Context(context);
-                a.SymbolList.Add(new Symbol()); // Sets first element as Escape Symbol
+                a.SymbolList.Add(new ISymbol()); // Sets first element as Escape Symbol
                 a.Update(letter);
                 byte actual = ((Letter) a.SymbolList[1].Data).Data;
 
@@ -49,7 +32,7 @@ namespace UnitTesting.PPM{
                 int expected = 1;
 
                 Context a = new Context(context);
-                a.SymbolList.Add(new Symbol()); // Sets first element as Escape Symbol
+                a.SymbolList.Add(new ISymbol()); // Sets first element as Escape Symbol
                 a.Update(letter);
                 int actual = a.SymbolList[1].Count;
 
@@ -63,7 +46,7 @@ namespace UnitTesting.PPM{
                 byte[] expected = {74, 68};
 
                 Context a = new Context(context);
-                a.SymbolList.Add(new Symbol()); // Sets first element as Escape Symbol
+                a.SymbolList.Add(new ISymbol()); // Sets first element as Escape Symbol
                 a.Update(letter);
                 byte[] actual = a.ContextBytes;
 
@@ -79,7 +62,7 @@ namespace UnitTesting.PPM{
                 byte expected = 66;
 
                 Context a = new Context(context);
-                a.SymbolList.Add(new Symbol()); // Sets first element as Escape Symbol
+                a.SymbolList.Add(new ISymbol()); // Sets first element as Escape Symbol
                 a.Update(letter);
                 a.Update(letter2);
                 byte actual = ((Letter) a.SymbolList[2].Data).Data;
@@ -94,21 +77,21 @@ namespace UnitTesting.PPM{
                 int expected = 2;
 
                 Context a = new Context(context);
-                a.SymbolList.Add(new Symbol()); // Sets first element as Escape Symbol
+                a.SymbolList.Add(new ISymbol()); // Sets first element as Escape Symbol
                 a.Update(letter);
                 a.Update(letter);
                 int actual = a.SymbolList[1].Count;
 
                 Assert.AreEqual(expected, actual);
             }
-        }
-        public class EntryTest {
+        }*/
+        public class EntryTest{
             [Test]
             public void LowerContextInputLengthIs0() {
                 byte[] input = { };
                 Entry entry = new Entry(input, 11);
                 int expectedLen = 0;
-                
+
                 entry.NextContext();
                 byte[] actual = entry.Context;
 
@@ -127,15 +110,15 @@ namespace UnitTesting.PPM{
                 Assert.AreEqual(expectedLen, actual.Length);
             }
 
-        [Test]
+            [Test]
             public void LowerContextInputLengthIs2() {
                 byte[] input = {10, 11};
                 Entry entry = new Entry(input, 11);
                 byte expected = 11;
-                
+
                 entry.NextContext();
                 byte[] actual = entry.Context;
-                
+
                 Assert.AreEqual(expected, actual[0]);
             }
 
@@ -144,10 +127,10 @@ namespace UnitTesting.PPM{
                 byte[] input = {10, 11, 12, 13, 14};
                 byte[] expected = {11, 12, 13, 14};
                 Entry entry = new Entry(input, 11);
-                
+
                 entry.NextContext();
                 byte[] actual = entry.Context;
-                
+
                 ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
                 Assert.AreEqual(0, byteArrayComparer.Compare(expected, actual));
             }
@@ -156,25 +139,41 @@ namespace UnitTesting.PPM{
         public class ContextTableTest{
             [Test]
             public void UpdatePreviousContextIncrementsTotalCountBy1() {
-                byte letter = 65; 
+                byte letter = 65;
                 byte[] context = {74, 68};
+<<<<<<< HEAD
                 int defaultEscaping = 1;
                 int expected = 1;
                 
                 ContextTable orderX = new ContextTable(defaultEscaping);
+=======
+                uint expected = 1;
+
+                ContextTable orderX = new ContextTable();
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 orderX.UpdateContext(context, letter);
                 orderX.CalculateTotalCount();
                 int first = orderX.TotalCount;
                 orderX.UpdateContext(context, letter);
                 orderX.CalculateTotalCount();
+<<<<<<< HEAD
                 int second = orderX.TotalCount;
                 int actual = second - first;
                 
+=======
+                uint second = orderX.TotalCount;
+                uint actual = second - first;
+
+                ContextTablePrinter CTP = new ContextTablePrinter();
+                CTP.ConsolePrint(orderX);
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 Assert.AreEqual(expected, actual);
             }
 
             [Test]
             public void UpdateCumCountIncrementsCumulativeCount() {
+<<<<<<< HEAD
                 byte letter = 65; 
                 byte letter2 = 61;
                 byte[] context = {74, 68}; 
@@ -182,188 +181,282 @@ namespace UnitTesting.PPM{
                 int expected = 4 + defaultEscaping;
                 
                 ContextTable orderX = new ContextTable(defaultEscaping);
+=======
+                byte letter = 65;
+                byte letter2 = 66;
+                byte[] context = {74, 68};
+                SymbolList contextSymbols = new SymbolList(context);
+                uint expected = 2;
+
+                ContextTable orderX = new ContextTable();
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 orderX.UpdateContext(context, letter);
+                orderX.UpdateCumulativeCount();
+                uint first = orderX.ContextDict[contextSymbols][new Letter(letter)].CumulativeCount;
                 orderX.UpdateContext(context, letter2);
                 orderX.UpdateCumulativeCount();
+<<<<<<< HEAD
                 int actual = orderX.ContextList[0].SymbolList[2].CumulativeCount;
+=======
+                uint second = orderX.ContextDict[contextSymbols][new Letter(letter2)].CumulativeCount;
+                uint actual = second - first;
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
 
                 Assert.AreEqual(expected, actual);
             }
+
             [Test]
+<<<<<<< HEAD
             public void UpdateCumCountIncrementsBy1() {
                 byte[] letterArray = {61, 62}; 
                 byte[] context = {74, 68}; 
                 int defaultEscaping = 1;
                 int expected = 1;
                 
+=======
+            public void CumCountIncrementsBy1() {
+                byte[] letterArray = {61, 62};
+                byte[] context = {74, 68};
+                SymbolList symbolList = new SymbolList(context);
+                uint defaultEscaping = 1;
+                uint expected = 1;
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 ContextTable orderX = new ContextTable(defaultEscaping);
-                for (int i = 0; i < letterArray.Length; i++) {
-                    orderX.UpdateContext(context, letterArray[i]);
+                foreach (var t in letterArray) {
+                    orderX.UpdateContext(context, t);
                 }
+
                 orderX.UpdateCumulativeCount();
+<<<<<<< HEAD
                 int actual = orderX.ContextList[0].SymbolList[2].CumulativeCount - orderX.ContextList[0].SymbolList[1].CumulativeCount;
+=======
+                uint actual = orderX.ContextDict[symbolList][new Letter(letterArray[1])].CumulativeCount -
+                              orderX.ContextDict[symbolList][new Letter(letterArray[0])].CumulativeCount;
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
 
                 Assert.AreEqual(expected, actual);
             }
+
             [Test]
             public void UpdateCumCountWithTwoSymbolArrays() {
+<<<<<<< HEAD
                 byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
                 byte[] context = {74, 68}; 
                 byte[] context2 = {68, 61}; 
                 int defaultEscaping = 1;
                 int expected = (int)letterArray.Length * 4 + defaultEscaping;
                 
+=======
+                byte letter = 65; // A
+                byte[] context = {74, 68};
+                byte[] context2 = {68, 61};
+                uint defaultEscaping = 1;
+                uint expected = 4 * 10 + 2 * defaultEscaping;
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 ContextTable orderX = new ContextTable(defaultEscaping);
-                for (int i = 0; i < letterArray.Length; i++) {
-                    orderX.UpdateContext(context, letterArray[i]);
+                for (byte i = 0; i < 10; i++) {
+                    orderX.UpdateContext(context, (byte) (letter + i));
                 }
-                for (int i = 0; i < letterArray.Length; i++) {
-                    orderX.UpdateContext(context2, letterArray[i]);
+
+                for (int i = 0; i < 10; i++) {
+                    orderX.UpdateContext(context2, (byte) (letter + i));
                 }
 
                 orderX.UpdateCumulativeCount();
+<<<<<<< HEAD
                 int actual = orderX.ContextList[1].SymbolList[9].CumulativeCount;
+=======
+                uint actual = orderX.ContextDict[new SymbolList(context2)].Last().Value.CumulativeCount;
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
 
                 Assert.AreEqual(expected, actual);
             }
+
             [Test]
-            public void SymbolListHasCorrectTotalCountInFirstContext() {
+            public void SymbolListHasCorrectCountsInFirstContext() {
                 byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
-                byte[] context = {74, 68}; 
-                byte[] context2 = {42, 77}; 
+                byte[] context = {74, 68};
+                byte[] context2 = {42, 77};
                 byte[] context3 = {55, 22};
+<<<<<<< HEAD
                 int defaultEscaping = 1;
                 int expected = 20 + defaultEscaping;
                 
+=======
+                uint defaultEscaping = 1;
+                uint expected = 20 + defaultEscaping;
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 ContextTable orderX = new ContextTable(defaultEscaping);
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context, letterArray[i]);
                 }
+
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context2, letterArray[i]);
                 }
+
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context3, letterArray[i]);
                 }
+<<<<<<< HEAD
                 int actual = 0;
                 for (int i = 0; i < orderX.ContextList[0].SymbolList.Count; i++) {
                     actual += orderX.ContextList[0].SymbolList[i].Count;
                 }
+=======
+
+                uint actual = (uint) orderX.ContextDict.First().Value.Sum(p => p.Value.Count);
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 
                 Assert.AreEqual(expected, actual);
             }
+
             [Test]
-            public void SymbolListHasCorrectTotalCountInMiddleContext() {
+            public void SymbolListHasCorrectCountsInMiddleContext() {
                 byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
-                byte[] context = {74, 68}; 
-                byte[] context2 = {42, 77}; 
+                byte[] context = {74, 68};
+                byte[] context2 = {42, 77};
                 byte[] context3 = {55, 22};
+<<<<<<< HEAD
                 int defaultEscaping = 1;
                 int expected = 20 + defaultEscaping;
                 
+=======
+                uint defaultEscaping = 1;
+                uint expected = 20 + defaultEscaping;
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 ContextTable orderX = new ContextTable(defaultEscaping);
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context, letterArray[i]);
                 }
+
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context2, letterArray[i]);
                 }
+
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context3, letterArray[i]);
                 }
+<<<<<<< HEAD
                 int actual = 0;
                 for (int i = 0; i < orderX.ContextList[0].SymbolList.Count; i++) {
                     actual += orderX.ContextList[1].SymbolList[i].Count;
                 }
                 
+=======
+
+                uint actual = (uint) orderX.ContextDict[new SymbolList(context2)].Sum(p => p.Value.Count);
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 Assert.AreEqual(expected, actual);
             }
+
             [Test]
-            public void SymbolListHasCorrectTotalCountInLastContext() {
+            public void SymbolListHasCorrectCountsInLastContext() {
                 byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
-                byte[] context = {74, 68}; 
-                byte[] context2 = {42, 77}; 
+                byte[] context = {74, 68};
+                byte[] context2 = {42, 77};
                 byte[] context3 = {55, 22};
+<<<<<<< HEAD
                 int defaultEscaping = 1;
                 int expected = 20 + defaultEscaping;
                 
+=======
+                uint defaultEscaping = 1;
+                uint expected = 20 + defaultEscaping;
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 ContextTable orderX = new ContextTable(defaultEscaping);
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context, letterArray[i]);
                 }
+
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context2, letterArray[i]);
                 }
+
                 for (int i = 0; i < letterArray.Length; i++) {
                     orderX.UpdateContext(context3, letterArray[i]);
                 }
+<<<<<<< HEAD
                 int actual = 0;
                 for (int i = 0; i < orderX.ContextList[0].SymbolList.Count; i++) {
                     actual += orderX.ContextList[2].SymbolList[i].Count;
                 }
                 
+=======
+
+                uint actual = (uint) orderX.ContextDict[new SymbolList(context3)].Sum(p => p.Value.Count);
+
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 Assert.AreEqual(expected, actual);
             }
+
             [Test]
             public void FirstContextAddsToTable() {
                 byte[] context = {74, 68};
                 byte symbol = 103;
+<<<<<<< HEAD
                 int defaultEscaping = 1;
                 ContextTable CT = new ContextTable(defaultEscaping);
+=======
+                ContextTable ct = new ContextTable();
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
 
-                CT.UpdateContext(context, symbol);
-                byte[] actual = CT.ContextList[0].ContextBytes;
-                
-                ByteArrayComparer BAC = new ByteArrayComparer();
-                Assert.AreEqual(0, BAC.Compare(context,actual));
+                ct.UpdateContext(context, symbol);
+
+                Assert.IsTrue(ct.ContextDict.ContainsKey(new SymbolList(context)));
             }
+
             [Test]
             public void SecondContextAddsToTable() {
                 byte[] context = {74, 68};
                 byte[] context2 = {70, 69};
                 byte symbol = 103;
-                ContextTable CT = new ContextTable(1);
+                ContextTable ct = new ContextTable();
 
-                CT.UpdateContext(context, symbol);
-                CT.UpdateContext(context2, symbol);
-                byte[] actual = CT.ContextList[1].ContextBytes;
-                
-                ByteArrayComparer BAC = new ByteArrayComparer();
-                Assert.AreEqual(0, BAC.Compare(context2,actual));
+                ct.UpdateContext(context, symbol);
+                ct.UpdateContext(context2, symbol);
+
+                Assert.IsTrue(ct.ContextDict.ContainsKey(new SymbolList(context2)));
             }
+
             [Test]
             public void NoContextAddsFirstSymbolToTable() {
                 byte symbol = 103;
-                ContextTable CT = new ContextTable(1);
+                ContextTable ct = new ContextTable();
 
-                CT.UpdateContext(new byte[0], symbol);
-                byte actual = ((Letter)CT.ContextList[0].SymbolList[1].Data).Data;
-                
-                Assert.AreEqual(symbol, actual);
+                ct.UpdateContext(new byte[0], symbol);
+
+                Assert.IsTrue(ct.ContextDict[new SymbolList(new byte[0])].ContainsKey(new Letter(symbol)));
             }
+
             [Test]
             public void NoContextAddsSecondSymbolToTable() {
                 byte symbol = 103;
                 byte symbol2 = 104;
-                ContextTable CT = new ContextTable(1);
+                ContextTable ct = new ContextTable();
 
-                CT.UpdateContext(new byte[0], symbol);
-                CT.UpdateContext(new byte[0], symbol2);
-                byte actual = ((Letter)CT.ContextList[0].SymbolList[2].Data).Data;
-                
-                Assert.AreEqual(symbol2, actual);
+                ct.UpdateContext(new byte[0], symbol);
+                ct.UpdateContext(new byte[0], symbol2);
+
+                Assert.IsTrue(ct.ContextDict[new SymbolList(new byte[0])].ContainsKey(new Letter(symbol2)));
             }
+
             [Test]
             public void NoContextAddsFifthSymbolToTable() {
-                byte symbol = 100; // d
-                byte expected = 104;
-                ContextTable CT = new ContextTable(1);
+                byte symbol = 100; // d -> expected = 104
+                ContextTable ct = new ContextTable(1);
 
 
                 for (int i = 0; i <= 5; i++)
-                    CT.UpdateContext(new byte[0], (byte)(symbol+i));    
-                byte actual = ((Letter)CT.ContextList[0].SymbolList[5].Data).Data;
-                Assert.AreEqual(expected, actual);
+                    ct.UpdateContext(new byte[0], (byte) (symbol + i));
+
+                Assert.IsTrue(ct.ContextDict[new SymbolList(new byte[0])].ContainsKey(new Letter(104)));
             }
         }
 
@@ -373,9 +466,9 @@ namespace UnitTesting.PPM{
                 DataFile file = new DataFile();
                 int expected = 7;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                int actual = PPM.OrderList.Count;
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
+                ppm.Compress(file);
+                int actual = ppm.OrderList.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -383,11 +476,14 @@ namespace UnitTesting.PPM{
             public void CorrectNumberOfSymbolsInMinusFirstOrderFromTestFile1() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 int expected = 3;
-                
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                int actual = PPM.OrderList[0].ContextList[0].SymbolList.Count;
+
+                ppm.Compress(file);
+                int actual = ppm.OrderList[0].ContextDict.Sum(p => p.Value.Count);
+
+                ContextTablePrinter CTP = new ContextTablePrinter();
+                CTP.ConsolePrint(ppm.OrderList[0]);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -395,11 +491,11 @@ namespace UnitTesting.PPM{
             public void CorrectNumberOfSymbolsInMinusFirstOrderFromTestFile2() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 int expected = 15;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                int actual = PPM.OrderList[0].ContextList[0].SymbolList.Count;
+                ppm.Compress(file);
+                int actual = ppm.OrderList[0].ContextDict.Sum(p => p.Value.Count);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -407,23 +503,23 @@ namespace UnitTesting.PPM{
             public void CorrectNumberOfSymbolsInMinusFirstOrderFromTestFile3() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 int expected = 4;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                int actual = PPM.OrderList[0].ContextList[0].SymbolList.Count;
-                
+                ppm.Compress(file);
+                int actual = ppm.OrderList[0].ContextDict.Sum(p => p.Value.Count);
+
                 Assert.AreEqual(expected, actual);
             }
             [Test]
             public void CorrectNumberOfSymbolsInZerothOrderFromTestFile1() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 int expected = 4;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                int actual = PPM.OrderList[1].ContextList[0].SymbolList.Count;
+                ppm.Compress(file);
+                int actual = ppm.OrderList[1].ContextDict.Sum(p => p.Value.Count);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -433,10 +529,17 @@ namespace UnitTesting.PPM{
                 DataFile file = new DataFile(inputPath);
                 int expected = 9;
                 
+<<<<<<< HEAD
                 PredictionByPartialMatching PPM = new PredictionByPartialMatching();
                 PPM.Compress(file);
                 PPM.OrderList[1].CalculateTotalCount();
                 int actual = PPM.OrderList[1].TotalCount;
+=======
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
+                ppm.Compress(file);
+                ppm.OrderList[1].CalculateTotalCount();
+                uint actual = ppm.OrderList[1].TotalCount;
+>>>>>>> 5f0c42772e8b0d100444fc2a43889dd5d2d96015
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -446,68 +549,65 @@ namespace UnitTesting.PPM{
                 DataFile file = new DataFile(inputPath);
                 byte expected = 97; // 'a'
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                byte actual = ((Letter)PPM.OrderList[0].ContextList[0].SymbolList[0].Data).Data;
-                
-                Assert.AreEqual(expected, actual);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
+                ppm.Compress(file);
+                                
+                Assert.IsTrue(ppm.OrderList[0].ContextDict[new SymbolList(new byte[0])].ContainsKey(new Letter(expected)));
             }
             [Test]
             public void AddsSecondSymbolToMinusFirstOrder() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 byte expected = 98; // 'b'
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                byte actual = ((Letter)PPM.OrderList[0].ContextList[0].SymbolList[1].Data).Data;
+                ppm.Compress(file);
                 
-                Assert.AreEqual(expected, actual);
+                Assert.IsTrue(ppm.OrderList[0].ContextDict[new SymbolList(new byte[0])].ContainsKey(new Letter(expected)));
             }
             [Test]
             public void AddsSymbolZerothOrder() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 byte expected = 97; // 'a'
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                byte actual = ((Letter)PPM.OrderList[1].ContextList[0].SymbolList[1].Data).Data;
+                ppm.Compress(file);
                 
-                Assert.AreEqual(expected, actual);
+                Assert.IsTrue(ppm.OrderList[1].ContextDict[new SymbolList(new byte[0])].ContainsKey(new Letter(expected)));
             }
             [Test]
             public void AddsSymbolCInSecondContextFromAbcFile() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 byte expected = 99; // c
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                byte actual = ((Letter)PPM.OrderList[3].ContextList[0].SymbolList[1].Data).Data;
+                ppm.Compress(file);
                 
-                Assert.AreEqual(expected, actual);
+                Assert.IsTrue(ppm.OrderList[3].ContextDict[new SymbolList(new byte[] {97, 98})].ContainsKey(new Letter(expected)));
+
             }
             [Test]
             public void AddsContextAbInSecondContextFromAbcFile() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 byte[] expected = {97, 98}; // ab
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                byte[] actual = PPM.OrderList[3].ContextList[0].ContextBytes;
-                Assert.AreEqual(expected, actual);
+                ppm.Compress(file);
+                
+                Assert.IsTrue(ppm.OrderList[3].ContextDict.ContainsKey(new SymbolList(expected)));
             }
             [Test]
             public void AddsCorrectNumberOfContextsInSecondOrder() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 int expected = 4;
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                int actual = PPM.OrderList[3].ContextList.Count;
+                ppm.Compress(file);
+                int actual = ppm.OrderList[3].ContextDict.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -515,12 +615,12 @@ namespace UnitTesting.PPM{
             public void SecondOrderHasCorrectTotalCount() {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
                 DataFile file = new DataFile(inputPath);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 int expected = 9; // abc:1    d:2   <esc>:4
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                PPM.OrderList[3].CalculateTotalCount();
-                int actual = (int)PPM.OrderList[3].TotalCount;
+                ppm.Compress(file);
+                ppm.OrderList[3].CalculateTotalCount();
+                int actual = (int)ppm.OrderList[3].TotalCount;
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -546,10 +646,10 @@ namespace UnitTesting.PPM{
                 DataFile file = new DataFile(inputPath);
                 int expected = 15;
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                PPM.OrderList[0].CalculateTotalCount();
-                int actual = (int)PPM.OrderList[0].TotalCount;
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
+                ppm.Compress(file);
+                ppm.OrderList[0].CalculateTotalCount();
+                int actual = (int)ppm.OrderList[0].TotalCount;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -559,10 +659,10 @@ namespace UnitTesting.PPM{
                 DataFile file = new DataFile(inputPath);
                 int expected = 50 + 15; // 50 from symbols + 15 from <esc>
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(0);
-                PPM.Compress(file);
-                PPM.OrderList[1].CalculateTotalCount();
-                int actual = (int) PPM.OrderList[1].TotalCount;
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching(0);
+                ppm.Compress(file);
+                ppm.OrderList[1].CalculateTotalCount();
+                int actual = (int) ppm.OrderList[1].TotalCount;
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -572,10 +672,10 @@ namespace UnitTesting.PPM{
                 DataFile file = new DataFile(inputPath);
                 int expected = 30 + 15;
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
-                PPM.OrderList[1].CalculateTotalCount();
-                int actual = (int)PPM.OrderList[1].TotalCount;
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
+                ppm.Compress(file);
+                ppm.OrderList[1].CalculateTotalCount();
+                int actual = (int)ppm.OrderList[1].TotalCount;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -585,10 +685,10 @@ namespace UnitTesting.PPM{
                 DataFile file = new DataFile(inputPath);
                 int expected = 49 + 29;
 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching(1);
-                PPM.Compress(file);
-                PPM.OrderList[2].CalculateTotalCount();
-                int actual = (int) PPM.OrderList[2].TotalCount;
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching(1);
+                ppm.Compress(file);
+                ppm.OrderList[2].CalculateTotalCount();
+                int actual = (int) ppm.OrderList[2].TotalCount;
 
                 Assert.AreEqual(expected, actual);
             }
