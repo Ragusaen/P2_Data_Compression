@@ -7,7 +7,7 @@ namespace Compression.PPM{
     public class SymbolDictionary : Dictionary<ISymbol, SymbolInfo>{
         public SymbolDictionary() { }
 
-        public SymbolDictionary(ISymbol symbol, uint symbolCount = 0) {
+        public SymbolDictionary(ISymbol symbol, int symbolCount = 0) {
             Add(symbol, new SymbolInfo(count: symbolCount));
         }
 

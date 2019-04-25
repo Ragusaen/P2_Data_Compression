@@ -5,11 +5,11 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
-        private readonly uint _maxOrder;
-        private readonly uint _defaultEscaping;
+        private readonly int _maxOrder;
+        private readonly int _defaultEscaping;
         public List<ContextTable> OrderList = new List<ContextTable>();
 
-        public PredictionByPartialMatching(uint maxOrder = 5, uint defaultEscaping = 0) {
+        public PredictionByPartialMatching(int maxOrder = 5, int defaultEscaping = 0) {
             _maxOrder = maxOrder;
             _defaultEscaping = defaultEscaping;
         }
@@ -36,7 +36,7 @@ namespace Compression.PPM{
             if (file.Length == 0) // return if file is empty
                 return;
             
-            for (uint i = 0; i < file.Length; i++) {
+            for (int i = 0; i < file.Length; i++) {
                 AddEntryToTable(new Entry(GetContextFromFile(file, i), file.GetByte(i)));
             }
             CreateMinusFirstOrder();
@@ -50,7 +50,7 @@ namespace Compression.PPM{
             }
         }
         
-        private byte[] GetContextFromFile(DataFile file, uint i) {
+        private byte[] GetContextFromFile(DataFile file, int i) {
             if (_maxOrder == 0)
                 return new byte[0];
             
