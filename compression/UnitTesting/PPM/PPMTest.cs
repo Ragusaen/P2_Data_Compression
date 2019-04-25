@@ -520,14 +520,14 @@ namespace UnitTesting.PPM{
             }
             [Test]
             public void PrintTables() {
-                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/hcandersen.txt";
                 DataFile file = new DataFile(inputPath);
                 
                 PredictionByPartialMatching PPM = new PredictionByPartialMatching();
                 PPM.Compress(file);
                 
                 ContextTablePrinter CTP = new ContextTablePrinter();
-                CTP.ConsolePrint(PPM.OrderList[0]);
+                CTP.ConsolePrint(PPM.OrderList[6]);
                 
                 Assert.AreEqual(true,true);
             }
