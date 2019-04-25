@@ -1,8 +1,8 @@
 namespace Compression.PPM{
     public class Symbol {
         public SymbolData Data;
-        public uint Count;
-        public uint CumulativeCount;
+        public int Count;
+        public int CumulativeCount;
 
         public Symbol(byte letter) {
             Data = new Letter(letter);

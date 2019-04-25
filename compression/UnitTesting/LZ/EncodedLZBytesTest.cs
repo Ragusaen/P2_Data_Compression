@@ -12,7 +12,7 @@ namespace UnitTesting.ByteStructures {
         public void PointerBytePointSpanIs4096WhenSize12() {
             uint expected = 4096;
 
-            uint actual = PointerByte.GetPointerSpan();
+            int actual = PointerByte.GetPointerSpan();
             
             Assert.AreEqual(expected, actual);
         }
