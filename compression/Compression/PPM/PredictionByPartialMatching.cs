@@ -73,5 +73,20 @@ namespace Compression.PPM{
                     OrderList[0].ContextDict[empty].Add(zeroOrderSymbols[i], new SymbolInfo());
             }
         }
+
+        public void EscapeToEnd() {
+            KeyValuePair<SymbolList, SymbolInfo> keyValuePair = new KeyValuePair<SymbolList, SymbolInfo>();
+            EscapeSymbol esc = new EscapeSymbol();
+            SymbolList escContext = new SymbolList {esc};
+            keyValuePair.Key.Add(esc);
+            int count = 0;
+            
+            
+            foreach (var t in OrderList) {
+                foreach (var context in t.ContextDict) {
+                    count = (int)context.Value[esc].Count;
+                }
+            }
+        }
     }
 }
