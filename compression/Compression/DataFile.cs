@@ -7,8 +7,8 @@ using compression.ByteStructures;
 namespace Compression {
     public class DataFile{
         private byte[] _byteArray;
-        public uint Length {
-            get { return (uint) _byteArray.Length; }
+        public int Length {
+            get { return _byteArray.Length; }
         }
 
         public DataFile(string path) {
@@ -23,7 +23,7 @@ namespace Compression {
             _byteArray = new byte[0];
         }
 
-        public byte[] GetBytes(uint start, uint len) {
+        public byte[] GetBytes(int start, int len) {
             if (len == 0)
                 return new byte[0];
             
@@ -41,7 +41,7 @@ namespace Compression {
             return new ArrayIndexer<byte>(_byteArray, start, len);
         }
         
-        public byte GetByte(uint i) {
+        public byte GetByte(int i) {
             if(i >= _byteArray.Length)
                 throw new IndexOutOfRangeException();
             

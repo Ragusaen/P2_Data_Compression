@@ -4,44 +4,44 @@ using compression.ByteStructures;
 
 namespace Compression{
     public struct MatchPointer{
-        public uint Offset;
-        public uint Length;
+        public int Index { get; }
+        public int Length { get; }
 
-        public MatchPointer(uint offset, uint length) {
-            Offset = offset;
+        public MatchPointer(int index, int length) {
+            Index = index;
             Length = length;
         }
 
         public override string ToString() {
-            return "(" + Offset + ", " + Length + ")";
+            return "(" + Index + ", " + Length + ")";
         }
     }
 
-    public class FindMatchingBytes{
-        public static MatchPointer? FindLongestMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> needle) {
-            for (; needle.Length >= 2; --needle.Length) {
-                uint? offset = FindMatch(haystack, needle);
-                
-                if(offset.HasValue)
-                    return new MatchPointer(offset.Value, (uint) needle.Length);
+    public static class FindMatchingBytes{
+        public static MatchPointer FindLongestMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> needle) {
+            int longestMatch = 1;
+            int indexOfLongestMatch = 0;
+            
+            //Find the longest match in the haystack
+            for (int i = 0; i < haystack.Length - longestMatch; ++i) {
+                int matchedBytes = MatchingBytesCount(haystack, i, needle);
+                if (matchedBytes > longestMatch) {
+                    longestMatch = matchedBytes;
+                    indexOfLongestMatch = i;
+                }
             }
-            return null;
-        }
 
-        public static uint? FindMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> match) {
-            for (int i = 0; i <= haystack.Length - match.Length; i++) {
-                if (CompareByteArraysByIndexing(haystack, i, match))
-                    return (uint) i;
-            }
-            return null;
+            if (longestMatch > 1)
+                return new MatchPointer(indexOfLongestMatch, longestMatch);
+            return new MatchPointer(0, 0);
         }
-
-        public static Boolean CompareByteArraysByIndexing(ArrayIndexer<byte> a, int index, ArrayIndexer<byte> b ) {
-            for (int i = 0; i < b.Length; ++i)
+        
+        public static int MatchingBytesCount(ArrayIndexer<byte> a, int index, ArrayIndexer<byte> b ) {
+            int i = 0;
+            for (; i < b.Length && index + i < a.Length; ++i)
                 if (a[index + i] != b[i])
-                    return false;
-
-            return true;
+                    return i;
+            return i;
         }
     }
 }
