@@ -153,9 +153,6 @@ namespace UnitTesting.PPM{
 
                 int second = orderX.TotalCount;
                 int actual = second - first;
-
-                ContextTablePrinter CTP = new ContextTablePrinter();
-                CTP.ConsolePrint(orderX);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -392,9 +389,6 @@ namespace UnitTesting.PPM{
 
                 ppm.Compress(file);
                 int actual = ppm.OrderList[0].ContextDict.Sum(p => p.Value.Count);
-
-                ContextTablePrinter CTP = new ContextTablePrinter();
-                CTP.ConsolePrint(ppm.OrderList[0]);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -533,11 +527,14 @@ namespace UnitTesting.PPM{
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile file = new DataFile(inputPath);
                 
-                PredictionByPartialMatching PPM = new PredictionByPartialMatching();
-                PPM.Compress(file);
+                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
+                ppm.Compress(file);
                 
-                ContextTablePrinter CTP = new ContextTablePrinter();
-                CTP.ConsolePrint(PPM.OrderList[0]);
+                ContextTablePrinter ctp = new ContextTablePrinter();
+                ppm.EscapeToEnd();
+                //ctp.ConsolePrint(ppm.OrderList[0]);
+                ctp.ConsolePrintAll(ppm);
+                
                 
                 Assert.AreEqual(true,true);
             }
@@ -579,7 +576,7 @@ namespace UnitTesting.PPM{
                 PredictionByPartialMatching ppm = new PredictionByPartialMatching();
                 ppm.Compress(file);
                 ppm.OrderList[1].CalculateTotalCount();
-                int actual = (int)ppm.OrderList[1].TotalCount;
+                int actual = ppm.OrderList[1].TotalCount;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -592,8 +589,8 @@ namespace UnitTesting.PPM{
                 PredictionByPartialMatching ppm = new PredictionByPartialMatching(1);
                 ppm.Compress(file);
                 ppm.OrderList[2].CalculateTotalCount();
-                int actual = (int) ppm.OrderList[2].TotalCount;
-
+                int actual = ppm.OrderList[2].TotalCount;
+                
                 Assert.AreEqual(expected, actual);
             }
         }
