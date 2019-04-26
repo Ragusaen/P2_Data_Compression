@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Compression.PPM;
@@ -5,12 +6,15 @@ using Compression.PPM;
 namespace Compression.Arithmetic{
     public class ArithmeticEncoding{
         public DataFile EncodingArithmetic(DataFile input, List<ContextTable> ppmTables){
+            
             return null;
         }
 
         public Dictionary<byte, int> ProcessPpmTables(List<ContextTable> ppmTables){
             return null;
         }
+        
+        
 
         public Dictionary<double[], byte> SetIntervals(List<ContextTable> ppmTables){
             var byteIntervals = new Dictionary<double[], byte>();
@@ -18,18 +22,19 @@ namespace Compression.Arithmetic{
             int cumCount;
 
             foreach (ContextTable table in ppmTables){
-                /*foreach(ContextInTable content in table) {
-                 double tempLow = low, tempHigh = high;
-                 
-                 double[,] interval = calcInterval(low, high, count, cumCount);
+                
+                foreach(var content in table.ContextDict) {
+                   
+                   foreach(var symbol in content.Value){
+                       double tempLow = low, tempHigh = high;
+                       double[] interval = CalcInterval(low, high, symbol.Value.Count , symbol.Value.CumulativeCount, table.TotalCount);
 
-                 low = interval[0][0];
-                 high = interval[0][1];
-                 foreach(Symbol s in content){
+                       low = interval[0];
+                       high = interval[1];
+                       byteIntervals.Add(interval, ((Letter) symbol.Key).Data);
+                   }
                  
-                 byteIntervals.Add(interval, s);
-                 }
-                 }*/
+                }
             }
 
             return byteIntervals;
@@ -41,11 +46,10 @@ namespace Compression.Arithmetic{
             return 0;
         }
 
-        public double[] CalcInterval(double prevLow, double prevHigh, int count, int cumCount){
-            double totalCount = 0; // Skal fixes;
+        public double[] CalcInterval(double prevLow, double prevHigh, int count, int cumCount, int totalCount){
             double lowInterval = prevLow + (double) count * (prevHigh - prevLow) / totalCount;
             double highInterval = prevLow + (double) cumCount * (prevHigh - prevLow) / totalCount;
-            return new double[2] {lowInterval, highInterval};;
+            return new double[2] {lowInterval, highInterval};
         }
     }
 }
