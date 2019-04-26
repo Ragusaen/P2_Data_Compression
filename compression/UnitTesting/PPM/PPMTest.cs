@@ -524,7 +524,7 @@ namespace UnitTesting.PPM{
             }
             [Test]
             public void PrintTables() {
-                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/hcandersen.txt";
                 DataFile file = new DataFile(inputPath);
                 
                 PredictionByPartialMatching ppm = new PredictionByPartialMatching();
@@ -534,7 +534,6 @@ namespace UnitTesting.PPM{
                 ppm.EscapeToEnd();
                 //ctp.ConsolePrint(ppm.OrderList[0]);
                 ctp.ConsolePrintAll(ppm);
-                
                 
                 Assert.AreEqual(true,true);
             }
