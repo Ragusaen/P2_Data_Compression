@@ -62,8 +62,6 @@ namespace Compression.PPM{
         private void CreateMinusFirstOrder() {
             OrderList[0].ContextDict.Add(new SymbolList(), new SymbolDictionary());
             ISymbol[] zeroOrderSymbols = OrderList[1].ContextDict[new SymbolList()].Keys.ToArray();
-            foreach(var u in zeroOrderSymbols)
-                Console.WriteLine(u);
             int len = zeroOrderSymbols.Length;
             
             SymbolList empty = new SymbolList();
@@ -74,17 +72,16 @@ namespace Compression.PPM{
             }
         }
 
-        public void EscapeToEnd() {
-            KeyValuePair<SymbolList, SymbolInfo> keyValuePair = new KeyValuePair<SymbolList, SymbolInfo>();
+        public void EscapeToEnd() { //trash
             EscapeSymbol esc = new EscapeSymbol();
-            SymbolList escContext = new SymbolList {esc};
-            keyValuePair.Key.Add(esc);
-            int count = 0;
-            
-            
-            foreach (var t in OrderList) {
+
+            for(int i = 1; i < _maxOrder+1; i++) {
+                var t = OrderList[i];
+                
                 foreach (var context in t.ContextDict) {
-                    count = (int)context.Value[esc].Count;
+                    var count = context.Value[esc].Count;
+                    context.Value.Remove(esc);
+                    context.Value.Add(esc, new SymbolInfo(count:count));
                 }
             }
         }

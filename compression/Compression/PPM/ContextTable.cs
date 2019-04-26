@@ -21,7 +21,7 @@ namespace Compression.PPM{
             
             if (!ContextDict.ContainsKey(context)) {
                 ContextDict.Add(context, new SymbolDictionary());
-                ContextDict[context].Add(escape, new SymbolInfo(count:_defaultEscaping));
+                ContextDict[context].Add(escape, new SymbolInfo(count:_defaultEscaping+1));
                 ContextDict[context].AddNew(symbol);
                 return false;
             }
@@ -32,6 +32,7 @@ namespace Compression.PPM{
             }
             
             ContextDict[context].AddNew(symbol);
+            ContextDict[context][escape].Count++;
             return false;
         }
 
