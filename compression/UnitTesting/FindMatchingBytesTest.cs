@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using compression.ByteStructures;
 using Compression;
+using Compression.ByteStructures;
 using Compression.LZ;
 using NUnit.Framework;
 
