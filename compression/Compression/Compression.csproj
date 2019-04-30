@@ -66,6 +66,12 @@
     <Compile Include="ByteStructures\ByteArrayPrinter.cs" />
     <Compile Include="ByteStructures\EncodedByte.cs" />
     <Compile Include="ByteStructures\UnevenByte.cs" />
+    <Compile Include="Huffman\Decode.cs" />
+    <Compile Include="Huffman\Decode_2.cs" />
+    <Compile Include="Huffman\Decode_3.cs" />
+    <Compile Include="Huffman\Encode.cs" />
+    <Compile Include="Huffman\Nodes.cs" />
+    <Compile Include="Huffman\Tree.cs" />
     <Compile Include="ICompressor.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="FindMatchingBytes.cs" />
