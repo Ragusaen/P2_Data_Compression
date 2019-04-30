@@ -1,30 +1,31 @@
 using System;
+using compression.ByteStructures;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
     public class SlidingWindow{
         private DataFile file;
-        private uint currentIndex = 0;
-        private uint historyLength = PointerByte.GetPointerSpan();
-        private uint lookAheadLength = PointerByte.GetLengthSpan();
+        private int currentIndex = 0;
+        private int historyLength = PointerByte.GetPointerSpan();
+        private int lookAheadLength = PointerByte.GetLengthSpan();
 
         public SlidingWindow(DataFile file) {
             this.file = file;
         }
 
-        public EncodedByte Slide() {
+        public EncodedLZByte Slide() {
             if (AtEnd())
                 return null;
             
-            byte[] history = LoadHistory();
-            byte[] lookAhead = LoadLookAhead();
+            var history = LoadHistory();
+            var lookAhead = LoadLookAhead();
             
-            MatchPointer? match = FindMatchingBytes.FindLongestMatch(history, lookAhead);
+            MatchPointer match = FindMatchingBytes.FindLongestMatch(history, lookAhead);
             
-            EncodedByte r;
-            if (match.HasValue) {
-                r = new PointerByte((uint) history.Length - match.Value.Offset - 1, match.Value.Length - 1);
-                currentIndex += match.Value.Length;
+            EncodedLZByte r;
+            if (match.Length != 0) {
+                r = new PointerByte( history.Length - match.Index - 1, match.Length - 1);
+                currentIndex += match.Length;
             }
             else {
                 r = new RawByte(lookAhead[0]);
@@ -40,22 +41,21 @@ namespace Compression.LZ {
             return r;
         }
         
-        private byte[] LoadHistory() {
-            uint historyIndex;
+        private ArrayIndexer<byte> LoadHistory() {
+            int historyIndex;
             if(historyLength > currentIndex) {
                 historyIndex = 0;
             }
             else {
                 historyIndex = currentIndex - historyLength;
             }
-            
-            return file.GetBytes(historyIndex, currentIndex - historyIndex);
+            return file.GetArrayIndexer(historyIndex, currentIndex - historyIndex);
         }
 
-        private byte[] LoadLookAhead() {
+        private ArrayIndexer<byte> LoadLookAhead() {
             if (lookAheadLength + currentIndex > file.Length)
-                lookAheadLength = file.Length - currentIndex;
-            return file.GetBytes(currentIndex, lookAheadLength);
+                lookAheadLength = (int)file.Length - currentIndex;
+            return file.GetArrayIndexer(currentIndex, lookAheadLength);
         }
     
         public Boolean AtEnd() {
