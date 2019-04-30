@@ -69,6 +69,10 @@
     <Compile Include="ByteStructures\UnevenByteTest.cs" />
     <Compile Include="DataFileTest.cs" />
     <Compile Include="FindMatchingBytesTest.cs" />
+    <Compile Include="Huffman\RecreateMap.cs" />
+    <Compile Include="Huffman\ListOfLeaves.cs" />
+    <Compile Include="Huffman\ListOfTree.cs" />
+    <Compile Include="Huffman\TreeCode.cs" />
     <Compile Include="LZ\EncodedLZBytesTest.cs" />
     <Compile Include="LZ\LZ77Test.cs" />
     <Compile Include="LZ\SlidingWindowTest.cs" />
