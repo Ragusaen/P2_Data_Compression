@@ -4,15 +4,15 @@ using Compression.PPM;
 
 namespace Compression.Arithmetic{
     public class ArithmeticEncoding : DataFileIterator {
-        private double _low, _high; 
+        private double _low = 0, _high = 100; 
         public ArithmeticEncoding(DataFile file, double low, double high) : base(file) {
-            this._low = low;
-            this._high = high;
+            _low = low;
+            _high = high;
         }  
 
         public Dictionary<double[], byte> SetIntervals(List<ContextTable> ppmTables){
             var byteIntervals = new Dictionary<double[], byte>();
-            double resTag, low = 0, high = 1;
+            double resTag;
             int cumCount;
 
             foreach (ContextTable table in ppmTables){
@@ -21,11 +21,11 @@ namespace Compression.Arithmetic{
                 foreach(var content in table.ContextDict) {   
                    foreach(var symbol in content.Value){
                        if(symbol.Key is Letter letter){
-                          double tempLow = low, tempHigh = high;
-                          double[] interval = CalcInterval(low, high, symbol.Value.Count , symbol.Value.CumulativeCount, table.TotalCount);
+                          double tempLow = _low, tempHigh = _high;
+                          double[] interval = CalcInterval(_low, _high, symbol.Value.Count , symbol.Value.CumulativeCount, table.TotalCount);
 
-                          low = interval[0];
-                          high = interval[1];
+                          _low = interval[0];
+                          _high = interval[1];
                         
                           byteIntervals.Add(interval, letter.Data);
                        }
@@ -37,6 +37,17 @@ namespace Compression.Arithmetic{
             return byteIntervals;
         }
 
+        public ContextTable EvalTable(ContextTable ppmTable) {
+            foreach (var t in ppmTable) {
+                foreach (var symbol in t) {
+                    if (symbol.Key is Letter letter) {
+                        
+                    }
+                }
+            }
+            return ppmTable; 
+        }
+        
         public int CalcTag(Dictionary<double[,], byte> byteIntervals){
             var uniqueFinalTag = byteIntervals.Keys.Last();
 
@@ -44,7 +55,6 @@ namespace Compression.Arithmetic{
         }
 
         public double[] CalcInterval(double prevLow, double prevHigh, int count, int cumCount, int totalCount){
-            while (!AtEnd()) { }
 
             double lowInterval = prevLow + (double) count * (prevHigh - prevLow) / totalCount;
             double highInterval = prevLow + (double) cumCount * (prevHigh - prevLow) / totalCount;
