@@ -31,10 +31,10 @@ namespace Compression.LZ {
             throw new ArgumentException("EncodedByte was not of valid type");
         }
 
-        public uint GetUnevenByteLength(byte firstByte) {
-            return ((firstByte & 0x80) != 0)
+        public int GetUnevenByteLength(byte firstByte) {
+            return (int)(((firstByte & 0x80) != 0)
                 ? 1 + PointerByte.POINTER_SIZE + PointerByte.LENGTH_SIZE
-                : 1 + RawByte.RAW_SIZE;
+                : 1 + RawByte.RAW_SIZE);
         }
     }
 }
