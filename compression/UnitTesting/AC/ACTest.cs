@@ -16,7 +16,7 @@ namespace UnitTesting.AC{
             
             DataFile file = new DataFile(inputPath);
             PredictionByPartialMatching ppm = new PredictionByPartialMatching();
-            ArithmeticEncoding ae = new ArithmeticEncoding();
+            ArithmeticEncoding ae = new ArithmeticEncoding(file, 0, 100);
             
             ppm.Compress(file);
             ppm.EscapeToEnd();
