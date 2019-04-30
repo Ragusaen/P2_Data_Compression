@@ -1,3 +1,5 @@
+using System;
+
 namespace Compression {
     public class ByteMethods {
         public static string ByteArrayToString(byte[] b) {
@@ -5,6 +7,15 @@ namespace Compression {
             for (int i = 0; i < b.Length; i++)
                 res += (char) b[i];
             return res;
+        }
+
+        public static string ByteToBinaryString(byte b) {
+            return Convert.ToString(b, 2).PadLeft(8, '0');
+        }
+
+        public static byte BinaryStringToByte(string s) {
+            int i = Convert.ToInt32(s, 2);
+            return (byte)i;
         }
 
         public static byte[] StringToByteArray(string s) {

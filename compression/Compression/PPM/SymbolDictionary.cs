@@ -13,7 +13,6 @@ namespace Compression.PPM{
 
         public void AddNew(ISymbol symbol) {
             Add(symbol, new SymbolInfo());
-            this[new EscapeSymbol()].Count++;
         }
     }
 }

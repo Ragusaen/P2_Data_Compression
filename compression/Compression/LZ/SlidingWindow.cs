@@ -1,16 +1,12 @@
 using System;
 using compression.ByteStructures;
-using Compression.ByteStructures;
 
 namespace Compression.LZ {
-    public class SlidingWindow{
-        private DataFile file;
-        private int currentIndex = 0;
-        private int historyLength = PointerByte.GetPointerSpan();
-        private int lookAheadLength = PointerByte.GetLengthSpan();
+    public class SlidingWindow : DataFileIterator{
+        private int _historyLength = PointerByte.GetPointerSpan();
+        private int _lookAheadLength = PointerByte.GetLengthSpan();
 
-        public SlidingWindow(DataFile file) {
-            this.file = file;
+        public SlidingWindow(DataFile file) : base(file) {
         }
 
         public EncodedLZByte Slide() {
@@ -43,23 +39,19 @@ namespace Compression.LZ {
         
         private ArrayIndexer<byte> LoadHistory() {
             int historyIndex;
-            if(historyLength > currentIndex) {
+            if(_historyLength > currentIndex) {
                 historyIndex = 0;
             }
             else {
-                historyIndex = currentIndex - historyLength;
+                historyIndex = currentIndex - _historyLength;
             }
             return file.GetArrayIndexer(historyIndex, currentIndex - historyIndex);
         }
 
         private ArrayIndexer<byte> LoadLookAhead() {
-            if (lookAheadLength + currentIndex > file.Length)
-                lookAheadLength = (int)file.Length - currentIndex;
-            return file.GetArrayIndexer(currentIndex, lookAheadLength);
-        }
-    
-        public Boolean AtEnd() {
-            return currentIndex >= file.Length;
+            if (_lookAheadLength + currentIndex > file.Length)
+                _lookAheadLength = (int)file.Length - currentIndex;
+            return file.GetArrayIndexer(currentIndex, _lookAheadLength);
         }
     }
 }
