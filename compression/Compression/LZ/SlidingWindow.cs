@@ -1,16 +1,12 @@
 using System;
 using compression.ByteStructures;
-using Compression.ByteStructures;
 
 namespace Compression.LZ {
-    public class SlidingWindow{
-        private DataFile file;
-        private int currentIndex = 0;
+    public class SlidingWindow : DataFileIterator{
         private int historyLength = PointerByte.GetPointerSpan();
         private int lookAheadLength = PointerByte.GetLengthSpan();
 
-        public SlidingWindow(DataFile file) {
-            this.file = file;
+        public SlidingWindow(DataFile file) : base(file) {
         }
 
         public EncodedLZByte Slide() {
@@ -56,10 +52,6 @@ namespace Compression.LZ {
             if (lookAheadLength + currentIndex > file.Length)
                 lookAheadLength = (int)file.Length - currentIndex;
             return file.GetArrayIndexer(currentIndex, lookAheadLength);
-        }
-    
-        public Boolean AtEnd() {
-            return currentIndex >= file.Length;
         }
     }
 }
