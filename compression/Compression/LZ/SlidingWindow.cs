@@ -3,8 +3,8 @@ using compression.ByteStructures;
 
 namespace Compression.LZ {
     public class SlidingWindow : DataFileIterator{
-        private int historyLength = PointerByte.GetPointerSpan();
-        private int lookAheadLength = PointerByte.GetLengthSpan();
+        private int _historyLength = PointerByte.GetPointerSpan();
+        private int _lookAheadLength = PointerByte.GetLengthSpan();
 
         public SlidingWindow(DataFile file) : base(file) {
         }
@@ -39,19 +39,19 @@ namespace Compression.LZ {
         
         private ArrayIndexer<byte> LoadHistory() {
             int historyIndex;
-            if(historyLength > currentIndex) {
+            if(_historyLength > currentIndex) {
                 historyIndex = 0;
             }
             else {
-                historyIndex = currentIndex - historyLength;
+                historyIndex = currentIndex - _historyLength;
             }
             return file.GetArrayIndexer(historyIndex, currentIndex - historyIndex);
         }
 
         private ArrayIndexer<byte> LoadLookAhead() {
-            if (lookAheadLength + currentIndex > file.Length)
-                lookAheadLength = (int)file.Length - currentIndex;
-            return file.GetArrayIndexer(currentIndex, lookAheadLength);
+            if (_lookAheadLength + currentIndex > file.Length)
+                _lookAheadLength = (int)file.Length - currentIndex;
+            return file.GetArrayIndexer(currentIndex, _lookAheadLength);
         }
     }
 }
