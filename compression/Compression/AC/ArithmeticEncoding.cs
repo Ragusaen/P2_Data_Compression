@@ -1,20 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Compression.PPM;
 
 namespace Compression.Arithmetic{
-    public class ArithmeticEncoding{
-        public DataFile EncodingArithmetic(DataFile input, List<ContextTable> ppmTables){
-            
-            return null;
-        }
-
-        public Dictionary<byte, int> ProcessPpmTables(List<ContextTable> ppmTables){
-            return null;
-        }
-        
-        
+    public class ArithmeticEncoding : DataFileIterator {
+        private double _low, _high; 
+        public ArithmeticEncoding(DataFile file, double low, double high) : base(file) {
+            this._low = low;
+            this._high = high;
+        }  
 
         public Dictionary<double[], byte> SetIntervals(List<ContextTable> ppmTables){
             var byteIntervals = new Dictionary<double[], byte>();
@@ -47,6 +41,8 @@ namespace Compression.Arithmetic{
         }
 
         public double[] CalcInterval(double prevLow, double prevHigh, int count, int cumCount, int totalCount){
+            while (!AtEnd()) { }
+
             double lowInterval = prevLow + (double) count * (prevHigh - prevLow) / totalCount;
             double highInterval = prevLow + (double) cumCount * (prevHigh - prevLow) / totalCount;
             return new double[2] {lowInterval, highInterval};
