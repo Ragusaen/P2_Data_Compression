@@ -1,25 +1,88 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
-        private int order;
-        private List<ContextTable> _orderList = new List<ContextTable>();
+        private readonly int _maxOrder;
+        private readonly int _defaultEscaping;
+        public List<ContextTable> OrderList = new List<ContextTable>();
 
-        public PredictionByPartialMatching(int order) {
-            this.order = order;
+        public PredictionByPartialMatching(int maxOrder = 5, int defaultEscaping = 0) {
+            _maxOrder = maxOrder;
+            _defaultEscaping = defaultEscaping;
         }
         
-        public DataFile Compress(DataFile to_compress) {
+        public DataFile Compress(DataFile toCompress) {
+            InitializeTables();
+            FillTables(toCompress);
+            return toCompress;
+        }
+
+        public DataFile Decompress(DataFile toDecompress) {
             throw new System.NotImplementedException();
         }
 
-        public DataFile Decompress(DataFile to_decompress) {
-            throw new System.NotImplementedException();
+        private void InitializeTables() {
+            OrderList = new List<ContextTable>();
+            
+            for (int i = 0; i <= _maxOrder+1; i++) {
+                OrderList.Add(new ContextTable(_defaultEscaping));
+            }
         }
 
-        private void MakeTables(DataFile file) {
-            for (int i = 0; i < order; i++) {
-                _orderList[i] = new ContextTable();
+        private void FillTables(DataFile file) {
+            if (file.Length == 0) // return if file is empty
+                return;
+            
+            for (int i = 0; i < file.Length; i++) {
+                AddEntryToTable(new Entry(GetContextFromFile(file, i), file.GetByte(i)));
+            }
+            CreateMinusFirstOrder();
+        }
+
+        private void AddEntryToTable(Entry entry) {
+            for (int i = entry.Context.Length + 1; i >= 1; i--) { // Stops when it has added to 0. order
+                if (OrderList[i].UpdateContext(entry.Context, entry.Letter))
+                    return; // Done if a match was found in one of the tables
+                entry.NextContext();
+            }
+        }
+        
+        private byte[] GetContextFromFile(DataFile file, int i) {
+            if (_maxOrder == 0)
+                return new byte[0];
+            
+            if(i > _maxOrder)
+                return file.GetBytes(i - _maxOrder, _maxOrder);
+            return file.GetBytes(0, i);
+        }
+
+        private void CreateMinusFirstOrder() {
+            OrderList[0].ContextDict.Add(new SymbolList(), new SymbolDictionary());
+            ISymbol[] zeroOrderSymbols = OrderList[1].ContextDict[new SymbolList()].Keys.ToArray();
+            int len = zeroOrderSymbols.Length;
+            
+            SymbolList empty = new SymbolList();
+            
+            for (int i = 0; i < len; i++) {
+                if(zeroOrderSymbols[i] is Letter)
+                    OrderList[0].ContextDict[empty].Add(zeroOrderSymbols[i], new SymbolInfo());
+            }
+        }
+
+        public void EscapeToEnd() { //trash
+            EscapeSymbol esc = new EscapeSymbol();
+
+            for(int i = 1; i < _maxOrder+1; i++) {
+                var t = OrderList[i];
+                
+                foreach (var context in t.ContextDict) {
+                    var count = context.Value[esc].Count;
+                    context.Value.Remove(esc);
+                    context.Value.Add(esc, new SymbolInfo(count:count));
+                }
             }
         }
     }

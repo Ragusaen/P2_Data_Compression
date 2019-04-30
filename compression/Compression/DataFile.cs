@@ -2,12 +2,13 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using compression.ByteStructures;
 
 namespace Compression {
     public class DataFile{
         private byte[] _byteArray;
-        public uint Length {
-            get { return (uint) _byteArray.Length; }
+        public int Length {
+            get { return _byteArray.Length; }
         }
 
         public DataFile(string path) {
@@ -17,10 +18,12 @@ namespace Compression {
         public DataFile(byte[] data) {
             LoadBytes(data);
         }
-        
-        public DataFile() {}
 
-        public byte[] GetBytes(uint start, uint len) {
+        public DataFile() {
+            _byteArray = new byte[0];
+        }
+
+        public byte[] GetBytes(int start, int len) {
             if (len == 0)
                 return new byte[0];
             
@@ -34,9 +37,20 @@ namespace Compression {
             return result;
         }
 
+        public ArrayIndexer<byte> GetArrayIndexer(int start, int len) {
+            return new ArrayIndexer<byte>(_byteArray, start, len);
+        }
+        
+        public byte GetByte(int i) {
+            if(i >= _byteArray.Length)
+                throw new IndexOutOfRangeException();
+            
+            return _byteArray[i];
+        }
+
         public byte[] GetAllBytes() {
             return _byteArray;
-        }
+        }    
 
         public void LoadBytes(byte[] array) {
             _byteArray = array;

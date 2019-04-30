@@ -1,55 +1,61 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Cryptography;
+using Microsoft.SqlServer.Server;
 
 namespace Compression.PPM{
-    public class ContextTable{
-        public List<Context> ContextList = new List<Context>();
-        public uint TotalCount;
-
-        public void UpdateContext(byte[] context, byte symbol) {
-            int i = ContextAlreadyExist(context);
-            
-            if (i >= 0) { // execute if context was found in table
-                ContextList[i].Update(symbol);
-            }
-            else { // execute if context was not found in table
-                ContextList.Add(new Context(context));
-                ContextList[ContextList.Count-1].Update(symbol);
-            }
+    public class ContextTable : IEnumerable<Dictionary<ISymbol, SymbolInfo>> {
+        public Dictionary<SymbolList, SymbolDictionary> ContextDict = new Dictionary<SymbolList, SymbolDictionary>();
+        public int TotalCount;
+        private readonly int _defaultEscaping;
+        
+        public ContextTable(int defaultEscaping = 0) {
+            _defaultEscaping = defaultEscaping;
         }
 
-        private int ContextAlreadyExist(byte[] currentContext) {
-            ByteArrayComparer byteArrayComparer = new ByteArrayComparer();
+        public bool UpdateContext(byte[] inputContext, byte inputSymbol) {
+            SymbolList context = new SymbolList(inputContext);
+            ISymbol symbol = ByteToISymbol.ConvertSingle(inputSymbol);
+            ISymbol escape = new EscapeSymbol();
             
-            // Looks for context in order table, if found returns the index value
-            for (int i = 0; i < ContextList.Count; i++) {
-                if(byteArrayComparer.Compare(ContextList[i].ContextBytes, currentContext) == 0)
-                    return i; 
+            if (!ContextDict.ContainsKey(context)) {
+                ContextDict.Add(context, new SymbolDictionary());
+                ContextDict[context].Add(escape, new SymbolInfo(count:_defaultEscaping+1));
+                ContextDict[context].AddNew(symbol);
+                return false;
             }
-            return -1;
+
+            if (ContextDict[context].ContainsKey(symbol)) {
+                ContextDict[context][symbol].Count++;
+                return true;
+            }
+            
+            ContextDict[context].AddNew(symbol);
+            ContextDict[context][escape].Count++;
+            return false;
         }
 
         public void CalculateTotalCount() {
-            TotalCount = 0;
-            
-            for (int i = 0; i < ContextList.Count; i++) {
-                for (int j = 0; j < ContextList[i].SymbolList.Count; j++) {
-                    TotalCount += ContextList[i].SymbolList[j].Count;
+            TotalCount = ContextDict.Values.Sum(p => p.Sum(q => q.Value.Count));
+        }
+
+        public void UpdateCumulativeCount() {
+            int cumCount = 0;
+
+            foreach (var t in ContextDict.Values) {
+                foreach (var t1 in t) {
+                    t1.Value.CumulativeCount = cumCount += t1.Value.Count;
                 }
             }
         }
 
-        public void UpdateCumulativeCount() {
-            uint cumCount = 0;
-            
-            for (int i = 0; i < ContextList.Count; i++) {
-                for (int j = 0; j < ContextList[i].SymbolList.Count; j++) {
-                    cumCount += ContextList[i].SymbolList[j].Count;
-                    ContextList[i].SymbolList[j].CumulativeCount = cumCount;
-                }
-            }
+        public IEnumerator<Dictionary<ISymbol, SymbolInfo>> GetEnumerator() {
+            return ContextDict.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }

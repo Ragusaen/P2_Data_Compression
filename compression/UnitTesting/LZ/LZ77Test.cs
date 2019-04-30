@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using Compression;
 using Compression.LZ;
+using Compression.ByteStructures;
 
 namespace UnitTesting.LZ {
     [TestFixture, Category("LZ77")]
@@ -16,8 +17,6 @@ namespace UnitTesting.LZ {
                 
                 LZ77 comp = new LZ77();
                 DataFile actualFile = comp.Compress(inputFile);
-                
-                ByteArrayPrinter.PrintBits(actualFile.GetBytes(0, actualFile.Length));
                 
                 Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
             }
