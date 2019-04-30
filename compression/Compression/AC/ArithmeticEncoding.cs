@@ -22,18 +22,21 @@ namespace Compression.Arithmetic{
             int cumCount;
 
             foreach (ContextTable table in ppmTables){
+                table.UpdateCumulativeCount();
                 
-                foreach(var content in table.ContextDict) {
-                   
+                foreach(var content in table.ContextDict) {   
                    foreach(var symbol in content.Value){
-                       double tempLow = low, tempHigh = high;
-                       double[] interval = CalcInterval(low, high, symbol.Value.Count , symbol.Value.CumulativeCount, table.TotalCount);
+                       if(symbol.Key is Letter letter){
+                          double tempLow = low, tempHigh = high;
+                          double[] interval = CalcInterval(low, high, symbol.Value.Count , symbol.Value.CumulativeCount, table.TotalCount);
 
-                       low = interval[0];
-                       high = interval[1];
-                       byteIntervals.Add(interval, ((Letter) symbol.Key).Data);
+                          low = interval[0];
+                          high = interval[1];
+                        
+                          byteIntervals.Add(interval, letter.Data);
+                       }
                    }
-                 
+
                 }
             }
 
