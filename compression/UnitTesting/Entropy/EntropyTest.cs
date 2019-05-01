@@ -6,22 +6,6 @@ using Compression.Entropy;
 namespace UnitTesting.Entropy {
     [TestFixture, Category("Entropy")]
     public class EntropyTest {
-        public class LogCalcTest {
-            [Test]
-            public void LogarithmTest() {
-                double b;
-                double a;
-                a = 1;
-                b = 2;
-
-                const double expectedResult = 0;
-                var cee = new Compression.Entropy.Entropy();
-                var result = cee.LogCalc(a, b);
-
-                Assert.AreEqual(expectedResult, actual: result);
-            }
-        }
-
         public class EntropyCalcTest {
             [Test]
             public void StringFrequency() {
