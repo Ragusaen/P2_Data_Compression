@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Contexts;
 using compression.ByteStructures;
+using Compression.ByteStructures;
 
 namespace Compression.LZ {
     public class CFindMatchingBytes {

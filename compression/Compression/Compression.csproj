@@ -102,6 +102,7 @@
     <Compile Include="ByteStructures\EncodedByte.cs" />
     <Compile Include="ByteStructures\IEncodedByteConverter.cs" />
     <Compile Include="ByteStructures\UnevenByte.cs" />
+    <Compile Include="ByteStructures\UnevenByteConverter.cs" />
     <Compile Include="Huffman\Decode.cs" />
     <Compile Include="Huffman\Decode_2.cs" />
     <Compile Include="Huffman\Decode_3.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="LZ\LZ77.cs" />
     <Compile Include="LZ\EncodedLZByte.cs" />
     <Compile Include="LZ\LZByteConverter.cs" />
+    <Compile Include="LZ\LZDecoderList.cs" />
     <Compile Include="LZ\SlidingWindow.cs" />
     <Compile Include="PDC\ContextWindow.cs" />
     <Compile Include="PDC\EndcodedContextByte.cs" />

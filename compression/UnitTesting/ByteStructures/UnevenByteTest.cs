@@ -1,3 +1,5 @@
+using System.Linq;
+using compression.ByteStructures;
 using NUnit.Framework;
 using Compression.ByteStructures;
 
@@ -10,8 +12,9 @@ namespace UnitTesting.ByteStructures {
             public void Returns_abc_from_3_even_bytes_a_b_c() {
                 UnevenByte[] array = {new UnevenByte(97, 8), new UnevenByte(98,8), new UnevenByte(99, 8)};
                 byte[] expected = {97, 98, 99};
+                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
 
-                byte[] actual = UnevenByte.UnEvenBytesToBytes(array);
+                byte[] actual = unevenByteConverter.UnEvenBytesToBytes(array.ToList());
             
                 Assert.AreEqual(expected, actual);
             }
@@ -19,8 +22,9 @@ namespace UnitTesting.ByteStructures {
             public void ReturnsCorrectFromUnevenBytes() {
                 UnevenByte[] array = {new UnevenByte(500, 9), new UnevenByte(78642,17), new UnevenByte(5, 3)};
                 byte[] expected = {250, 76, 204, 168};
+                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
 
-                byte[] actual = UnevenByte.UnEvenBytesToBytes(array);
+                byte[] actual = unevenByteConverter.UnEvenBytesToBytes(array.ToList());
             
                 Assert.AreEqual(expected, actual);
             }
@@ -63,8 +67,12 @@ namespace UnitTesting.ByteStructures {
             public void Returns_a_From_a_0_8() {
                 byte[] input = {97};
                 uint expected = 97;
-                
-                UnevenByte ub = new UnevenByte(input, 0, 8);
+                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
+
+                UnevenByte ub = unevenByteConverter.CreateUnevenByteFromBytes(
+                    new ArrayIndexer<byte>(input, 0, 1), 
+                    8,
+                    0);
                 uint actual = ub.Data;
                 
                 Assert.AreEqual(expected, actual);
@@ -74,8 +82,12 @@ namespace UnitTesting.ByteStructures {
             public void ReturnsCorrectFrom2BytesWith_0_16() {
                 byte[] input = {12, 230};
                 uint expected = 3302;
-                
-                UnevenByte ub = new UnevenByte(input, 0, 16);
+                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
+
+                UnevenByte ub = unevenByteConverter.CreateUnevenByteFromBytes(
+                    new ArrayIndexer<byte>(input, 0, 2), 
+                    16,
+                    0);
                 uint actual = ub.Data;
                 
                 Assert.AreEqual(expected, actual);
@@ -85,8 +97,12 @@ namespace UnitTesting.ByteStructures {
             public void ReturnsCorrectFrom3BytesWith_5_15() {
                 byte[] input = {0b10101010, 0b00101101, 0b10110110};
                 uint expected = 0b010001011011011;
-                
-                UnevenByte ub = new UnevenByte(input, 5, 15);
+                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
+
+                UnevenByte ub = unevenByteConverter.CreateUnevenByteFromBytes(
+                    new ArrayIndexer<byte>(input, 0, 3), 
+                    15,
+                    5);
                 uint actual = ub.Data;
                 
                 Assert.AreEqual(expected, actual);
@@ -96,8 +112,12 @@ namespace UnitTesting.ByteStructures {
             public void ReturnsCorrectWhenBitIndexIs_7_AndLength_9() {
                 byte[] input = {0b10101011, 0b10101101};
                 uint expected = 0b110101101;
-                
-                UnevenByte ub = new UnevenByte(input, 7, 9);
+                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
+
+                UnevenByte ub = unevenByteConverter.CreateUnevenByteFromBytes(
+                    new ArrayIndexer<byte>(input, 0, 2), 
+                    9,
+                    7);
                 uint actual = ub.Data;
                 
                 Assert.AreEqual(expected, actual);
