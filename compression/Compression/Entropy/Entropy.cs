@@ -12,15 +12,6 @@ using System.Web.Hosting;
 
 namespace Compression.Entropy {
     public class Entropy {
-        /*
-        * Calculating log_b(a)
-        * @param double a: number to be calculated & double b: base of log
-        * @returns the logarithm of a specified number a with a specified base b.
-        */
-        public double LogCalc(double a, double b) {
-            return Math.Log(a) / Math.Log(b);
-        }
-        
        /*
        * Calculating the entropy of any given string s
        * @param string s: given string
@@ -50,7 +41,7 @@ namespace Compression.Entropy {
                 double result = 0.0;
                 foreach (var item in table) {
                     double freq = (double) item.Value / len;
-                    result += -(freq * LogCalc(freq, 2));
+                    result += -(freq * Math.Log(freq, 2));
                 }
 
                 return result;
