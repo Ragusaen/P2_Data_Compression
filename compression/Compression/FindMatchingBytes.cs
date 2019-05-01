@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using compression.ByteStructures;
+using Compression.ByteStructures;
 
 namespace Compression{
     public struct MatchPointer{
@@ -31,9 +32,8 @@ namespace Compression{
                 }
             }
 
-            if (longestMatch > 1)
-                return new MatchPointer(indexOfLongestMatch, longestMatch);
-            return new MatchPointer(0, 0);
+            return (longestMatch > 1)? new MatchPointer(indexOfLongestMatch, longestMatch):
+                                       default(MatchPointer);
         }
         
         public static int MatchingBytesCount(ArrayIndexer<byte> a, int index, ArrayIndexer<byte> b ) {

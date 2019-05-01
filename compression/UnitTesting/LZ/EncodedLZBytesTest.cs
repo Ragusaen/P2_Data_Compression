@@ -59,9 +59,9 @@ namespace UnitTesting.ByteStructures {
             public void Returns_17_FromByte_10000000() {
                 var lzByteConverter = new LZByteConverter();
                 byte b = 0b10000000;
-                uint expected = 17;
+                int expected = 17;
     
-                uint actual = lzByteConverter.GetUnevenByteLength(b);
+                int actual = lzByteConverter.GetUnevenByteLength(b);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -70,9 +70,9 @@ namespace UnitTesting.ByteStructures {
             public void Returns_17_FromByte_10010111() {
                 var lzByteConverter = new LZByteConverter();
                 byte b = 0b10010111;
-                uint expected = 17;
+                int expected = 17;
     
-                uint actual = lzByteConverter.GetUnevenByteLength(b);
+                int actual = lzByteConverter.GetUnevenByteLength(b);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -81,9 +81,9 @@ namespace UnitTesting.ByteStructures {
             public void Returns_9_FromByte_01110011() {
                 var lzByteConverter = new LZByteConverter();
                 byte b = 0b01110011;
-                uint expected = 9;
+                int expected = 9;
     
-                uint actual = lzByteConverter.GetUnevenByteLength(b);
+                int actual = lzByteConverter.GetUnevenByteLength(b);
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -92,9 +92,9 @@ namespace UnitTesting.ByteStructures {
             public void Returns_9_FromByte_01101110() {
                 var lzByteConverter = new LZByteConverter();
                 byte b = 0b01101110;
-                uint expected = 9;
+                int expected = 9;
     
-                uint actual = lzByteConverter.GetUnevenByteLength(b);
+                int actual = lzByteConverter.GetUnevenByteLength(b);
                 
                 Assert.AreEqual(expected, actual);
             }

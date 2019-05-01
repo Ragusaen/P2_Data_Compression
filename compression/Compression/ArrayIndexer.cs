@@ -1,6 +1,6 @@
 using System.Dynamic;
 
-namespace compression.ByteStructures {
+namespace Compression.ByteStructures {
     public class ArrayIndexer<T> {
         public T[] Array;
         public int Index;

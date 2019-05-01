@@ -21,7 +21,7 @@ namespace UnitTesting.AC{
             
             ppm.Compress(file);
             ppm.EscapeToEnd();
-            
+                      
             testDict = ae.SetIntervals(ppm.OrderList);
             
             Assert.AreEqual(true, testDict.Count != 0);
