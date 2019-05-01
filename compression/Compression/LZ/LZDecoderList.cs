@@ -10,7 +10,7 @@ namespace Compression.LZ {
                 for (int ai = 0; ai < pb.Length; ++ai) {
                     Add(this[bi + ai]);
                 }
-            } else {    
+            } else {
                 // If it is a raw byte, add the raw bytes to the output
                 Add(((RawByte) eb).Data);
             }
