@@ -41,7 +41,7 @@ namespace Compression.LZ {
             for (int i = 0; i < inputBytes.Length;) {
                 // Calculate the UnevenByte length in bits
                 int ubLength =
-                    lzByteConverter.GetUnevenByteLength((byte) (inputBytes[i] << (int)bitIndex));
+                    lzByteConverter.GetUnevenByteLength((byte) (inputBytes[i] << bitIndex));
                 
                 // If it cannot fit within the remaining bits, we must be done
                 if (ubLength > (inputBytes.Length - i) * 8 - (bitIndex + 1))

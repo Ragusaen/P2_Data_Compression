@@ -1,5 +1,5 @@
 using System;
-using compression.ByteStructures;
+using Compression.ByteStructures;
 
 namespace Compression.LZ {
     public class SlidingWindow : DataFileIterator{
