@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="AC\ArithmeticCoding.cs" />
     <Compile Include="AC\ArithmeticEncoding.cs" />
+    <Compile Include="AC\Interval.cs" />
     <Compile Include="ArrayIndexer.cs" />
     <Compile Include="BWT\BurrowWheelerTransform.cs" />
     <Compile Include="ByteMethods.cs" />

@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Web.Security.AntiXss;
+using Compression.AC;
 using Compression.PPM;
 
 namespace Compression.Arithmetic{
     public class ArithmeticEncoding : DataFileIterator {
         public int totalCount = 0;
-        private double _low = 0, _high = 100; 
-        public ArithmeticEncoding(DataFile file, double low, double high) : base(file) {
-            _low = low;
-            _high = high;
+        public ArithmeticEncoding(DataFile file) : base(file) {
+            this.file = file; 
         }
 
         public Dictionary<byte,double> CalcFreq() {
@@ -27,37 +28,51 @@ namespace Compression.Arithmetic{
              
              var freqTable = new Dictionary<byte, double>();
              foreach (var t in table) {
-                 freqTable.Add(t.Key, t.Value / totalCount);
+                 freqTable.Add(t.Key, t.Value / (double) totalCount);
+                 //Console.WriteLine(t.Value/ (double) totalCount + " for: " + t.Key);
+                 //Console.WriteLine(t.Value);
              }
              
              return freqTable;
         }
         
-        public Dictionary<double[], byte> SetIntervals(List<ContextTable> ppmTables){
-            var byteIntervals = new Dictionary<double[], byte>();
-            double resTag;
-            int cumCount;
-
-            foreach (ContextTable table in ppmTables){
-                table.UpdateCumulativeCount();
+        public Dictionary<byte, Interval> SetIntervals(Dictionary<byte, double> freqTable) {
+            double highBound = 0;
+            
+            Dictionary<byte, Interval> intervalDict = new Dictionary<byte, Interval>();
+            foreach (var t in freqTable) {
                 
-                foreach(var content in table.ContextDict) {   
-                   foreach(var symbol in content.Value){
-                       if(symbol.Key is Letter letter){
-                          double tempLow = _low, tempHigh = _high;
-                          double[] interval = CalcInterval(_low, _high, symbol.Value.Count , symbol.Value.CumulativeCount, table.TotalCount);
+                var lowBound = highBound;
+                highBound = lowBound + t.Value; 
+               //Console.WriteLine(highBound + " " + lowBound);
 
-                          _low = interval[0];
-                          _high = interval[1];
-                        
-                          byteIntervals.Add(interval, letter.Data);
-                       }
-                   }
 
-                }
+               var it = new Compression.AC.Interval(lowBound, highBound);
+               intervalDict.Add(t.Key, it); 
+               //Console.WriteLine(intervalArr[1]);
             }
+            
+            return intervalDict; 
+        }
 
-            return byteIntervals;
+        public Dictionary<Interval, byte> CalcTag(Dictionary<byte, Interval> intervalDict, Dictionary<byte, double> freqTable) {
+            var byteArray = file.GetAllBytes(); 
+            var tagDict = new Dictionary<Interval, byte>();
+            double low = 0, high = 0;
+            
+                foreach (var b in byteArray) {
+                    foreach (var t in intervalDict) {
+                        if (b.Equals(t.Key)) {
+                            var currentRange = t.Value.high - t.Value.low;
+                            low = low + (t.Value.low * currentRange); 
+                            high = low + (t.Value.high * currentRange);
+                            
+                            var it = new Compression.AC.Interval(low,high);
+                            tagDict.Add(it, b);
+                        }
+                    }
+                }
+            return tagDict; 
         }
 
         public ContextTable EvalTable(ContextTable ppmTable) {
@@ -69,19 +84,6 @@ namespace Compression.Arithmetic{
                 }
             }
             return ppmTable; 
-        }
-        
-        public int CalcTag(Dictionary<double[,], byte> byteIntervals){
-            var uniqueFinalTag = byteIntervals.Keys.Last();
-
-            return 0;
-        }
-
-        public double[] CalcInterval(double prevLow, double prevHigh, int count, int cumCount, int totalCount){
-
-            double lowInterval = prevLow + (double) count * (prevHigh - prevLow) / totalCount;
-            double highInterval = prevLow + (double) cumCount * (prevHigh - prevLow) / totalCount;
-            return new double[2] {lowInterval, highInterval};
         }
     }
 }
