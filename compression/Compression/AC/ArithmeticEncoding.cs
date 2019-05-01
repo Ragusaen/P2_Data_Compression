@@ -1,15 +1,38 @@
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Compression.PPM;
 
 namespace Compression.Arithmetic{
     public class ArithmeticEncoding : DataFileIterator {
+        public int totalCount = 0;
         private double _low = 0, _high = 100; 
         public ArithmeticEncoding(DataFile file, double low, double high) : base(file) {
             _low = low;
             _high = high;
-        }  
+        }
 
+        public Dictionary<byte,double> CalcFreq() {
+             var gb = file.GetAllBytes();
+             var table = new Dictionary<byte, int>();
+             foreach (byte bt in gb) {
+                 totalCount += 1;
+                 if (!table.ContainsKey(bt)) {
+                     table.Add(bt, 1);
+                 }
+                 else
+                     table[bt] += 1;
+             }
+             
+             var freqTable = new Dictionary<byte, double>();
+             foreach (var t in table) {
+                 freqTable.Add(t.Key, t.Value / totalCount);
+             }
+             
+             return freqTable;
+        }
+        
         public Dictionary<double[], byte> SetIntervals(List<ContextTable> ppmTables){
             var byteIntervals = new Dictionary<double[], byte>();
             double resTag;

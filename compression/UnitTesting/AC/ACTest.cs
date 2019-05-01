@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Compression;
@@ -24,6 +25,20 @@ namespace UnitTesting.AC{
             testDict = ae.SetIntervals(ppm.OrderList);
             
             Assert.AreEqual(true, testDict.Count != 0);
+        }
+
+        [Test]
+        public void CalcFreq() {
+            string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/hcandersen.txt";
+            DataFile file = new DataFile(inputPath);
+            
+            //ArithmeticEncoding ae = new ArithmeticEncoding(file, 0, 100 );
+            var ae = new Compression.Arithmetic.ArithmeticEncoding(file, 0, 100 );
+
+            Dictionary<byte,double> table = ae.CalcFreq(); 
+
+            Assert.AreEqual(63, table.Count);
+            
         }
     }
 }
