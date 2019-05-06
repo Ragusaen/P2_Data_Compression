@@ -14,7 +14,7 @@ namespace UnitTesting.ByteStructures {
                 byte[] expected = {97, 98, 99};
                 UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
 
-                byte[] actual = unevenByteConverter.UnEvenBytesToBytes(array.ToList());
+                byte[] actual = unevenByteConverter.UnevenBytesToBytes(array.ToList());
             
                 Assert.AreEqual(expected, actual);
             }
@@ -24,7 +24,7 @@ namespace UnitTesting.ByteStructures {
                 byte[] expected = {250, 76, 204, 168};
                 UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
 
-                byte[] actual = unevenByteConverter.UnEvenBytesToBytes(array.ToList());
+                byte[] actual = unevenByteConverter.UnevenBytesToBytes(array.ToList());
             
                 Assert.AreEqual(expected, actual);
             }

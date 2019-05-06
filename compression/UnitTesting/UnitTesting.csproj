@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AC\ACTest.cs" />
+    <Compile Include="AC\BinaryFractionInIntervalFinderTest.cs" />
     <Compile Include="BWT\BWTTest.cs" />
     <Compile Include="ByteStructures\UnevenByteTest.cs" />
     <Compile Include="DataFileTest.cs" />
