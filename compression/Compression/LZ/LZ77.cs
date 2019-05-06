@@ -48,7 +48,7 @@ namespace Compression.LZ {
                     break;
 
                 UnevenByte ub = ubConverter.CreateUnevenByteFromBytes(
-                    new ArrayIndexer<byte>(inputBytes, i, 0),
+                    new ArrayIndexer<byte>(inputBytes, i, 3),
                     ubLength,
                     bitIndex);
                 

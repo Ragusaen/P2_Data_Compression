@@ -21,7 +21,7 @@ namespace Compression.Huffman {
             }
             Nodes HuffmanTree = ListOfNodes[0];
 
-            //SetCodeToNode(HuffmanTree);
+            // SetCodeToNode(HuffmanTree);
 
             return HuffmanTree;
         }

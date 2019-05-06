@@ -26,7 +26,18 @@ namespace UnitTesting.ByteStructures {
                 
                 PointerByte actual = lzByteConverter.ToEncodedByte(ub) as PointerByte;
                 
-                Assert.AreEqual(expected.Length, actual.Length);
+                Assert.AreEqual(expected, actual);
+            }
+        
+            [Test]
+            public void ReturnsPointer_257_2_From_10001000000010001() {
+                var lzByteConverter = new LZByteConverter();
+                PointerByte expected = new PointerByte(257, 2);
+                UnevenByte ub = new UnevenByte(69649, 17);
+                
+                PointerByte actual = lzByteConverter.ToEncodedByte(ub) as PointerByte;
+                
+                Assert.AreEqual(expected, actual);
             }
         }
 
