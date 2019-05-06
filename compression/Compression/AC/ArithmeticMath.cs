@@ -5,15 +5,20 @@ using System.Linq;
 
 namespace Compression.AC {
     public class ArithmeticMath : DataFileIterator {
+        #region Field variables
         private int _totalCount = 0;
+        #endregion
 
-        #region constructor
+        #region Constructor
         public ArithmeticMath(DataFile file) : base(file) {
             this.file = file; 
         }
         #endregion
 
         #region Methods
+        /*
+         * Contains methods necessary for ArithmeticEncoding, to encode.  
+         */
         #region Calculating probalility method
         public Dictionary<byte,double> CalcFreq() {
             var gb = file.GetAllBytes();
