@@ -33,30 +33,30 @@ namespace UnitTesting.ByteStructures {
         public class GetBitsTests {
             [Test]
             public void Returns_7_from_1111101_7_get_3() {
-                byte expected = 7;
+                int expected = 7;
                 UnevenByte ub = new UnevenByte(0b1111101,7);
 
-                byte actual = ub.GetBits(3);
+                int actual = ub.GetBits(3);
             
                 Assert.AreEqual(expected, actual);
             }
             
             [Test]
             public void Returns_5_from_10101_3_get_3() {
-                byte expected = 5;
+                int expected = 5;
                 UnevenByte ub = new UnevenByte(0b10101,3);
 
-                byte actual = ub.GetBits(3);
+                int actual = ub.GetBits(3);
             
                 Assert.AreEqual(expected, actual);
             }
             
             [Test]
             public void Returns_12_from_111100_4_get_4() {
-                byte expected = 12;
+                int expected = 12;
                 UnevenByte ub = new UnevenByte(0b111100,4);
 
-                byte actual = ub.GetBits(4);
+                int actual = ub.GetBits(4);
 
                 Assert.AreEqual(expected, actual);
             }
@@ -94,6 +94,20 @@ namespace UnitTesting.ByteStructures {
             }
             
             [Test]
+            public void ReturnsCorrectFrom3BytesWith_7_16() {
+                byte[] input = {0b11111111, 0b00010000, 0b00010001};
+                UnevenByte expected = new UnevenByte(0b10001000000010001, 17);
+                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
+
+                UnevenByte actual = unevenByteConverter.CreateUnevenByteFromBytes(
+                    new ArrayIndexer<byte>(input, 0, 3), 
+                    17,
+                    7);
+                
+                Assert.AreEqual(expected, actual);
+            }
+            
+            [Test]
             public void ReturnsCorrectFrom3BytesWith_5_15() {
                 byte[] input = {0b10101010, 0b00101101, 0b10110110};
                 uint expected = 0b010001011011011;
@@ -120,6 +134,16 @@ namespace UnitTesting.ByteStructures {
                     7);
                 uint actual = ub.Data;
                 
+                Assert.AreEqual(expected, actual);
+            }
+            
+            [Test]
+            public void IndexerTest() {
+                UnevenByte ub = new UnevenByte(0b00110010, 6);
+                int expected = 1;
+
+                int actual = ub[0];
+                    
                 Assert.AreEqual(expected, actual);
             }
         }

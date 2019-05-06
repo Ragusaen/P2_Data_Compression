@@ -1,11 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Web.Security.AntiXss;
 using Compression.AC;
-using Compression.PPM;
 
 /*
  * Arithmetic encoding class

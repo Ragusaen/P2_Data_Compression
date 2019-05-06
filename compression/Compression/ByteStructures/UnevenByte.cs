@@ -1,10 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Web.Configuration;
-using PDC;
 
 namespace Compression.ByteStructures{
     public struct UnevenByte {
@@ -21,7 +15,8 @@ namespace Compression.ByteStructures{
         public static UnevenByte operator +(UnevenByte a, UnevenByte b) {
             return new UnevenByte((a.Data << b.Length) + b.Data, a.Length + b.Length);
         }
-
+         
+        // Removes l of the most significant bits
         public static UnevenByte operator -(UnevenByte ub, int l) {
             return new UnevenByte((uint) (ub.Data % (1 << (ub.Length - l))), ub.Length - l);
         }
@@ -30,9 +25,8 @@ namespace Compression.ByteStructures{
         public static readonly UnevenByte OneOne = new UnevenByte(0b11,2);
         public static readonly UnevenByte Zero = new UnevenByte(0,1);
 
-
-        public byte GetBits(int count) {
-            return (byte)((Data >> (Length - count)) % (1 << Length));
+        public int GetBits(int count) {
+            return (int)(Data >> (Length - count)) % (1 << count);
         }
 
         public override string ToString() {
