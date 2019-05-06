@@ -1,20 +1,20 @@
-using System;
 using NUnit.Framework;
 using Compression;
-using Compression.Entropy;
 
 namespace UnitTesting.Entropy {
     [TestFixture, Category("Entropy")]
     public class EntropyTest {
         public class EntropyCalcTest {
             [Test]
-            public void StringFrequency() {
+            public void FileEntropy() {
+                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/flodeboller.txt";
+                DataFile file = new DataFile(inputPath);
                 var cef = new Compression.Entropy.Entropy();
-                double results = cef.CalcEntropy("fem flade fldeboller p et fladt fldebollefad");
+                double results = cef.CalcEntropy(file);
                 
-                const double expectedResult = 3.2540779268269016; 
+                const double expectedResult = 3.44; 
                 
-                Assert.AreEqual(expectedResult,results);
+                Assert.AreEqual(expectedResult,results, 0.01);
             }
         }
     }
