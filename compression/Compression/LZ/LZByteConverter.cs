@@ -6,14 +6,14 @@ namespace Compression.LZ {
     public class LZByteConverter : IEncodedByteConverter<EncodedLZByte> {
         public EncodedLZByte ToEncodedByte(UnevenByte unevenByte) {
             if (unevenByte.GetBits(1) == 1) {
-                unevenByte.Length--;
+                unevenByte -= 1;
                 int pointerData = unevenByte.GetBits(PointerByte.POINTER_SIZE);
-                unevenByte.Length -= PointerByte.POINTER_SIZE;
+                unevenByte -= PointerByte.POINTER_SIZE;
                 int lengthData = unevenByte.GetBits(PointerByte.LENGTH_SIZE);
                 return new PointerByte(pointerData + 1, lengthData + 1);
             }
             else {
-                unevenByte.Length--;
+                unevenByte -= 1;
                 return new RawByte(unevenByte.GetBits(8));
             }
         }

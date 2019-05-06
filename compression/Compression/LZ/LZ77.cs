@@ -25,7 +25,7 @@ namespace Compression.LZ {
             
             // Convert unevenBytes to even bytes
             var unevenByteConverter = new UnevenByteConverter();
-            byte[] bytes = unevenByteConverter.UnEvenBytesToBytes(unevenBytes);
+            byte[] bytes = unevenByteConverter.UnevenBytesToBytes(unevenBytes);
             
             return new DataFile(bytes);
         }
