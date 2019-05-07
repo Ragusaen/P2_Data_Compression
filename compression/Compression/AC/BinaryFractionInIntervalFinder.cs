@@ -7,12 +7,18 @@ namespace compression.AC {
         public UnevenByte GetBinaryFraction(UnevenByte lower, UnevenByte upper) {
             UnevenByte ub = new UnevenByte();
 
-            while (!(FractionCompare(ub + UnevenByte.OneOne, upper) < 0 &&
+            while (!(FractionCompare(ub + UnevenByte.One, upper) < 0 &&
                      FractionCompare(ub, lower) >= 0)) {
-                
+                if (FractionCompare(ub + UnevenByte.OneOne, upper) < 0) {
+                    ub += UnevenByte.One;
+                }
+                else {
+                    ub += UnevenByte.Zero;
+                }
+                    
             }
 
-            return default(UnevenByte);
+            return ub;
         }
 
         public UnevenByte FractionToUnevenByte(double d) {
@@ -29,7 +35,7 @@ namespace compression.AC {
                     ub += UnevenByte.Zero;
                 }
             }
-
+            
             return ub;
         }
 

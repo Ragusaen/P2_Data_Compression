@@ -12,7 +12,6 @@ namespace Compression {
                 if (v != 0)
                     return v;
             }
-
             return x.Length.CompareTo(y.Length);
         }
     }
