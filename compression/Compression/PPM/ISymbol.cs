@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Net.Configuration;
-using System.Runtime.Remoting;
-using System.Security.Cryptography;
-using System.Web.UI;
 
 namespace Compression.PPM{
     public interface ISymbol : IEquatable<ISymbol>{

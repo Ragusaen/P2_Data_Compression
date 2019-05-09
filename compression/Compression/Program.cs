@@ -7,7 +7,7 @@ namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
             
-            string path = "../../res/the_egg";
+            string path = "../../res/big2.txt";
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
             LZ77 lz77 = new LZ77();
@@ -33,7 +33,7 @@ namespace Compression {
 
             double compressionspeed = input_file.Length / compression_time;
             double decompressionspeed = input_file.Length / (elapsedMs - compression_time);
-            Console.WriteLine("\nCompression speed: " + compressionspeed + " kB/s\tDecompression speed: " + decompressionspeed);
+            Console.WriteLine("\nCompression speed: " + compressionspeed + " kB/s\tDecompression speed: " + decompressionspeed + " kB/s");
            
         }
     }

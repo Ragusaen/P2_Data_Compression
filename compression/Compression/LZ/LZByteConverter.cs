@@ -5,7 +5,7 @@ using Compression.ByteStructures;
 namespace Compression.LZ {
     public class LZByteConverter : IEncodedByteConverter<EncodedLZByte> {
         public EncodedLZByte ToEncodedByte(UnevenByte unevenByte) {
-            if (unevenByte.GetBits(1) == 1) {
+            if (unevenByte[0] == 1) {
                 unevenByte -= 1;
                 int pointerData = unevenByte.GetBits(PointerByte.POINTER_SIZE);
                 unevenByte -= PointerByte.POINTER_SIZE;
@@ -14,7 +14,7 @@ namespace Compression.LZ {
             }
             else {
                 unevenByte -= 1;
-                return new RawByte(unevenByte.GetBits(8));
+                return new RawByte((byte)unevenByte.Data);
             }
         }
 

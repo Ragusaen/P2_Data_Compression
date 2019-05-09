@@ -34,7 +34,7 @@ namespace Compression.ByteStructures {
                 
                 while (ub.Length != 0) {
                     if (ub.Length >= 8 - bitIndex) {
-                        resultArray[resultIndex] += ub.GetBits(8 - bitIndex);
+                        resultArray[resultIndex] += (byte) ub.GetBits(8 - bitIndex);
                         ub -= 8 - bitIndex;
                         bitIndex = 0;
                         resultIndex++;

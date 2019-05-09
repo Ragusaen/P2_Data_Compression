@@ -16,7 +16,7 @@ namespace Compression.LZ {
             var history = LoadHistory();
             var lookAhead = LoadLookAhead();
             
-            MatchPointer match = FindMatchingBytes.FindLongestMatch(history, lookAhead);
+            MatchPointer match = CFindMatchingBytes.FindLongestMatch(history, lookAhead);
             
             EncodedLZByte r;
             if (match.Length != 0) {
