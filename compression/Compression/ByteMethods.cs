@@ -18,6 +18,16 @@ namespace Compression {
             return (byte)i;
         }
 
+        public static byte[] BinaryStringToByteArray(string s) {
+            byte[] res = new byte[s.Length / 8 + 1];
+            s = s.PadLeft((s.Length / 8 + 1) * 8, '0');
+
+            for(int i = 0; i < s.Length / 8; i++) {
+                res[i] = ByteMethods.BinaryStringToByte(s.Substring(8 * i, 8));
+            }
+            return res;
+        }
+
         public static byte[] StringToByteArray(string s) {
             byte[] res = new byte[s.Length];
             for (int i = 0; i < s.Length; i++)

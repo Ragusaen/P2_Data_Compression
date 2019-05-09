@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using System.Collections.Generic;
 using Compression;
 using Compression.Huffman;
+using Compression.ByteStructures;
+using NUnit.Framework;
 
 namespace UnitTesting.Huffman
 {
@@ -25,11 +22,13 @@ namespace UnitTesting.Huffman
             // Hele Huffman træet
             Assert.AreEqual((byte)'A', actual.symbol); //Har kun betydning for sortering
             Assert.AreEqual(7, actual.count);
+            Assert.AreEqual(false, actual.isLeaf);
             // Grenene af Huffman træet
             Assert.AreEqual(4, actual.rightNode.count);
             // Bladene af Huffman træet, går fra venstre til højre
             Assert.AreEqual((byte)'B', actual.leftNode.symbol);
             Assert.AreEqual(3, actual.leftNode.count);
+            Assert.AreEqual(true, actual.leftNode.isLeaf);
             Assert.AreEqual((byte)'C', actual.rightNode.leftNode.symbol);
             Assert.AreEqual(1, actual.rightNode.leftNode.count);
             Assert.AreEqual((byte)'A', actual.rightNode.rightNode.symbol);
@@ -88,4 +87,89 @@ namespace UnitTesting.Huffman
             Assert.AreEqual(actual.rightNode.leftNode.rightNode.rightNode.rightNode.rightNode.symbol, (byte)'p');
         }
     }
+    class DictionaryOfTree {
+        [Test]
+        public void DictionaryOf_AB() {
+            byte[] input = { (byte)'A', (byte)'B' };
+            var expected = new Dictionary<byte, UnevenByte> {
+                    { (byte)'A', new UnevenByte(0b0,1) },
+                    { (byte)'B', new UnevenByte(0b1,1) }
+                };
+
+            Encode ListOf_AB = new Encode();
+            List<Nodes> tempList = ListOf_AB.HuffmanNodes(input);
+            Tree TreeOf_AB = new Tree();
+            Nodes tempTree = TreeOf_AB.CreateTree(tempList);
+
+            Dictionary<byte, UnevenByte> actual = TreeOf_AB.SetCode(tempTree);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void DictionaryOf_ABC() {
+            byte[] input = { (byte)'A', (byte)'B', (byte)'C' };
+
+            var expected = new Dictionary<byte, UnevenByte> {
+                { (byte)'A', new UnevenByte(0b10,2) },
+                { (byte)'B', new UnevenByte(0b11,2) },
+                { (byte)'C', new UnevenByte(0b0,1) }
+            };
+
+            Encode ListOf_ABC = new Encode();
+            List<Nodes> tempList = ListOf_ABC.HuffmanNodes(input);
+            Tree TreeOf_ABC = new Tree();
+            Nodes tempTree = TreeOf_ABC.CreateTree(tempList);
+
+            Dictionary<byte, UnevenByte> actual = TreeOf_ABC.SetCode(tempTree);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void DictionaryOf_ABCD() {
+            byte[] input = { (byte)'A', (byte)'B', (byte)'C', (byte)'D' };
+
+            var expected = new Dictionary<byte, UnevenByte> {
+                { (byte)'A', new UnevenByte(0b00,2) },
+                { (byte)'B', new UnevenByte(0b01,2) },
+                { (byte)'C', new UnevenByte(0b10,2) },
+                { (byte)'D', new UnevenByte(0b11,2) }
+            };
+
+            Encode ListOf_ABCD = new Encode();
+            List<Nodes> tempList = ListOf_ABCD.HuffmanNodes(input);
+            Tree TreeOf_ABCD = new Tree();
+            Nodes tempTree = TreeOf_ABCD.CreateTree(tempList);
+
+            Dictionary<byte, UnevenByte> actual = TreeOf_ABCD.SetCode(tempTree);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void DictionaryOf_ABCDEFGH() {
+            byte[] input = { (byte)'A', (byte)'B', (byte)'C', (byte)'D', (byte)'E', (byte)'F', (byte)'G', (byte)'H' };
+
+            var expected = new Dictionary<byte, UnevenByte> {
+                { (byte)'A', new UnevenByte(0b000,3) },
+                { (byte)'B', new UnevenByte(0b001,3) },
+                { (byte)'C', new UnevenByte(0b010,3) },
+                { (byte)'D', new UnevenByte(0b011,3) },
+                { (byte)'E', new UnevenByte(0b100,3) },
+                { (byte)'F', new UnevenByte(0b101,3) },
+                { (byte)'G', new UnevenByte(0b110,3) },
+                { (byte)'H', new UnevenByte(0b111,3) }
+            };
+
+            Encode ListOf_ABCD = new Encode();
+            List<Nodes> tempList = ListOf_ABCD.HuffmanNodes(input);
+            Tree TreeOf_ABCD = new Tree();
+            Nodes tempTree = TreeOf_ABCD.CreateTree(tempList);
+
+            Dictionary<byte, UnevenByte> actual = TreeOf_ABCD.SetCode(tempTree);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+    }
 }
+

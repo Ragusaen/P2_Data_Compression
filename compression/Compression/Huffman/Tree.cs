@@ -1,90 +1,115 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Compression;
 using Compression.Huffman;
+using Compression.ByteStructures;
 
-
-namespace Compression.Huffman {
+namespace Compression.Huffman
+{
     public class Tree {
         public Nodes CreateTree(List<Nodes> ListOfNodes) {
-            while(ListOfNodes.Count > 1 ) {
-                Nodes Value1 = ListOfNodes[0];
-                Nodes Value2 = ListOfNodes[1];
-                ListOfNodes.RemoveAt(1);
+            while (ListOfNodes.Count > 1) {
+                ListOfNodes.Add(new Nodes(ListOfNodes[0], ListOfNodes[1]));
+
                 ListOfNodes.RemoveAt(0);
-                ListOfNodes.Add(new Nodes(Value1, Value2));
+                ListOfNodes.RemoveAt(0);
 
                 ListOfNodes.Sort();
             }
-            Nodes HuffmanTree = ListOfNodes[0];
-
-            //SetCodeToNode(HuffmanTree);
-
-            return HuffmanTree;
+            return ListOfNodes[0];
         }
 
-        public void SetCodeToNode(Nodes InheritCode) {          //Necessary ?
-            if(InheritCode == null) { }
-            else if(InheritCode.isLeaf == false) {
-                InheritCode.leftNode.code = InheritCode.code + "0";
-                InheritCode.rightNode.code = InheritCode.code + "1";
+        public Dictionary<byte, UnevenByte> SetCode(Nodes InheritCode) {
+            var NodeDict = new Dictionary<byte, UnevenByte>();
 
-                SetCodeToNode(InheritCode.leftNode);
-                SetCodeToNode(InheritCode.rightNode);
+            if (InheritCode.isLeaf == false) {
+                InheritCode.leftNode.code = InheritCode.code + '0';
+                InheritCode.rightNode.code = InheritCode.code + '1';
+
+                NodeDict = SetCode(InheritCode.leftNode)
+                    .Concat(SetCode(InheritCode.rightNode))
+                    .GroupBy(v => v.Key)
+                    .ToDictionary(k => k.Key, v => v.First().Value);
             }
-            else if(InheritCode.isLeaf == true) {
-                InheritCode.code = InheritCode.code + "0";
-                InheritCode.code = InheritCode.code + "1";
+            else if (InheritCode.isLeaf == true) {
+                var unevenByteConverter = new UnevenByteConverter();
+                //UnevenByte codeUnevenByte = new UnevenByte(ByteMethods.BinaryStringToByte(InheritCode.code), InheritCode.code.Length);
+                UnevenByte codeUnevenByte = unevenByteConverter
+                    .CreateUnevenByteFromBytes(new ArrayIndexer<byte>(
+                        ByteMethods.BinaryStringToByteArray(InheritCode.code),
+                        0,
+                        (InheritCode.code.Length / 8) + 1),
+                    InheritCode.code.Length,
+                    8 - (InheritCode.code.Length % 8));
+
+                NodeDict.Add(InheritCode.symbol, codeUnevenByte);
             }
+            return NodeDict;
         }
 
-        public string TreeMap(Nodes node)
-        {
-            if(node != null) {
-                return EncodeLeftSide(node, "");
+        public List<UnevenByte> TreeMap(Nodes node) {
+            List<UnevenByte> unevenByteList = new List<UnevenByte>();
+
+            if (node != null) {
+                EncodeLeftSide(node, "", unevenByteList);
+
+                return unevenByteList;
             }
-            return "The file contains nothing"; // brug evt. exceptions
+            return unevenByteList; // brug evt. exceptions
         }
 
-        private string EncodeLeftSide(Nodes node, string output)
-        {
-            if(node.leftNode != null) {
-                if (node.leftNode.isLeaf == true)
-                {
-                    //if(node.leftNode.leftNode == null) { // nødvendig (?)
-                    output += "01" + ByteMethods.ByteToBinaryString(node.leftNode.symbol);
-                    //}
+        private void EncodeLeftSide(Nodes node, string output, List<UnevenByte> unevenByteList) {
+            if (node.leftNode != null) {
+                if (node.leftNode.isLeaf == true) {
+                    AddToUnevenbyteList(node.leftNode.symbol, output + "01", unevenByteList);
+
+                    output = "";
                     node.leftNode = null;
+                    node.isLeaf = true; //mangler at blive testet
 
-                    output = EncodeRightSide(node, output);
+                    EncodeRightSide(node, output, unevenByteList);
                 }
-                else { //if(node.LeftNode.IsLeaf == false)
-                    output = EncodeLeftSide(node.leftNode, output + "0");
+                else { //if(node.LeftNode.IsLeaf == false) {
+                    EncodeLeftSide(node.leftNode, output + "0", unevenByteList);
 
-                    if(node.rightNode != null) {
-                        output = EncodeLeftSide(node.rightNode, output);
+                    output = "";
+                    if (node.rightNode != null) {
+                        EncodeLeftSide(node.rightNode, output, unevenByteList);
                     }
                 }
             }
             else { //if(node.leftNode == null && node.rightNode == null) {
-                output += "1" + ByteMethods.ByteToBinaryString(node.symbol);
+                AddToUnevenbyteList(node.symbol, output + "1", unevenByteList);
+
+                output = "";
             }
-            return output;
         }
 
-        private string EncodeRightSide(Nodes node, string output) {
+        private void EncodeRightSide(Nodes node, string output, List<UnevenByte> unevenByteList) {
             if (node.rightNode.isLeaf == true) {
-                output += "1" + ByteMethods.ByteToBinaryString(node.rightNode.symbol);
+                AddToUnevenbyteList(node.rightNode.symbol, output + "1", unevenByteList);
 
+                //output = "";
                 node.rightNode = null;
+                node.isLeaf = true; // mangler at blive testet
             }
             else { //if(node.RightNode.IsLeaf == false) {
-                output = EncodeLeftSide(node.rightNode, output);
+                EncodeLeftSide(node.rightNode, output, unevenByteList);
             }
-            return output;
+        }
+
+        private void AddToUnevenbyteList(byte symbol, string output, List<UnevenByte> unevenByteList) {
+            UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
+
+            unevenByteList.Add(
+                unevenByteConverter.CreateUnevenByteFromBytes(
+                    new ArrayIndexer<byte>(
+                        new byte[] { ByteMethods.BinaryStringToByte(output), symbol },
+                        0,
+                        (output.Length / 8) + 2),
+                    8 + output.Length,
+                    8 - (output.Length % 8))
+                );
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
 using Compression;
 using Compression.Huffman;
-using System;
-using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace UnitTesting.Huffman
 {
