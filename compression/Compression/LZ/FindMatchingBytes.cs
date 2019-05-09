@@ -3,10 +3,10 @@ using System.Linq;
 using compression.ByteStructures;
 using Compression.ByteStructures;
 
-namespace Compression{
-    public struct MatchPointer{
-        public int Index { get; }
-        public int Length { get; }
+namespace Compression.LZ {
+    public struct MatchPointer {
+        public readonly int Index;
+        public readonly int Length;
 
         public MatchPointer(int index, int length) {
             Index = index;

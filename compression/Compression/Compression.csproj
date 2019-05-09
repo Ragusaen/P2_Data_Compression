@@ -106,6 +106,7 @@
     <Compile Include="ByteStructures\IEncodedByteConverter.cs" />
     <Compile Include="ByteStructures\UnevenByte.cs" />
     <Compile Include="ByteStructures\UnevenByteConverter.cs" />
+    <Compile Include="FileSystemContainer.cs" />
     <Compile Include="Huffman\Decode.cs" />
     <Compile Include="Huffman\Decode_2.cs" />
     <Compile Include="Huffman\Decode_3.cs" />
@@ -116,8 +117,8 @@
     <Compile Include="fileiterator.cs" />
     <Compile Include="ICompressor.cs" />
     <Compile Include="DataFile.cs" />
-    <Compile Include="FindMatchingBytes.cs" />
     <Compile Include="LZ\CFindMatchingBytes.cs" />
+    <Compile Include="LZ\FindMatchingBytes.cs" />
     <Compile Include="LZ\LZ77.cs" />
     <Compile Include="LZ\EncodedLZByte.cs" />
     <Compile Include="LZ\LZByteConverter.cs" />
@@ -141,7 +142,7 @@
     <Compile Include="RLE\RunLengthEncoding.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CWrappers\libfindmatchingbytes.so">
+    <Content Include="libfindmatchingbytes.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="res\big.txt" />
