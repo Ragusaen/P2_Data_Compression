@@ -1,8 +1,11 @@
+using Compression.ByteStructures;
+
 namespace Compression.AC {
     public class Interval {
-        public double high, low;
+        public UnevenByte high;
+        public UnevenByte low;
 
-        public Interval(double low, double high) {
+        public Interval(UnevenByte low, UnevenByte high) {
             this.high = high;
             this.low = low; 
         }
