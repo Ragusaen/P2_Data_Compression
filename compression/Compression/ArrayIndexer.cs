@@ -1,7 +1,7 @@
 using System.Dynamic;
 
 namespace Compression.ByteStructures {
-    public class ArrayIndexer<T> {
+    public struct ArrayIndexer<T> {
         public T[] Array;
         public int Index;
         public int Length;

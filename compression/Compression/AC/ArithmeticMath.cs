@@ -1,7 +1,6 @@
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using compression.AC;
+using Compression.ByteStructures;
 
 namespace Compression.AC {
     public class ArithmeticMath : DataFileIterator {
@@ -44,38 +43,63 @@ namespace Compression.AC {
         #endregion
 
         #region Calculating initial intervals method
-        public Dictionary<byte, Interval> SetIntervals(Dictionary<byte, double> freqTable) {
+        public Dictionary<Interval, byte> SetIntervals(Dictionary<byte, double> freqTable) {
                     double highBound = 0;
-                    
-                    Dictionary<byte, Interval> intervalDict = new Dictionary<byte, Interval>();
+
+                    Dictionary<Interval, byte> intervalDict = new Dictionary<Interval, byte>();
                     foreach (var t in freqTable) {
                         var lowBound = highBound;
-                        highBound = lowBound + t.Value; 
+                        highBound = lowBound + t.Value;
                        //Console.WriteLine(highBound + " " + lowBound);
-        
-        
-                       var it = new Compression.AC.Interval(lowBound, highBound);
-                       intervalDict.Add(t.Key, it); 
+                       UnevenByte ubHigh = new BinaryFractionInIntervalFinder().FractionToUnevenByte(highBound);
+                       UnevenByte ubLow = new BinaryFractionInIntervalFinder().FractionToUnevenByte(lowBound);
+                       
+                       var it = new Interval(ubHigh, ubLow);
+                       intervalDict.Add(it, t.Key); 
                        //Console.WriteLine(intervalArr[1]);
                     }
                     return intervalDict; 
                 }
         #endregion
-
-        #region Representing bounds with a binary representation
-           public Dictionary<byte, byte> ConvertIntervalToBinary(Dictionary<byte, Interval> intervalDict) {
-                
-                Dictionary<byte, byte> binaryDict = new Dictionary<byte, byte>();
-                double encodedByte; 
+        
+        #region Calculating tag method
+        public Dictionary<Interval, byte> CalcTag() {
+           /* var byteArray = file.GetAllBytes();
+            Dictionary<byte, double> freqTable = CalcFreq(); 
+            Dictionary<Interval, byte> intervalDict = SetIntervals(freqTable); 
+            var tagDict = new Dictionary<Interval, byte>();
+            double low = 0; 
+            foreach (var b in byteArray) {
                 foreach (var t in intervalDict) {
-                    
-                    //binaryDict.Add(); 
-                    //Console.WriteLine(intervalArr[1]);
+                    if (b.Equals(t.Value)) {
+                        var currentRange = t.Key.high - t.Key.low;
+
+                        var high = t.Key.low + (t.Key.low + (t.Key.high * currentRange));
+                        low = t.Key.low + (t.Key.low + (t.Key.low * currentRange));
+
+                        //low = t.Key.low; 
+                        
+                        var it = new Interval(low,high);     
+                        tagDict.Add(it, b);
+                    }
                 }
-                return binaryDict; 
-            }
+            }*/
+            return null; 
+        } 
+        #endregion
+        
+        #region Representing bounds with a binary representation
+           public Dictionary<UnevenByte, byte> UniqueBinaryTag(Dictionary<Interval, byte> intervalDict) {
+               Dictionary<UnevenByte,byte> encodedBytes = new Dictionary<UnevenByte, byte>();
+               foreach (var t in intervalDict) {
+                   UnevenByte ub = new BinaryFractionInIntervalFinder().GetBinaryFraction(t.Key.low,t.Key.high);
+                   
+                   encodedBytes.Add(ub, t.Value);
+               }
+
+               return encodedBytes;
+           }
         #endregion
         #endregion
- 
     }
 }

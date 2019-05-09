@@ -44,19 +44,19 @@ namespace Compression.Huffman
                     else if(ub.GetBits(1) == 1) {
                         ub -= 1;
                         deviation--;
-                        byte b = ub.GetBits(8);
+                        byte b = (byte)ub.GetBits(8);
                         ub -= 8;
 
                         DecodeDict.Add(DecodeCode, b);
 
                         if (rightNode == false) { 
                             if (DecodeCode.Length > 0) {
-                                DecodeCode = new UnevenByte(DecodeCode.GetBits(DecodeCode.Length - 1), DecodeCode.Length - 1);
+                                DecodeCode = UnevenByte.RemoveFromBack(DecodeCode, 1);
                             }
                         }
                         else if(rightNode == true) {
                             if(level > 0) {
-                                DecodeCode = new UnevenByte(DecodeCode.GetBits(DecodeCode.Length - level), DecodeCode.Length - level);
+                                DecodeCode = UnevenByte.RemoveFromBack(DecodeCode, level);
                             }
                             level = DecodeCode.Length;
                         }

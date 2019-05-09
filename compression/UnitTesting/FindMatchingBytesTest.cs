@@ -201,7 +201,18 @@ namespace UnitTesting {
             byte[] needle = ByteMethods.StringToByteArray(" flødeboller på");
             MatchPointer expected = new MatchPointer(3,3);
 
-            Console.WriteLine(TestContext.CurrentContext.TestDirectory);
+            MatchPointer? actual = CFindMatchingBytes.FindLongestMatch(
+                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
+                new ArrayIndexer<byte>(needle, 0, needle.Length));
+            
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [Test]
+        public void CFind_p_m_In_hvad_op_mine_hjemmedrenge() {
+            byte[] haystack = ByteMethods.StringToByteArray("hvad op mine hjemmedrenge?");
+            byte[] needle = ByteMethods.StringToByteArray("p manden?");
+            MatchPointer expected = new MatchPointer(6,3);
 
             MatchPointer? actual = CFindMatchingBytes.FindLongestMatch(
                 new ArrayIndexer<byte>(haystack, 0, haystack.Length),
