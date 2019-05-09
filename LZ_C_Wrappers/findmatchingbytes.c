@@ -21,8 +21,8 @@ MatchPointer find_longest_match(ArrayIndexer haystack, ArrayIndexer needle) {
     //Find the longest match in the haystack
     for (int i = 0; i < haystack.length - longestMatch; ++i) {
         // Check if the first two are a match
-        if (*((short int*)(haystack.array + haystack.index + i)) ==
-            *((short int*)(needle.array + needle.index + i)) )
+        if (haystack.array[haystack.index + i]     == needle.array[needle.index] &&
+            haystack.array[haystack.index + i + 1] == needle.array[needle.index + 1])
         {
             int matchedBytes = matching_bytes_count(haystack, i, needle);
             if (matchedBytes > longestMatch) {
