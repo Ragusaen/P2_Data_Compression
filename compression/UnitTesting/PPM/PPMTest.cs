@@ -522,21 +522,6 @@ namespace UnitTesting.PPM{
                 
                 Assert.AreEqual(expected, actual);
             }
-            [Test]
-            public void PrintTables() {
-                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/hcandersen.txt";
-                DataFile file = new DataFile(inputPath);
-                
-                PredictionByPartialMatching ppm = new PredictionByPartialMatching();
-                ppm.Compress(file);
-                
-                ContextTablePrinter ctp = new ContextTablePrinter();
-                ppm.EscapeToEnd();
-                //ctp.ConsolePrint(ppm.OrderList[0]);
-                ctp.ConsolePrintAll(ppm);
-                
-                Assert.AreEqual(true,true);
-            }
         }
 
         public class InputOrderTest{
