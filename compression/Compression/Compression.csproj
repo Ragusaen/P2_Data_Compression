@@ -105,11 +105,12 @@
     <Compile Include="ByteStructures\UnevenByteConverter.cs" />
     <Compile Include="FileSystemContainer.cs" />
     <Compile Include="Huffman\Decode_3.cs" />
-    <Compile Include="Huffman\Encode.cs" />
-    <Compile Include="Huffman\Nodes.cs" />
-    <Compile Include="Huffman\Tree.cs" />
+    <Compile Include="Huffman\HuffmanEncoder.cs" />
+    <Compile Include="Huffman\Node.cs" />
+    <Compile Include="Huffman\HuffmanTree.cs" />
     <Compile Include="Entropy\Entropy.cs" />
     <Compile Include="fileiterator.cs" />
+    <Compile Include="Huffman\OnlyOneUniqueByteException.cs" />
     <Compile Include="ICompressor.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="LZ\CFindMatchingBytes.cs" />

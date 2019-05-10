@@ -32,7 +32,7 @@ namespace UnitTesting.ByteStructures {
             [Test]
             public void ReturnsPointer_257_2_From_10001000000010001() {
                 var lzByteConverter = new LZByteConverter();
-                PointerByte expected = new PointerByte(257, 2);
+                PointerByte expected = new PointerByte(258, 2);
                 UnevenByte ub = new UnevenByte(69649, 17);
                 
                 PointerByte actual = lzByteConverter.ToEncodedByte(ub) as PointerByte;

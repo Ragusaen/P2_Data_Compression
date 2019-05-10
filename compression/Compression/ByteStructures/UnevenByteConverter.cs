@@ -49,7 +49,7 @@ namespace Compression.ByteStructures {
             return resultArray;
         }
         
-        private int ArrayByteCount(List<UnevenByte> array) {
+        public int ArrayByteCount(List<UnevenByte> array) {
             int res = 0;
             for (int i = 0; i < array.Count; i++)
                 res += array[i].Length;
