@@ -27,7 +27,7 @@ namespace UnitTesting.Huffman
                 new LeafNode((byte)'D', 1)
             };
 
-            HuffmanEncoder ListOfNodes = new HuffmanEncoder();
+            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
             List<Node> actual = ListOfNodes.CreateLeafNodes(input);
 
             CollectionAssert.AreEqual(expected, actual);
@@ -44,7 +44,7 @@ namespace UnitTesting.Huffman
                 new LeafNode((byte)'B', 4)
             };
 
-            HuffmanEncoder ListOfNodes = new HuffmanEncoder();
+            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
             List<Node> actual = ListOfNodes.CreateLeafNodes(input);
 
             CollectionAssert.AreEqual(expected, actual);
@@ -71,7 +71,7 @@ namespace UnitTesting.Huffman
                 new LeafNode((byte)'l', 8)
             };
 
-            HuffmanEncoder ListOfNodes = new HuffmanEncoder();
+            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
             List<Node> actual = ListOfNodes.CreateLeafNodes(input);
 
             Assert.AreEqual(expected, actual);

@@ -9,7 +9,7 @@ namespace UnitTesting.Huffman {
         public class CompressionTests {
             [Test]
             public void Compresses_ABCDEFGH() {
-                var huffmanEncoder = new HuffmanEncoder();
+                var huffmanEncoder = new Compression.Huffman.HuffmanCompressor();
                 byte[] inputBytes = ByteMethods.StringToByteArray("ABCDEFGH");
                 DataFile input =  new DataFile(inputBytes);
                 //                   FLLLS|      A   |S|      B   |LS    |   C  |    S|   D      |LLS|       E  |S|      F   |LS|      G   |S    |  H   |    |A||B||C    ||D||E||    F||G||H|

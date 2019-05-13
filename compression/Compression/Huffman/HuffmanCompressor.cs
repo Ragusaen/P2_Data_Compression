@@ -5,7 +5,7 @@ using Compression;
 using Compression.ByteStructures;
 
 namespace Compression.Huffman {
-    public class HuffmanEncoder : ICompressor {
+    public class HuffmanCompressor : ICompressor {
         public DataFile Compress(DataFile file) {
             byte[] data = file.GetAllBytes();
             
@@ -21,7 +21,8 @@ namespace Compression.Huffman {
         }
 
         public DataFile Decompress(DataFile file) {
-            throw new NotImplementedException();
+            HuffmanDecoder huffmanDecoder = new HuffmanDecoder(file.GetAllBytes());
+            return new DataFile(huffmanDecoder.Decode());
         }
 
 
