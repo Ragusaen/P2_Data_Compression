@@ -26,7 +26,7 @@ namespace Compression.Huffman
             EncodeTree(RootNode);
         }
 
-        private void CreateTree(List<Node> listOfNodes) {
+        public void CreateTree(List<Node> listOfNodes) { //public for unit tests
             while (listOfNodes.Count > 1) {
                 listOfNodes.Add(new BranchNode(listOfNodes[0], listOfNodes[1]));
 
@@ -38,7 +38,7 @@ namespace Compression.Huffman
             RootNode = listOfNodes[0];
         }
         
-        private void SetCode(Node inheritCode) {
+        public void SetCode(Node inheritCode) { //public for unit tests
             if (inheritCode is BranchNode branchNode) {
                 branchNode.LeftNode.code = inheritCode.code + UnevenByte.Zero;
                 branchNode.RightNode.code = inheritCode.code + UnevenByte.One;
@@ -50,7 +50,7 @@ namespace Compression.Huffman
             }
         }
 
-        private void EncodeTree(Node node) {
+        public void EncodeTree(Node node) { //public for unit tests
             if (node is LeafNode leafNode) {
                 var symbolAsUB = new UnevenByte(leafNode.symbol, 8);
                 EncodedTreeList.Add(UnevenByte.One + symbolAsUB);

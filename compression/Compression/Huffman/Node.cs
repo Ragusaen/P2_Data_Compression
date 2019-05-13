@@ -5,7 +5,7 @@ using Compression.ByteStructures;
 
 namespace Compression.Huffman
 {
-    public abstract class Node : IComparable<Node>
+    public abstract class Node : IComparable<Node>, IEquatable<Node>
     {
         public byte symbol;
         public int count = 1;
@@ -21,15 +21,22 @@ namespace Compression.Huffman
                 return symbol.CompareTo(other.symbol);
             }
         }
+
+        public bool Equals(Node other) //kun for unit tests
+        {
+            return symbol == other.symbol && count == other.count;
+        }
     }
 
     public class LeafNode : Node {
         public LeafNode(byte character) {
             symbol = character;
         }
-        
-        public void IncreaseCount() {
-            count++;
+
+        public LeafNode(byte character, int frequency) //Unit test
+        {
+            symbol = character;
+            count = frequency;
         }
     }
 
@@ -37,12 +44,12 @@ namespace Compression.Huffman
         public Node LeftNode;
         public Node RightNode;
         
-        public BranchNode(Node left, Node right) {
+        public BranchNode(Node left, Node right) { //kun for unit tests
+            symbol = right.symbol;
             count = left.count + right.count;
 
             LeftNode = left;
             RightNode = right;
-            symbol = right.symbol;
         }
     }
 
