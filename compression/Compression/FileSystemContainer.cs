@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Compression;
 
 namespace compression {
@@ -11,12 +10,12 @@ namespace compression {
     public class FileSystemContainer {
         #region Nodes
         private abstract class FileTreeNode {
-            public string path;
-            public string name;
+            public string Path;
+            public string Name;
 
             public FileTreeNode(string path) {
-                path = path;
-                name = Path.GetFileName(path);
+                this.Path = path;
+                Name = System.IO.Path.GetFileName(path);
             }
         }
         private class FileTreeDataFileNode : FileTreeNode {
@@ -47,20 +46,20 @@ namespace compression {
         }
 
         private void CreateDataFileNode(FileTreeDataFileNode node) {
-            node.DataFile = new DataFile(node.path);
+            node.DataFile = new DataFile(node.Path);
             FileCount++;
-            TotalFileSize += node.name.Length + node.DataFile.Length + FILE_ENCODING_SIZE;
+            TotalFileSize += node.Name.Length + node.DataFile.Length + FILE_ENCODING_SIZE;
         }
 
         private void CreateDirectoryNode(FileTreeDirectoryNode node) {
-            string[] directories = Directory.GetDirectories(node.path);
+            string[] directories = Directory.GetDirectories(node.Path);
             foreach (string dir in directories) {
                 var newDir = new FileTreeDirectoryNode(dir);
                 node.DirectoryNodes.Add(newDir);
                 CreateDirectoryNode(newDir);
             }
 
-            string[] files = Directory.GetFiles(node.path);
+            string[] files = Directory.GetFiles(node.Path);
             foreach (string fil in files) {
                 var newFil = new FileTreeDataFileNode(fil);
                 node.DataFileNodes.Add(newFil);
@@ -79,12 +78,12 @@ namespace compression {
 
         private void EncodeDataFileNode(FileTreeDataFileNode node, ref byte[] bytes, ref int index) {
             // Encode length of directory name
-            bytes[index] = (byte)node.name.Length;
+            bytes[index] = (byte)node.Name.Length;
             index++;
 
             // Encode the file name
-            for (int si = 0; si < (byte) node.name.Length; ++si, ++index) {
-                bytes[index] = (byte)node.name[si];
+            for (int si = 0; si < (byte) node.Name.Length; ++si, ++index) {
+                bytes[index] = (byte)node.Name[si];
             }
 
             // Encode length (Little-endian)
@@ -102,12 +101,12 @@ namespace compression {
 
         private void EncodeDirectoryNode(FileTreeDirectoryNode node, ref byte[] bytes, ref int index) {
             // Encode length of directory name
-            bytes[index] = (byte)node.name.Length;
+            bytes[index] = (byte)node.Name.Length;
             index++;
 
             // Encode the directory name
-            for (int si = 0; si < (byte) node.name.Length; ++si, ++index) {
-                bytes[index] = (byte)node.name[si];
+            for (int si = 0; si < (byte) node.Name.Length; ++si, ++index) {
+                bytes[index] = (byte)node.Name[si];
             }
             
             // Encode amount of directories
