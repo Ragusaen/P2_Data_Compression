@@ -21,6 +21,13 @@ namespace Compression.ByteStructures{
             return new UnevenByte((uint) (ub.Data % (1 << (ub.Length - l))), ub.Length - l);
         }
 
+        public static bool operator ==(UnevenByte a, UnevenByte b) {
+            return a.Equals(b);
+        }
+        public static bool operator !=(UnevenByte a, UnevenByte b) {
+            return !(a == b);
+        }
+
         public static UnevenByte RemoveFromBack(UnevenByte ub, int l) {
             return new UnevenByte((ub.Data >> l), ub.Length - l);
         }

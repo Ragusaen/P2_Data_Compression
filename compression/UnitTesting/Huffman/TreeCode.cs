@@ -35,7 +35,7 @@ namespace UnitTesting.Huffman
         public void TreeMapOver_testfile2() {
             byte[] input = ByteMethods.StringToByteArray("fem flade flxdeboller py et fladt flxdebollefad"); //x = ø og y = å
 
-            HuffmanEncoder ListOfNodes = new HuffmanEncoder();
+            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
             List<Node> NodeListOfInput = ListOfNodes.CreateLeafNodes(input);
 
             List<UnevenByte> expected = new List<UnevenByte> {
