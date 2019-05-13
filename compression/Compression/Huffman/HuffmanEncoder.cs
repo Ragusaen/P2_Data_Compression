@@ -25,7 +25,7 @@ namespace Compression.Huffman {
         }
 
 
-        private List<Node> CreateLeafNodes(byte[] data) {
+        public List<Node> CreateLeafNodes(byte[] data) { //public for unit tests
             List<Node> ListOfNodes = new List<Node>();
             for (int i = 0; i < data.Length; i++) {
                 // If the symbol has already been added

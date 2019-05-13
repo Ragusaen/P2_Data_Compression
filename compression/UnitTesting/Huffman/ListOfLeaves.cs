@@ -1,90 +1,80 @@
-﻿//using System.Collections.Generic;
-//using Compression;
-//using Compression.Huffman;
-//using NUnit.Framework;
-//
-//namespace UnitTesting.Huffman
-//{
-//    [TestFixture, Category("HuffmanLeafList")]
-//    public class ListOfLeaves {
-//        [Test]
-//        public void ListOver_BAABBCA()
-//        {
-//            byte[] input = { (byte)'B', (byte)'A', (byte)'A', (byte)'B', (byte)'C', (byte)'A', (byte)'B' };
-//            byte[] expected_symbol = { (byte)'C', (byte)'A', (byte)'B' };
-//            int[] expected_count = { 1, 3, 3 };
-//
-//            HuffmanEncoder ListOfBAABBCA = new HuffmanEncoder();
-//
-//            List<Node> actual = ListOfBAABBCA.HuffmanNodes(input);
-//
-//            byte[] actual_symbol = new byte[3];
-//            int[] actual_count = new int[3];
-//
-//            for( int i = 0; i < 3; i++) {
-//                actual_symbol[i] = actual[i].symbol;
-//                actual_count[i] = actual[i].count;
-//            }
-//      
-//            Assert.AreEqual(expected_symbol, actual_symbol);
-//            Assert.AreEqual(expected_count, actual_count);
-//        }
-//
-//        [Test]
-//        public void ListOver_testfile3()
-//        {
-//            string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
-//            DataFile file = new DataFile(path);
-//            byte[] input = file.GetBytes(0, file.Length);
-//
-//            byte[] expected_symbol = { (byte)'a', (byte)'b', (byte)'c', (byte)'d' };
-//            int[] expected_count = { 2, 2, 2, 2 };
-//
-//            HuffmanEncoder ListOf_testfile3 = new HuffmanEncoder();
-//
-//            List<Node> actual = ListOf_testfile3.HuffmanNodes(input);
-//
-//            byte[] actual_symbol = new byte[4];
-//            int[] actual_count = new int[4];
-//
-//            for (int i = 0; i < 4; i++)
-//            {
-//                actual_symbol[i] = actual[i].symbol;
-//                actual_count[i] = actual[i].count;
-//            }
-//
-//            Assert.AreEqual(expected_symbol, actual_symbol);
-//            Assert.AreEqual(expected_count, actual_count);
-//        }
-//
-//        [Test]
-//        public void ListOver_testfile2()
-//        {
-//            //string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
-//            //DataFile file = new DataFile(path);
-//            //byte[] input = file.GetBytes(0, file.Length);
-//
-//            byte[] input = { (byte)'f', (byte)'e', (byte)'m', (byte)' ', (byte)'f', (byte)'l', (byte)'a', (byte)'d', (byte)'e', (byte)' ', (byte)'f', (byte)'l', (byte)'ø', (byte)'d', (byte)'e', (byte)'b', (byte)'o', (byte)'l', (byte)'l', (byte)'e', (byte)'r', (byte)' ', (byte)'p', (byte)'å', (byte)' ', (byte)'e', (byte)'t', (byte)' ', (byte)'f', (byte)'l', (byte)'a', (byte)'d', (byte)'t', (byte)' ', (byte)'f', (byte)'l', (byte)'ø', (byte)'d', (byte)'e', (byte)'b', (byte)'o', (byte)'l', (byte)'l', (byte)'e', (byte)'f', (byte)'a', (byte)'d' };
-//
-//            byte[] expected_symbol = { (byte)'m', (byte)'p', (byte)'r', (byte)'å', (byte)'b', (byte)'o', (byte)'t',
-//                                       (byte)'ø', (byte)'a', (byte)'d', (byte)' ', (byte)'f', (byte)'e', (byte)'l' };
-//            int[] expected_count = { 1, 1, 1, 1, 2, 2, 2, 2, 3, 5, 6, 6, 7, 8 };
-//
-//            HuffmanEncoder ListOf_testfile2 = new HuffmanEncoder();
-//
-//            List<Node> actual = ListOf_testfile2.HuffmanNodes(input);
-//
-//            byte[] actual_symbol = new byte[14];
-//            int[] actual_count = new int[14];
-//
-//            for (int i = 0; i < 14; i++)
-//            {
-//                actual_symbol[i] = actual[i].symbol;
-//                actual_count[i] = actual[i].count;
-//            }
-//
-//            Assert.AreEqual(expected_symbol, actual_symbol);
-//            Assert.AreEqual(expected_count, actual_count);
-//        }
-//    }
-//}
+﻿using System.Collections.Generic;
+using Compression;
+using Compression.Huffman;
+using Compression.ByteStructures;
+using NUnit.Framework;
+
+namespace UnitTesting.Huffman
+{
+    [TestFixture, Category("HuffmanLeafList")]
+    public class CreateListOf_NodeLeaves {
+        [Test]
+        public void LeafNodeTest() {
+            Node Node_1 = new LeafNode(65);
+            Node Node_2 = new LeafNode(65);
+
+            Assert.AreEqual(Node_1, Node_2);
+        }
+
+        [Test]
+        public void ListOver_ABCD() {
+            byte[] input = { (byte)'A', (byte)'B', (byte)'C', (byte)'D' };
+
+            List<Node> expected = new List<Node> {
+                new LeafNode((byte)'A', 1),
+                new LeafNode((byte)'B', 1),
+                new LeafNode((byte)'C', 1),
+                new LeafNode((byte)'D', 1)
+            };
+
+            HuffmanEncoder ListOfNodes = new HuffmanEncoder();
+            List<Node> actual = ListOfNodes.CreateLeafNodes(input);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ListOver_ABCDBCDBDB() {
+            byte[] input = ByteMethods.StringToByteArray("ABCDBCDBDB");
+
+            List<Node> expected = new List<Node> {
+                new LeafNode((byte)'A', 1),
+                new LeafNode((byte)'C', 2),
+                new LeafNode((byte)'D', 3),
+                new LeafNode((byte)'B', 4)
+            };
+
+            HuffmanEncoder ListOfNodes = new HuffmanEncoder();
+            List<Node> actual = ListOfNodes.CreateLeafNodes(input);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ListOver_testfile2() {
+            byte[] input = ByteMethods.StringToByteArray("fem flade flxdeboller py et fladt flxdebollefad");
+
+            List<Node> expected = new List<Node> {
+                new LeafNode((byte)'m', 1),
+                new LeafNode((byte)'p', 1),
+                new LeafNode((byte)'r', 1),
+                new LeafNode((byte)'y', 1),
+                new LeafNode((byte)'b', 2),
+                new LeafNode((byte)'o', 2),
+                new LeafNode((byte)'t', 2),
+                new LeafNode((byte)'x', 2),
+                new LeafNode((byte)'a', 3),
+                new LeafNode((byte)'d', 5),
+                new LeafNode((byte)' ', 6),
+                new LeafNode((byte)'f', 6),
+                new LeafNode((byte)'e', 7),
+                new LeafNode((byte)'l', 8)
+            };
+
+            HuffmanEncoder ListOfNodes = new HuffmanEncoder();
+            List<Node> actual = ListOfNodes.CreateLeafNodes(input);
+
+            Assert.AreEqual(expected, actual);
+        }
+    }
+}
