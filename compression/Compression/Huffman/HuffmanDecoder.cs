@@ -27,7 +27,6 @@ namespace Compression.Huffman
             }
             else {
                 byte b = (byte) bitIndexer.GetNextRange(8).Data;
-                Console.WriteLine($"Letter, Code: {(char)b}, {code}");
                 DecodeDictionary.Add(code, b);
             }
         }

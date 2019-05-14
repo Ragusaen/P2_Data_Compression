@@ -1,9 +1,7 @@
 using System;
 
 namespace Compression.PPM{
-    public interface ISymbol : IEquatable<ISymbol>{
-        
-    }
+    public interface ISymbol : IEquatable<ISymbol> {}
 
     public struct Letter : ISymbol{
         public readonly byte Data;
