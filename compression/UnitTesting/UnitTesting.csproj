@@ -124,6 +124,7 @@
     <Content Include="res\comparefile2" />
     <Content Include="res\empty" />
     <Content Include="res\empty2" />
+    <Content Include="res\hcandersen.txt" />
     <Content Include="res\large_text.txt" />
     <Content Include="res\testfile1" />
     <Content Include="res\testfile2" />

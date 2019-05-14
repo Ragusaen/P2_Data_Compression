@@ -1,31 +1,33 @@
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Compression.ByteStructures;
 
 namespace Compression.PPM{
     public class ContextTablePrinter {
         public void ConsolePrint(ContextTable CTP) {
-            CTP.UpdateCumulativeCount();
-            CTP.CalculateTotalCount();
+            foreach (var t in CTP.ContextDict) {
+                t.Value.CalculateCounts();
+            }
+            
             Console.WriteLine("Context | Symbol | Count | Cum_Count");
             foreach (var t in CTP.ContextDict) {
-                foreach (var u in t.Value) {
-                    Console.Write(t.Key.ToString());
-                    int extraSymbolChars = 0;
-                    
-                    if (u.Key is Letter letter)
-                        Console.Write("".PadLeft(10 - t.Key.ToString().Length, ' ') + (char) letter.Data);
-                    else {
-                        Console.Write("".PadLeft(10 - t.Key.ToString().Length, ' ') + "<esc>");
-                        extraSymbolChars = 4;
-                    }
+                string context = t.Key.ToString();
 
-                    Console.WriteLine("".PadLeft(8-extraSymbolChars, ' ') + u.Value.Count +
-                        "".PadLeft(8-u.Value.Count.ToString().Length, ' ') + u.Value.CumulativeCount
-                    );
+                foreach (var u in t.Value) {
+                    PrintLine(context, u.Key.ToString(), u.Value.Count, u.Value.CumulativeCount);
                 }
+
+                PrintLine(context, "<esc>", t.Value.EscapeInfo.Count, t.Value.EscapeInfo.CumulativeCount);
+                Console.WriteLine("".PadLeft(14, '-') + " Total Count " + t.Value.TotalCount);
             }
-            Console.WriteLine("TC: ".PadLeft(27, ' ') + "{0}", CTP.TotalCount);
+        }
+
+        public void PrintLine(string context, string symbol, int count, int cumCount) {
+            Console.Write(context);
+            Console.Write("".PadLeft(10 - context.Length, ' ') + symbol);
+            Console.Write("".PadLeft(9 - symbol.Length, ' ') + count);
+            Console.Write("".PadLeft(8 - count.ToString().Length, ' ') + cumCount + "\n");
         }
 
         public void ConsolePrintAll(PredictionByPartialMatching PPM) {

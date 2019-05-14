@@ -60,30 +60,16 @@ namespace Compression.PPM{
         }
 
         private void CreateMinusFirstOrder() {
-            OrderList[0].ContextDict.Add(new SymbolList(), new SymbolDictionary());
+            SymbolList empty = new SymbolList();
+            OrderList[0].ContextDict.Add(empty, new SymbolDictionary());
             ISymbol[] zeroOrderSymbols = OrderList[1].ContextDict[new SymbolList()].Keys.ToArray();
             int len = zeroOrderSymbols.Length;
-            
-            SymbolList empty = new SymbolList();
             
             for (int i = 0; i < len; i++) {
                 if(zeroOrderSymbols[i] is Letter)
                     OrderList[0].ContextDict[empty].Add(zeroOrderSymbols[i], new SymbolInfo());
             }
         }
-
-        public void EscapeToEnd() { //trash
-            EscapeSymbol esc = new EscapeSymbol();
-
-            for(int i = 1; i < _maxOrder+1; i++) {
-                var t = OrderList[i];
-                
-                foreach (var context in t.ContextDict) {
-                    var count = context.Value[esc].Count;
-                    context.Value.Remove(esc);
-                    context.Value.Add(esc, new SymbolInfo(count:count));
-                }
-            }
-        }
     }
 }
+    

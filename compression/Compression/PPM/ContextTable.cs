@@ -7,7 +7,6 @@ using Microsoft.SqlServer.Server;
 namespace Compression.PPM{
     public class ContextTable : IEnumerable<Dictionary<ISymbol, SymbolInfo>> {
         public Dictionary<SymbolList, SymbolDictionary> ContextDict = new Dictionary<SymbolList, SymbolDictionary>();
-        public int TotalCount;
         private readonly int _defaultEscaping;
         
         public ContextTable(int defaultEscaping = 0) {
@@ -17,11 +16,10 @@ namespace Compression.PPM{
         public bool UpdateContext(byte[] inputContext, byte inputSymbol) {
             SymbolList context = new SymbolList(inputContext);
             ISymbol symbol = ByteToISymbol.ConvertSingle(inputSymbol);
-            ISymbol escape = new EscapeSymbol();
             
             if (!ContextDict.ContainsKey(context)) {
                 ContextDict.Add(context, new SymbolDictionary());
-                ContextDict[context].Add(escape, new SymbolInfo(count:_defaultEscaping+1));
+                ContextDict[context].EscapeInfo.Count = _defaultEscaping+1;
                 ContextDict[context].AddNew(symbol);
                 return false;
             }
@@ -32,21 +30,13 @@ namespace Compression.PPM{
             }
             
             ContextDict[context].AddNew(symbol);
-            ContextDict[context][escape].Count++;
+            ContextDict[context].EscapeInfo.Count++;
             return false;
         }
 
-        public void CalculateTotalCount() {
-            TotalCount = ContextDict.Values.Sum(p => p.Sum(q => q.Value.Count));
-        }
-
-        public void UpdateCumulativeCount() {
-            int cumCount = 0;
-
-            foreach (var t in ContextDict.Values) {
-                foreach (var t1 in t) {
-                    t1.Value.CumulativeCount = cumCount += t1.Value.Count;
-                }
+        public void CalculateAllCounts() {
+            foreach (var t in ContextDict) {
+                t.Value.CalculateCounts();
             }
         }
 
