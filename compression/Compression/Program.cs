@@ -8,9 +8,7 @@ namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
             
-            testHuffman();
-            
-            ICompressor compressor = new HuffmanCompressor();
+            ICompressor compressor = new LZ77();
             
             string path = "../../res/big2.txt";
             var watch = System.Diagnostics.Stopwatch.StartNew();

@@ -64,51 +64,5 @@ namespace UnitTesting.ByteStructures {
                 Assert.AreEqual(expected, actual);
             }
         }
-
-        public class GetUnevenByteLengthTests {
-            [Test]
-            public void Returns_17_FromByte_10000000() {
-                var lzByteConverter = new LZByteConverter();
-                byte b = 0b10000000;
-                int expected = 17;
-    
-                int actual = lzByteConverter.GetUnevenByteLength(b);
-                
-                Assert.AreEqual(expected, actual);
-            }
-            
-            [Test]
-            public void Returns_17_FromByte_10010111() {
-                var lzByteConverter = new LZByteConverter();
-                byte b = 0b10010111;
-                int expected = 17;
-    
-                int actual = lzByteConverter.GetUnevenByteLength(b);
-                
-                Assert.AreEqual(expected, actual);
-            }
-            
-            [Test]
-            public void Returns_9_FromByte_01110011() {
-                var lzByteConverter = new LZByteConverter();
-                byte b = 0b01110011;
-                int expected = 9;
-    
-                int actual = lzByteConverter.GetUnevenByteLength(b);
-                
-                Assert.AreEqual(expected, actual);
-            }
-            
-            [Test]
-            public void Returns_9_FromByte_01101110() {
-                var lzByteConverter = new LZByteConverter();
-                byte b = 0b01101110;
-                int expected = 9;
-    
-                int actual = lzByteConverter.GetUnevenByteLength(b);
-                
-                Assert.AreEqual(expected, actual);
-            }
-        }
     }
 }

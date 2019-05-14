@@ -52,11 +52,4 @@ namespace Compression.Huffman
             RightNode = right;
         }
     }
-
-    public class ReconstructedNode {
-        public byte symbol;
-        public string code;
-
-        public ReconstructedNode() { }
-    }
 }

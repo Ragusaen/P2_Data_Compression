@@ -31,8 +31,8 @@ namespace Compression.LZ {
             throw new ArgumentException("EncodedByte was not of valid type");
         }
 
-        public int GetUnevenByteLength(byte firstByte) {
-            return (int)(((firstByte & 0x80) != 0)
+        public int GetUnevenByteLength(UnevenByte controlBit) {
+            return (int)(controlBit == UnevenByte.One
                 ? 1 + PointerByte.POINTER_SIZE + PointerByte.LENGTH_SIZE
                 : 1 + RawByte.RAW_SIZE);
         }

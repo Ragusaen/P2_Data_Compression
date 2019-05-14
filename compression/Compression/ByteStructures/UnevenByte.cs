@@ -25,7 +25,7 @@ namespace Compression.ByteStructures{
             return a.Equals(b);
         }
         public static bool operator !=(UnevenByte a, UnevenByte b) {
-            return !(a == b);
+            return !a.Equals(b);
         }
 
         public static UnevenByte RemoveFromBack(UnevenByte ub, int l) {
