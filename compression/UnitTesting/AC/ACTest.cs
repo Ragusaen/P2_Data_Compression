@@ -4,7 +4,6 @@ using System.Linq;
 using Compression;
 using Compression.PPM;
 using Compression.AC;
-using Compression.Arithmetic;
 using Compression.ByteStructures;
 using NUnit.Framework;
 

@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using compression.ByteStructures;
+using compression;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
@@ -36,33 +33,26 @@ namespace Compression.LZ {
             LZByteConverter lzByteConverter = new LZByteConverter();
             UnevenByteConverter ubConverter = new UnevenByteConverter();
 
-            int bitIndex = 0;
+            BitIndexer bitIndexer = new BitIndexer(inputBytes);
 
-            for (int i = 0; i < inputBytes.Length;) {
+            while (!bitIndexer.AtEnd()) {
                 // Calculate the UnevenByte length in bits
                 int ubLength =
-                    lzByteConverter.GetUnevenByteLength((byte) (inputBytes[i] << bitIndex));
+                    lzByteConverter.GetUnevenByteLength(bitIndexer.GetNext());
+                bitIndexer.GoToPrevious(); // Unread the bit
                 
                 // If it cannot fit within the remaining bits, we must be done
-                if (ubLength > (inputBytes.Length - i) * 8 - (bitIndex + 1))
+                if (ubLength > bitIndexer.Remaining)
                     break;
-
-                UnevenByte ub = ubConverter.CreateUnevenByteFromBytes(
-                    new ArrayIndexer<byte>(inputBytes, i, 3),
-                    ubLength,
-                    bitIndex);
+                
+                // Get the bits
+                UnevenByte ub = bitIndexer.GetNextRange(ubLength);
                 
                 // Convert UnevenByte to EncodedLZByte
                 EncodedLZByte eb = lzByteConverter.ToEncodedByte(ub);
                 
                 // Decode and add encoded byte to list
                 outputList.DecodeAndAddEncodedByte(eb);
-                
-                // Update input array index
-                i += (bitIndex + ubLength) / 8;
-                
-                // Update the bit index
-                bitIndex = (bitIndex + (ubLength % 8)) % 8;
             }
             
             // Turn the list into an array and return it

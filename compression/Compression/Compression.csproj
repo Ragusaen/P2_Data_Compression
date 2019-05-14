@@ -94,6 +94,8 @@
     <Compile Include="AC\BinaryFractionInIntervalFinder.cs" />
     <Compile Include="AC\ArithmeticMath.cs" />
     <Compile Include="AC\Interval.cs" />
+    <Compile Include="AC_R\ArithmeticCoder.cs" />
+    <Compile Include="AC_R\Interval.cs" />
     <Compile Include="ArrayIndexer.cs" />
     <Compile Include="BitIndexer.cs" />
     <Compile Include="BWT\BurrowWheelerTransform.cs" />

@@ -8,7 +8,7 @@ namespace Compression.LZ {
 
         public SlidingWindow(DataFile file) : base(file) {
         }
-
+        
         public EncodedLZByte Slide() {
             if (AtEnd())
                 return null;

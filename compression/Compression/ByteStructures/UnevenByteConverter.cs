@@ -1,27 +1,10 @@
 using System;
 using System.Collections.Generic;
+using compression;
 using Compression.ByteStructures;
 
 namespace Compression.ByteStructures {
     public class UnevenByteConverter {
-
-        public UnevenByte CreateUnevenByteFromBytes(ArrayIndexer<byte> array, int ubLength, int bitIndex) {
-            // Calculate the amount of relevant bytes
-            array.Length = (bitIndex + ubLength) / 8 + ((bitIndex + ubLength) % 8 == 0 ? 0 : 1);
-            int remainingBits = ubLength;
-
-            UnevenByte ub = default(UnevenByte);
-
-            for (int i = 0; remainingBits > 0; ++i) {
-                int bitsToAdd = remainingBits > 8 - bitIndex? 8 - bitIndex: remainingBits;
-                remainingBits -= bitsToAdd;
-                uint toAppend = (uint) ((array[i] % (1 << ( 8 - bitIndex))) >> (8 - bitsToAdd - bitIndex));
-                ub += new UnevenByte(toAppend, bitsToAdd);
-                bitIndex = (bitIndex + bitsToAdd) % 8;
-            }
-           
-            return ub;
-        }
         
         public byte[] UnevenBytesToBytes(List<UnevenByte> unevenBytes) {
             byte[] resultArray = new byte[ArrayByteCount(unevenBytes)];
