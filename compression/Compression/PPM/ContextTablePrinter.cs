@@ -23,17 +23,11 @@ namespace Compression.PPM{
             }
         }
 
-        public void PrintLine(string context, string symbol, int count, int cumCount) {
+        private void PrintLine(string context, string symbol, int count, int cumCount) {
             Console.Write(context);
             Console.Write("".PadLeft(10 - context.Length, ' ') + symbol);
             Console.Write("".PadLeft(9 - symbol.Length, ' ') + count);
             Console.Write("".PadLeft(8 - count.ToString().Length, ' ') + cumCount + "\n");
-        }
-
-        public void ConsolePrintAll(PredictionByPartialMatching PPM) {
-            foreach (var t in PPM.OrderList) {
-                ConsolePrint(t);
-            }
         }
     }
 }
