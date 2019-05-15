@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Compression.ByteStructures;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
@@ -17,11 +18,32 @@ namespace Compression.PPM{
         public DataFile Compress(DataFile toCompress) {
             InitializeTables();
             FillTables(toCompress);
+            CalculateAllCounts();
+            
             return toCompress;
         }
 
         public DataFile Decompress(DataFile toDecompress) {
             throw new System.NotImplementedException();
+        }
+
+        private byte[] Encode(byte[] input) {
+
+            for (int i = 0; i < input.Length; i++) {
+                for (int contextLength = _maxOrder; contextLength >= -1; --contextLength) {
+                    ArrayIndexer<byte> context = new ArrayIndexer<byte>(input, i - contextLength, contextLength);
+                    
+                }
+            }
+            
+        }
+        
+        
+        #region Tables
+        private void CalculateAllCounts() {
+            foreach (var ct in OrderList) {
+                ct.CalculateAllCounts();
+            }
         }
 
         private void InitializeTables() {
@@ -70,6 +92,7 @@ namespace Compression.PPM{
                     OrderList[0].ContextDict[empty].Add(zeroOrderSymbols[i], new SymbolInfo());
             }
         }
+        #endregion
     }
 }
     
