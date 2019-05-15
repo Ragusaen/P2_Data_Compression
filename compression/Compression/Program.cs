@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using compression.AC_R;
 using Compression.BWT;
 using Compression.Huffman;
@@ -11,17 +12,19 @@ namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
             
-            testArithmetic();
+            //testArithmetic();
+
+            testPPM();
             return;
             
             ICompressor compressor = new LZ77();
             
-            string path = "../../res/big2.txt";
+            string path = "../../res/silesia.tar";
             var watch = System.Diagnostics.Stopwatch.StartNew();
             
             // Load files
             DataFile input_file = new DataFile(path);
-            DataFile compressed_file = new DataFile();
+            DataFile compressed_file;
 
             compressed_file = compressor.Compress(input_file);
 
@@ -64,5 +67,14 @@ namespace Compression {
 
             Console.WriteLine(AC.GetEncodedBitString());
         }
+
+        public static void testPPM() {
+            var ppm = new PredictionByPartialMatching();
+            DataFile input = new DataFile(ByteMethods.StringToByteArray("ababcababcab"));
+
+            DataFile output = ppm.Compress(input);
+            output.WriteToFile("../../res/ppmcmpr");
+        }
+
     }
 }

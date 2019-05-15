@@ -4,6 +4,9 @@ using compression.ByteStructures;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
+    
+    public delegate MatchPointer FindLongestMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> needle);
+    
     public struct MatchPointer {
         public readonly int Index;
         public readonly int Length;

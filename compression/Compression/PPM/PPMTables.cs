@@ -19,14 +19,24 @@ namespace Compression.PPM{
                 AddEntryToTable(new Entry(GetContextFromFile(file, i), file.GetByte(i)));
             }
             CreateMinusFirstOrder();
+            foreach (var t in _orderList) {
+                t.CalculateAllCounts();
+            }
         }
 
         public SymbolInfo LookUp(byte[] context, byte symbol) {
-            return _orderList[context.Length + 1].ContextDict[context][symbol];
+            if (_orderList[context.Length + 1].ContextDict.ContainsKey(context))
+                return _orderList[context.Length + 1].ContextDict[context][symbol];
+            else
+                return new SymbolInfo(0,0);
         }
 
         public SymbolInfo LookUpMinusFirstOrder(byte symbol) {
             return _orderList[0].ContextDict[new byte[0]][symbol];
+        }
+
+        public int TotalCountOfContext(byte[] context) {
+            return _orderList[context.Length + 1].ContextDict[context].TotalCount;
         }
         
         private void InitializeTables() {
