@@ -39,10 +39,10 @@ namespace UnitTesting.Huffman
         public void TreeOf_testfile2() {
             byte[] input = ByteMethods.StringToByteArray("fem flade flødeboller på et fladt flødebollefad");
 
-            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
-            List<Node> NodeListOfInput = ListOfNodes.CreateLeafNodes(input);
-
             byte expected = (byte)'l';
+
+            var huffman = new HuffmanCompressor();
+            List<Node> NodeListOfInput = huffman.CreateLeafNodes(input);
 
             var actual = new HuffmanTree(NodeListOfInput);
 
