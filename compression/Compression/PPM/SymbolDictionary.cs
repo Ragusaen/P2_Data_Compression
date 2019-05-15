@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 
 namespace Compression.PPM{
-    public class SymbolDictionary : Dictionary<ISymbol, SymbolInfo>{
+    public class SymbolDictionary : Dictionary<byte, SymbolInfo>{
         public SymbolDictionary() { }
 
-        public SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
+        public readonly SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
         
         public int TotalCount { get; private set; }
 
-        public SymbolDictionary(ISymbol symbol) {
+        public SymbolDictionary(byte symbol) {
             Add(symbol, new SymbolInfo());
         }
         
-        public void AddNew(ISymbol symbol) {
+        public void AddNew(byte symbol) {
             Add(symbol, new SymbolInfo());
         }
 
