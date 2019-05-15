@@ -6,7 +6,7 @@ namespace Compression.PPM{
 
         public readonly SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
         
-        public int TotalCount { get; private set; }
+        public int TotalCount { get; set; }
 
         public SymbolDictionary(byte symbol) {
             Add(symbol, new SymbolInfo());

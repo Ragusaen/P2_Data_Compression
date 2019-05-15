@@ -82,10 +82,9 @@ namespace UnitTesting.PPM{
             public void CumCountIncrementsBy1() {
                 byte[] letterArray = {61, 62};
                 byte[] context = {74, 68};
-                int defaultEscaping = 1;
                 int expected = 1;
 
-                ContextTable orderX = new ContextTable(defaultEscaping);
+                ContextTable orderX = new ContextTable();
                 foreach (var t in letterArray) {
                     orderX.UpdateContext(context, t);
                 }
@@ -257,7 +256,7 @@ namespace UnitTesting.PPM{
             [Test]
             public void NoContextAddsFifthSymbolToTable() {
                 byte symbol = 100; // d -> expected = 104
-                ContextTable ct = new ContextTable(1);
+                ContextTable ct = new ContextTable();
 
 
                 for (int i = 0; i <= 5; i++)

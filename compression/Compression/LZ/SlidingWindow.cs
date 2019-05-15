@@ -5,8 +5,11 @@ namespace Compression.LZ {
     public class SlidingWindow : DataFileIterator{
         private int _historyLength = PointerByte.GetPointerSpan();
         private int _lookAheadLength = PointerByte.GetLengthSpan();
-
+        private FindLongestMatch findLongestMatch;
+        
+        
         public SlidingWindow(DataFile file) : base(file) {
+            findLongestMatch = CFindMatchingBytes.FindLongestMatch;
         }
         
         public EncodedLZByte Slide() {
@@ -15,8 +18,15 @@ namespace Compression.LZ {
             
             var history = LoadHistory();
             var lookAhead = LoadLookAhead();
-            
-            MatchPointer match = CFindMatchingBytes.FindLongestMatch(history, lookAhead);
+
+            MatchPointer match;
+            try {
+                match = findLongestMatch(history, lookAhead);
+            } catch (TypeLoadException) { // If the loading went bad
+                // Change to using the C# implementation
+                findLongestMatch = FindMatchingBytes.FindLongestMatch;
+                match = findLongestMatch(history, lookAhead);
+            }
             
             EncodedLZByte r;
             if (match.Length != 0) {
@@ -29,7 +39,7 @@ namespace Compression.LZ {
             }
             
             // Console print
-            if (currentIndex % 100 == 0) {
+            if (currentIndex % 100000 == 0) {
                 string str = (Math.Truncate((decimal) currentIndex / file.Length * 10000)/100).ToString();
                 Console.Write("\rPercentage complete: "  + str + "%   ");
             }

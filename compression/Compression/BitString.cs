@@ -32,6 +32,10 @@ namespace compression {
             }
         }
 
+        public byte[] ToArray() {
+            return _bytes.ToArray();
+        }
+
         public override string ToString() {
             string output = "";
             for (int i = 0; i < _bytes.Count - 1; ++i) {
