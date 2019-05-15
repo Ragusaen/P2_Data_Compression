@@ -5,18 +5,15 @@ using System.Linq;
 using Microsoft.SqlServer.Server;
 
 namespace Compression.PPM{
-    public class ContextTable : IEnumerable<Dictionary<ISymbol, SymbolInfo>> {
-        public Dictionary<SymbolList, SymbolDictionary> ContextDict = new Dictionary<SymbolList, SymbolDictionary>();
+    public class ContextTable : IEnumerable<Dictionary<byte, SymbolInfo>> {
+        public readonly Dictionary<byte[], SymbolDictionary> ContextDict = new Dictionary<byte[], SymbolDictionary>(new ByteArrayComparer());
         private readonly int _defaultEscaping;
         
         public ContextTable(int defaultEscaping = 0) {
             _defaultEscaping = defaultEscaping;
         }
 
-        public bool UpdateContext(byte[] inputContext, byte inputSymbol) {
-            SymbolList context = new SymbolList(inputContext);
-            ISymbol symbol = ByteToISymbol.ConvertSingle(inputSymbol);
-            
+        public bool UpdateContext(byte[] context, byte symbol) {
             if (!ContextDict.ContainsKey(context)) {
                 ContextDict.Add(context, new SymbolDictionary());
                 ContextDict[context].EscapeInfo.Count = _defaultEscaping+1;
@@ -40,7 +37,7 @@ namespace Compression.PPM{
             }
         }
 
-        public IEnumerator<Dictionary<ISymbol, SymbolInfo>> GetEnumerator() {
+        public IEnumerator<Dictionary<byte, SymbolInfo>> GetEnumerator() {
             return ContextDict.Values.GetEnumerator();
         }
 

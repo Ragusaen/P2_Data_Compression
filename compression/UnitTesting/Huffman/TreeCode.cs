@@ -14,8 +14,7 @@ namespace UnitTesting.Huffman
     class CreateListOf_EncodedInput {
         [Test]
         public void TreeMapOver_AB() {
-            List<Node> input = new List<Node>
-            {
+            List<Node> input = new List<Node> {
                 new LeafNode((byte)'A'),
                 new LeafNode((byte)'B')
             };
@@ -33,10 +32,10 @@ namespace UnitTesting.Huffman
 
         [Test]
         public void TreeMapOver_testfile2() {
-            byte[] input = ByteMethods.StringToByteArray("fem flade flxdeboller py et fladt flxdebollefad"); //x = ø og y = å
+            byte[] input = ByteMethods.StringToByteArray("fem flade flødeboller på et fladt flødebollefad"); 
 
-            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
-            List<Node> NodeListOfInput = ListOfNodes.CreateLeafNodes(input);
+            var huffman = new HuffmanCompressor();
+            List<Node> NodeListOfInput = huffman.CreateLeafNodes(input);
 
             List<UnevenByte> expected = new List<UnevenByte> {
                 new UnevenByte(0b0,1), new UnevenByte(0b0,1), new UnevenByte(0b0,1), new UnevenByte(0b0,1), new UnevenByte(0b0,1),
@@ -44,10 +43,10 @@ namespace UnitTesting.Huffman
                 new UnevenByte(0b101110000, 9), // p
                 new UnevenByte(0b101110100, 9), // t
                 new UnevenByte(0b0, 1),
-                new UnevenByte(0b101111000, 9), // x 
                 new UnevenByte(0b0, 1),
                 new UnevenByte(0b101110010, 9), // r
-                new UnevenByte(0b101111001, 9), // y
+                new UnevenByte(0b111100101, 9), // å
+                new UnevenByte(0b111111000, 9), // ø 
                 new UnevenByte(0b0, 1),
                 new UnevenByte(0b101100100, 9), // d 
                 new UnevenByte(0b100100000, 9), // (space)
