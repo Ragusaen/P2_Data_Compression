@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using compression.AC_R;
 using Compression.BWT;
 using Compression.Huffman;
 using Compression.LZ;
+using Compression.PPM;
 using Compression.RLE;
 
 namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
+            
+            testArithmetic();
+            return;
             
             ICompressor compressor = new LZ77();
             
@@ -47,6 +53,16 @@ namespace Compression {
 
             DataFile compressed = huffmanEncoder.Compress(input);
             byte[] actual = huffmanEncoder.Decompress(compressed).GetAllBytes();
+        }
+
+        public static void testArithmetic() {
+            ArithmeticCoder AC = new ArithmeticCoder();
+            AC.Encode(new SymbolInfo(5,9), 10);
+            AC.Encode(new SymbolInfo(5,9), 10);
+            AC.Encode(new SymbolInfo(5,9), 10);
+            AC.Encode(new SymbolInfo(1,10), 10);
+
+            Console.WriteLine(AC.GetEncodedBitString());
         }
     }
 }
