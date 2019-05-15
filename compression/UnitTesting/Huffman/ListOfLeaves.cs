@@ -27,8 +27,8 @@ namespace UnitTesting.Huffman
                 new LeafNode((byte)'D', 1)
             };
 
-            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
-            List<Node> actual = ListOfNodes.CreateLeafNodes(input);
+            var huffman = new HuffmanCompressor();
+            List<Node> actual = huffman.CreateLeafNodes(input);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -44,25 +44,25 @@ namespace UnitTesting.Huffman
                 new LeafNode((byte)'B', 4)
             };
 
-            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
-            List<Node> actual = ListOfNodes.CreateLeafNodes(input);
+            var huffman = new HuffmanCompressor();
+            List<Node> actual = huffman.CreateLeafNodes(input);
 
             CollectionAssert.AreEqual(expected, actual);
         }
 
         [Test]
         public void ListOver_testfile2() {
-            byte[] input = ByteMethods.StringToByteArray("fem flade flxdeboller py et fladt flxdebollefad");
+            byte[] input = ByteMethods.StringToByteArray("fem flade flødeboller på et fladt flødebollefad");
 
             List<Node> expected = new List<Node> {
                 new LeafNode((byte)'m', 1),
                 new LeafNode((byte)'p', 1),
                 new LeafNode((byte)'r', 1),
-                new LeafNode((byte)'y', 1),
+                new LeafNode((byte)'å', 1),
                 new LeafNode((byte)'b', 2),
                 new LeafNode((byte)'o', 2),
                 new LeafNode((byte)'t', 2),
-                new LeafNode((byte)'x', 2),
+                new LeafNode((byte)'ø', 2),
                 new LeafNode((byte)'a', 3),
                 new LeafNode((byte)'d', 5),
                 new LeafNode((byte)' ', 6),
@@ -71,8 +71,8 @@ namespace UnitTesting.Huffman
                 new LeafNode((byte)'l', 8)
             };
 
-            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
-            List<Node> actual = ListOfNodes.CreateLeafNodes(input);
+            var huffman = new HuffmanCompressor();
+            List<Node> actual = huffman.CreateLeafNodes(input);
 
             Assert.AreEqual(expected, actual);
         }

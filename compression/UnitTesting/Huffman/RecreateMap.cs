@@ -31,8 +31,8 @@ namespace UnitTesting.Huffman
         public void CodeDictionary_testfile2() {
             byte[] input = ByteMethods.StringToByteArray("fem flade flxdeboller py et fladt flxdebollefad"); //x = ø og y = å
 
-            Compression.Huffman.HuffmanCompressor ListOfNodes = new Compression.Huffman.HuffmanCompressor();
-            List<Node> NodeListOfInput = ListOfNodes.CreateLeafNodes(input);
+            var huffman = new HuffmanCompressor();
+            List<Node> NodeListOfInput = huffman.CreateLeafNodes(input);
 
             var expected = new Dictionary<byte, UnevenByte> {
                 { (byte)'m', new UnevenByte(0b00000, 5) },
