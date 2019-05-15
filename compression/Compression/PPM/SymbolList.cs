@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.UI;
 
 namespace Compression.PPM{
     public class SymbolList : IEquatable<SymbolList>, IList<ISymbol>{
         private readonly List<ISymbol> _symbolList = new List<ISymbol>();
 
         public SymbolList() { }
+        
+        public static readonly SymbolList Empty = new SymbolList();
 
         public SymbolList(ISymbol[] input) {
             _symbolList = input.ToList();
