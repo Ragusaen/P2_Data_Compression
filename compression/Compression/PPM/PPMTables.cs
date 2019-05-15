@@ -5,11 +5,9 @@ namespace Compression.PPM{
     public class PPMTables{
         private List<ContextTable> _orderList = new List<ContextTable>();
         private readonly int _maxOrder;
-        private readonly int _defaultEscaping;
 
-        public PPMTables(int maxOrder = 5, int defaultEscaping = 0) {
+        public PPMTables(int maxOrder = 5) {
             _maxOrder = maxOrder;
-            _defaultEscaping = defaultEscaping;
             InitializeTables();
         }
 
@@ -35,7 +33,7 @@ namespace Compression.PPM{
             _orderList = new List<ContextTable>();
             
             for (int i = 0; i <= _maxOrder+1; i++) {
-                _orderList.Add(new ContextTable(_defaultEscaping));
+                _orderList.Add(new ContextTable());
             }
         }        
         

@@ -30,7 +30,7 @@ namespace Compression.PPM{
             int cumCount = 0;
             
             foreach (var t in this) {
-                cumCount = t.Value.CumulativeCount = cumCount + t.Value.Count;
+                t.Value.CumulativeCount = cumCount += t.Value.Count;
             }
         }
 
