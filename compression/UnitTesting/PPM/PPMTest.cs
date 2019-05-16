@@ -10,7 +10,7 @@ namespace UnitTesting.PPM{
             [Test]
             public void LowerContextInputLengthIs0() {
                 byte[] input = { };
-                Entry entry = new Entry(input, 11);
+                Entry entry = new Entry(11, input);
                 int expectedLen = 0;
 
                 entry.NextContext();
@@ -22,19 +22,19 @@ namespace UnitTesting.PPM{
             [Test]
             public void LowerContextInputLengthIs1() {
                 byte[] input = {11};
-                Entry entry = new Entry(input, 11);
+                Entry entry = new Entry(11, input);
                 int expectedLen = 0;
 
                 entry.NextContext();
-                byte[] actual = entry.Context;
+                int actual = entry.Context.Length;
 
-                Assert.AreEqual(expectedLen, actual.Length);
+                Assert.AreEqual(expectedLen, actual);
             }
 
             [Test]
             public void LowerContextInputLengthIs2() {
                 byte[] input = {10, 11};
-                Entry entry = new Entry(input, 11);
+                Entry entry = new Entry(11, input);
                 byte expected = 11;
 
                 entry.NextContext();
@@ -47,7 +47,7 @@ namespace UnitTesting.PPM{
             public void LowerContextInputLengthIs5() {
                 byte[] input = {10, 11, 12, 13, 14};
                 byte[] expected = {11, 12, 13, 14};
-                Entry entry = new Entry(input, 11);
+                Entry entry = new Entry(11, input);
 
                 entry.NextContext();
                 byte[] actual = entry.Context;
@@ -66,10 +66,13 @@ namespace UnitTesting.PPM{
                 int expected = 1;
                 ContextTable orderX = new ContextTable();
                 
-                orderX.UpdateContext(context, letter);
+                Entry e = new Entry(letter, context);
+                
+                orderX.UpdateContext(e);
                 orderX.ContextDict[context].CalculateCumulativeCounts();
                 int first = orderX.ContextDict[context][letter].CumulativeCount;
-                orderX.UpdateContext(context, letter2);
+                e.Symbol = letter2;
+                orderX.UpdateContext(e);
                 orderX.ContextDict[context].CalculateCumulativeCounts();
                 int second = orderX.ContextDict[context][letter2].CumulativeCount;
                 int actual = second - first;
@@ -83,13 +86,13 @@ namespace UnitTesting.PPM{
                 byte[] letterArray = {61, 62};
                 byte[] context = {74, 68};
                 int expected = 1;
+                Entry e = new Entry {Context = context};
 
                 ContextTable orderX = new ContextTable();
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context, t);
+                    e.Symbol = t;
+                    orderX.UpdateContext(e);
                 }
-
-                orderX.CalculateAllCounts();
 
                 int actual = orderX.ContextDict[context][letterArray[1]].CumulativeCount -
                               orderX.ContextDict[context][letterArray[0]].CumulativeCount;
@@ -104,16 +107,19 @@ namespace UnitTesting.PPM{
                 byte[] context2 = {68, 61};
                 int expected = 4 * 10;
 
+                Entry e = new Entry {Context = context};
+                Entry e2 = new Entry {Context = context2};
+
                 ContextTable orderX = new ContextTable();
                 for (byte i = 0; i < 10; i++) {
-                    orderX.UpdateContext(context, (byte) (letter + i));
+                    e.Symbol = (byte) (letter + i);
+                    orderX.UpdateContext(e);
                 }
 
                 for (int i = 0; i < 10; i++) {
-                    orderX.UpdateContext(context2, (byte) (letter + i));
+                    e2.Symbol = (byte) (letter + i);
+                    orderX.UpdateContext(e2);
                 }
-                
-                orderX.CalculateAllCounts();
 
                 int actual = 0;
 
@@ -121,29 +127,37 @@ namespace UnitTesting.PPM{
                     actual += t.Value.TotalCount;
                 }
                 
+                ContextTablePrinter ctp = new ContextTablePrinter();
+                ctp.ConsolePrint(orderX);
+                
                 Assert.AreEqual(expected, actual);
             }
 
             [Test]
             public void SymbolListHasCorrectCountsInFirstContext() {
                 byte[] letterArray = {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}; // 10 elements: 'a - j'
-                byte[] context = {74, 68};
+                byte[] context1 = {74, 68};
                 byte[] context2 = {42, 77};
                 byte[] context3 = {55, 22};
-                
                 int expected = 20;
+                Entry e = new Entry {Context = context1};
+                Entry e2 = new Entry {Context = context2};
+                Entry e3 = new Entry {Context = context3};
                 
                 ContextTable orderX = new ContextTable();
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context, t);
+                    e.Symbol = t;
+                    orderX.UpdateContext(e);
                 }
 
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context2, t);
+                    e2.Symbol = t;
+                    orderX.UpdateContext(e2);
                 }
 
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context3, t);
+                    e3.Symbol = t;
+                    orderX.UpdateContext(e3);
                 }
 
                 int actual = orderX.ContextDict.First().Value.Sum(p => p.Value.Count) + orderX.ContextDict.First().Value.EscapeInfo.Count;
@@ -159,18 +173,24 @@ namespace UnitTesting.PPM{
                 byte[] context3 = {55, 22};
                 
                 int expected = 20;
+                Entry e = new Entry {Context = context1};
+                Entry e2 = new Entry {Context = context2};
+                Entry e3 = new Entry {Context = context3};
                 
                 ContextTable orderX = new ContextTable();
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context1, t);
+                    e.Symbol = t;
+                    orderX.UpdateContext(e);
                 }
 
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context2, t);
+                    e2.Symbol = t;
+                    orderX.UpdateContext(e2);
                 }
 
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context3, t);
+                    e3.Symbol = t;
+                    orderX.UpdateContext(e3);
                 }
                 
                 
@@ -187,18 +207,24 @@ namespace UnitTesting.PPM{
                 byte[] context3 = {55, 22};
 
                 int expected = 20;
-
+                Entry e = new Entry {Context = context1};
+                Entry e2 = new Entry {Context = context2};
+                Entry e3 = new Entry {Context = context3};
+                
                 ContextTable orderX = new ContextTable();
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context1, t);
+                    e.Symbol = t;
+                    orderX.UpdateContext(e);
                 }
 
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context2, t);
+                    e2.Symbol = t;
+                    orderX.UpdateContext(e2);
                 }
 
                 foreach (var t in letterArray) {
-                    orderX.UpdateContext(context3, t);
+                    e3.Symbol = t;
+                    orderX.UpdateContext(e3);
                 }
                 
                 int actual = orderX.ContextDict[context3].Sum(p => p.Value.Count) + orderX.ContextDict[context3].EscapeInfo.Count;
@@ -213,7 +239,7 @@ namespace UnitTesting.PPM{
 
                 ContextTable ct = new ContextTable();
 
-                ct.UpdateContext(context, symbol);
+                ct.UpdateContext(new Entry(symbol, context));
 
                 Assert.IsTrue(ct.ContextDict.ContainsKey(context));
             }
@@ -225,8 +251,9 @@ namespace UnitTesting.PPM{
                 byte symbol = 103;
                 ContextTable ct = new ContextTable();
 
-                ct.UpdateContext(context, symbol);
-                ct.UpdateContext(context2, symbol);
+
+                ct.UpdateContext(new Entry(symbol, context));
+                ct.UpdateContext(new Entry(symbol, context2));
 
                 Assert.IsTrue(ct.ContextDict.ContainsKey(context2));
             }
@@ -236,7 +263,7 @@ namespace UnitTesting.PPM{
                 byte symbol = 103;
                 ContextTable ct = new ContextTable();
 
-                ct.UpdateContext(new byte[0], symbol);
+                ct.UpdateContext(new Entry(symbol, new byte[0]));
 
                 Assert.IsTrue(ct.ContextDict[new byte[0]].ContainsKey(symbol));
             }
@@ -247,8 +274,8 @@ namespace UnitTesting.PPM{
                 byte symbol2 = 104;
                 ContextTable ct = new ContextTable();
 
-                ct.UpdateContext(new byte[0], symbol);
-                ct.UpdateContext(new byte[0], symbol2);
+                ct.UpdateContext(new Entry(symbol, new byte[0]));
+                ct.UpdateContext(new Entry(symbol2, new byte[0]));
 
                 Assert.IsTrue(ct.ContextDict[new byte[0]].ContainsKey(symbol2));
             }
@@ -260,7 +287,7 @@ namespace UnitTesting.PPM{
 
 
                 for (int i = 0; i <= 5; i++)
-                    ct.UpdateContext(new byte[0], (byte) (symbol + i));
+                    ct.UpdateContext(new Entry((byte) (symbol + i), new byte[0]));
 
                 Assert.IsTrue(ct.ContextDict[new byte[0]].ContainsKey(104));
             }

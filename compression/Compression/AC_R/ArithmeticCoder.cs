@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Compression.ByteStructures;
 using Compression.PPM;
 
@@ -11,12 +12,21 @@ namespace compression.AC_R {
         private int _followBits = 0;
         private Interval _interval = new Interval(0, MAX_INTERVAL, MAX_INTERVAL);
 
-        public void Encode(SymbolInfo symbolInfo, int contextTotalCount) {
-            var prevCount = symbolInfo.CumulativeCount - symbolInfo.Count;
-            _interval.Narrow(prevCount, symbolInfo.CumulativeCount, contextTotalCount);
+        public void Encode(int count, int cumulativeCount, int totalCount) {
+            var prevCount = cumulativeCount - count;
+            _interval.Narrow(prevCount, cumulativeCount, totalCount);
+            
+            if(count == 0)
+                throw new ArgumentException("Arithmetic encoder: Count is zero");
+            if(cumulativeCount == 0)
+                throw new ArgumentException("Arithmetic encoder: Cumulative count is zero");
+            if(totalCount == 0)
+                throw new ArgumentException("Arithmetic encoder: Total count is zero");
 
+            Console.WriteLine("Encoding -> Count: {0}, CC: {1}, TC: {2}", count, cumulativeCount, totalCount);
+            
             ExpansionType et;
-            while ((et = _interval.Expand()) != ExpansionType.NONE) {
+            while ((et = _interval.Expand()) != ExpansionType.NONE) {                
                 if (et == ExpansionType.MIDDLE) {
                     Console.WriteLine("Expand Middle");
                     ++_followBits;

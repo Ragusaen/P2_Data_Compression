@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Compression.PPM{
     public class PPMTables{
-        private List<ContextTable> _orderList = new List<ContextTable>();
+        public List<ContextTable> _orderList = new List<ContextTable>();
         private readonly int _maxOrder;
 
         public PPMTables(int maxOrder = 5) {
@@ -11,32 +12,61 @@ namespace Compression.PPM{
             InitializeTables();
         }
 
-        public void FillTables(DataFile file) {
-            if (file.Length == 0) // return if file is empty
-                return;
+        public EncodeInfo LookUpAndUpdate(Entry entry, out ContextTable.ToEncode updateResult) {
+            ContextTable ct = _orderList[entry.Context.Length + 1];
+            byte symbol = entry.Symbol;
+            byte[] context = entry.Context;
             
-            for (int i = 0; i < file.Length; i++) {
-                AddEntryToTable(new Entry(GetContextFromFile(file, i), file.GetByte(i)));
+            updateResult = ct.UpdateContext(entry);
+            
+            // No matched context or symbol case, encode nothing
+            if(updateResult == ContextTable.ToEncode.EncodeNothing)
+                return new EncodeInfo(0,0,0);
+            
+            // Matched context and symbol case
+            SymbolDictionary matchedContext = ct.ContextDict[context];
+            if (updateResult == ContextTable.ToEncode.EncodeSymbol)
+                return new EncodeInfo(matchedContext[symbol].Count, matchedContext[symbol].CumulativeCount, matchedContext.TotalCount);
+            
+            // Matched context but not symbol in 0. order
+            if(updateResult == ContextTable.ToEncode.EncodeMinusFirst)
+                return new EncodeInfo(-(matchedContext.EscapeInfo.Count), matchedContext.EscapeInfo.CumulativeCount, matchedContext.TotalCount );
+            
+            // Matched context, but no symbol case
+            if (updateResult == ContextTable.ToEncode.EncodeEscape)
+                return new EncodeInfo(matchedContext.EscapeInfo.Count,matchedContext.EscapeInfo.CumulativeCount, matchedContext.TotalCount );
+            
+            return new EncodeInfo(1, entry.Symbol, byte.MaxValue + 1);
+        }
+
+
+
+        public EncodeInfo LookUpSymbol(Entry entry) {
+            byte symbol = entry.Symbol;
+            byte[] context = entry.Context;
+            int count = 0;
+            int cumulative = 0;
+            int totalCount = 0;
+            Dictionary<byte[], SymbolDictionary> ct = _orderList[context.Length + 1].ContextDict;
+            
+            if (ct.ContainsKey(context)) {
+                if (ct[context].ContainsKey(symbol)) {
+                    count = ct[context][symbol].Count;
+                    cumulative = ct[context][symbol].CumulativeCount;
+                    totalCount = ct[context].TotalCount;
+                }
+                else {
+                    totalCount = ct[context].TotalCount;
+                }
             }
-            CreateMinusFirstOrder();
-            foreach (var t in _orderList) {
-                t.CalculateAllCounts();
-            }
+
+            return new EncodeInfo(count, cumulative, totalCount);
         }
 
-        public SymbolInfo LookUp(byte[] context, byte symbol) {
-            if (_orderList[context.Length + 1].ContextDict.ContainsKey(context))
-                return _orderList[context.Length + 1].ContextDict[context][symbol];
-            else
-                return new SymbolInfo(0,0);
-        }
-
-        public SymbolInfo LookUpMinusFirstOrder(byte symbol) {
-            return _orderList[0].ContextDict[new byte[0]][symbol];
-        }
-
-        public int TotalCountOfContext(byte[] context) {
-            return _orderList[context.Length + 1].ContextDict[context].TotalCount;
+        public EncodeInfo LookUpEscape(byte[] context) {
+            SymbolDictionary sd = _orderList[context.Length + 1].ContextDict[context];
+            
+            return new EncodeInfo(sd.EscapeInfo.Count, sd.EscapeInfo.CumulativeCount, sd.TotalCount);
         }
         
         private void InitializeTables() {
@@ -47,14 +77,6 @@ namespace Compression.PPM{
             }
         }        
         
-        private void AddEntryToTable(Entry entry) {
-            for (int i = entry.Context.Length + 1; i >= 1; i--) { // Stops when it has added to 0. order
-                if (_orderList[i].UpdateContext(entry.Context, entry.Letter))
-                    return; // Done if a match was found in one of the tables
-                entry.NextContext();
-            }
-        }
-        
         private byte[] GetContextFromFile(DataFile file, int i) {
             if (_maxOrder == 0)
                 return new byte[0];
@@ -63,17 +85,5 @@ namespace Compression.PPM{
                 return file.GetBytes(i - _maxOrder, _maxOrder);
             return file.GetBytes(0, i);
         }
-        
-        private void CreateMinusFirstOrder() {
-            byte[] empty = new byte[0];
-            
-            _orderList[0].ContextDict.Add(empty, new SymbolDictionary());
-            byte[] zeroOrderSymbols = _orderList[1].ContextDict[new byte[0]].Keys.ToArray();
-            int len = zeroOrderSymbols.Length;
-            
-            for (int i = 0; i < len; i++) {
-                _orderList[0].ContextDict[empty].Add(zeroOrderSymbols[i], new SymbolInfo());
-            }
-        }
     }
-}
+} 
