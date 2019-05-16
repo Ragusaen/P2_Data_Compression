@@ -128,10 +128,11 @@
     <Compile Include="PDC\EndcodedContextByte.cs" />
     <Compile Include="PDC\PredictionByDefinedContext.cs" />
     <Compile Include="PPM\ContextTable.cs" />
+    <Compile Include="PPM\EncodeInfo.cs" />
+    <Compile Include="PPM\Entry.cs" />
     <Compile Include="PPM\PPMTables.cs" />
     <Compile Include="PPM\SymbolDictionary.cs" />
     <Compile Include="PPM\ContextTablePrinter.cs" />
-    <Compile Include="PPM\Entry.cs" />
     <Compile Include="PPM\PredictionByPartialMatching.cs" />
     <Compile Include="PPM\SymbolInfo.cs" />
     <Compile Include="Program.cs" />

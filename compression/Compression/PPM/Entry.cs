@@ -1,13 +1,18 @@
+using System.Linq;
+using System.Runtime.Remoting.Contexts;
+
 namespace Compression.PPM{
     public class Entry{
+        public byte Symbol;
         public byte[] Context;
-        public byte Letter;
+        
+        public Entry() { }
 
-        public Entry(byte[] context, byte letter) {
+        public Entry(byte symbol, byte[] context) {
+            Symbol = symbol;
             Context = context;
-            Letter = letter;
         }
-
+        
         public void NextContext() {
             if (Context.Length <= 1) {
                 Context = new byte[0];
@@ -20,8 +25,12 @@ namespace Compression.PPM{
             for (int i = 0; i < newLength; i++) {
                 res[i] = Context[i+1];
             }
-            
+
             Context = res;
+        }
+
+        public override string ToString() {
+            return "Symbol: " + (char)Symbol + "  Context: " + new string(Context.Select(p => (char)p).ToArray());
         }
     }
 }

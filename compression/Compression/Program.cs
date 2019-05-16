@@ -60,17 +60,16 @@ namespace Compression {
 
         public static void testArithmetic() {
             ArithmeticCoder AC = new ArithmeticCoder();
-            AC.Encode(new SymbolInfo(5,9), 10);
-            AC.Encode(new SymbolInfo(5,9), 10);
-            AC.Encode(new SymbolInfo(5,9), 10);
-            AC.Encode(new SymbolInfo(1,10), 10);
-
+            AC.Encode(5,9, 10);
+            AC.Encode(5,9, 10);
+            AC.Encode(5,9, 10);
+            AC.Encode(1,10, 10);
             Console.WriteLine(AC.GetEncodedBitString());
         }
 
         public static void testPPM() {
             var ppm = new PredictionByPartialMatching();
-            DataFile input = new DataFile(ByteMethods.StringToByteArray("ababcababcab"));
+            DataFile input = new DataFile(ByteMethods.StringToByteArray("abcdabcd"));
 
             DataFile output = ppm.Compress(input);
             output.WriteToFile("../../res/ppmcmpr");
