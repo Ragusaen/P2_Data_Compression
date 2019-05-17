@@ -2,28 +2,34 @@ using System.Collections.Generic;
 
 namespace Compression.PPM{
     public class SymbolDictionary : Dictionary<byte, SymbolInfo>{
-        public SymbolDictionary() { }
-
-        public readonly SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
         
-        public int TotalCount { get; set; }
+        public readonly SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
+        public int TotalCount { get; private set; }
 
+        public SymbolDictionary() { }
         public SymbolDictionary(byte symbol) {
             Add(symbol, new SymbolInfo());
+            UpdateCounts();
         }
         
         public void AddNew(byte symbol) {
             Add(symbol, new SymbolInfo());
+            UpdateCounts();
         }
 
-        public void CalculateCounts() {
-            int cumCount = 0;
-            
-            foreach (var t in this) {
-                t.Value.CumulativeCount = cumCount += t.Value.Count;
-            }
+        public void IncrementSymbol(byte symbol) {
+            this[symbol].Count++;
+            UpdateCounts();
+        }
 
-            TotalCount = EscapeInfo.CumulativeCount = cumCount + EscapeInfo.Count;
+        public void IncrementEscape() {
+            EscapeInfo.Count++;
+            UpdateCounts();
+        }
+
+        public void UpdateCounts() {
+            TotalCount++;
+            CalculateCumulativeCounts();
         }
 
         public void CalculateCumulativeCounts() {
@@ -32,12 +38,8 @@ namespace Compression.PPM{
             foreach (var t in this) {
                 t.Value.CumulativeCount = cumCount += t.Value.Count;
             }
-        }
 
-        public void CalculateTotalCount() {
-            foreach (var t in this) {
-                TotalCount += t.Value.Count;
-            }
+            EscapeInfo.CumulativeCount = cumCount + EscapeInfo.Count;
         }
     }
 }

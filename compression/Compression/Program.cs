@@ -61,20 +61,19 @@ namespace Compression {
 
         public static void testArithmetic() {
             ArithmeticCoder AC = new ArithmeticCoder();
-            AC.Encode(new SymbolInfo(5,9), 10);
-            AC.Encode(new SymbolInfo(5,9), 10);
-            AC.Encode(new SymbolInfo(5,9), 10);
-            AC.Encode(new SymbolInfo(1,10), 10);
-
+            AC.Encode(5,9, 10);
+            AC.Encode(5,9, 10);
+            AC.Encode(5,9, 10);
+            AC.Encode(1,10, 10);
             Console.WriteLine(AC.GetEncodedBitString());
         }
 
         public static void testPPM() {
             ArithmeticCoder ac = new ArithmeticCoder();
-            ac.Encode(new SymbolInfo(4,4), 10);
-            ac.Encode(new SymbolInfo(4,8), 10);
-            ac.Encode(new SymbolInfo(4,4), 10);
-            ac.Encode(new SymbolInfo(2,10), 10);
+            ac.Encode(4,4, 10);
+            ac.Encode(4,8, 10);
+            ac.Encode(4,4, 10);
+            ac.Encode(2,10, 10);
             ac.Finalize();
             
             Console.WriteLine(ac.GetEncodedBitString());
