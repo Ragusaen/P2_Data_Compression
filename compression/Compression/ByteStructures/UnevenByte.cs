@@ -29,7 +29,7 @@ namespace Compression.ByteStructures{
         }
 
         public static UnevenByte operator !(UnevenByte ub) {
-            return new UnevenByte((uint) (~ub.Data % ub.Length), ub.Length);
+            return new UnevenByte((uint)(~ub.Data % (1 << ub.Length)), ub.Length);
         }
 
         public static UnevenByte RemoveFromBack(UnevenByte ub, int l) {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
@@ -25,6 +26,7 @@ namespace Compression.Huffman
             // Create EncodedTreeList
             EncodedTreeList = new List<UnevenByte>();
             EncodeTree(RootNode);
+            Console.WriteLine($"EncodedTreeListSize: {EncodedTreeList.Count}");
         }
 
         public void CreateTree(List<Node> listOfNodes) { //public for unit tests

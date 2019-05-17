@@ -9,12 +9,12 @@ namespace Compression.Huffman {
         public DataFile Compress(DataFile file) {
             byte[] data = file.GetAllBytes();
             
-            List<Node> ListOfNodes = CreateLeafNodes(data);
-            if (ListOfNodes.Count <= 1) {
+            List<Node> listOfNodes = CreateLeafNodes(data);
+            if (listOfNodes.Count <= 1) {
                 throw new OnlyOneUniqueByteException();
             }
-
-            var huffmanTree = new HuffmanTree(ListOfNodes);
+            
+            var huffmanTree = new HuffmanTree(listOfNodes);
 
             byte[] encodedData = EncodeEveryByteFromData(huffmanTree, data);
             return new DataFile(encodedData);
@@ -27,21 +27,23 @@ namespace Compression.Huffman {
 
 
         public List<Node> CreateLeafNodes(byte[] data) { //public for unit tests
-            List<Node> ListOfNodes = new List<Node>();
-            for (int i = 0; i < data.Length; i++) {
-                // If the symbol has already been added
-                if (ListOfNodes.Exists(x => x.symbol == data[i])) {
-                    int index = ListOfNodes.FindIndex(y => y.symbol == data[i]);
-                    ListOfNodes[index].count++;
-                } else {
-                    ListOfNodes.Add(new LeafNode(data[i]));
+            int[] counts = new int[byte.MaxValue + 1]; 
+            for (int i = 0; i < data.Length; ++i) {
+                counts[data[i]]++;
+            }
+            
+            List<Node> listOfNodes = new List<Node>();
+            for (int b = 0; b < byte.MaxValue + 1; ++b) {
+                if (counts[b] > 0) {
+                    listOfNodes.Add(new LeafNode((byte)b, counts[b]));
                 }
             }
-            ListOfNodes.Sort();
-            return ListOfNodes;
+            
+            listOfNodes.Sort();
+            return listOfNodes;
         }
 
-        public byte[] EncodeEveryByteFromData (HuffmanTree huffmanTree, byte[] data) {
+        public byte[] EncodeEveryByteFromData(HuffmanTree huffmanTree, byte[] data) {
             List<UnevenByte> unevenByteList = new List<UnevenByte>();
             unevenByteList.AddRange(huffmanTree.EncodedTreeList);
             
@@ -57,8 +59,6 @@ namespace Compression.Huffman {
         }
 
         private UnevenByte CreateFillerUnevenByte(List<UnevenByte> NodeList) {
-            var ubConverter = new UnevenByteConverter();
-
             int totalBitLength = 0;
             for (int i = 0; i < NodeList.Count; ++i)
                 totalBitLength += NodeList[i].Length;

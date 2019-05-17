@@ -25,7 +25,8 @@ namespace Compression.PPM{
         }
 
         public SymbolInfo LookUp(byte[] context, byte symbol) {
-            if (_orderList[context.Length + 1].ContextDict.ContainsKey(context))
+            if (_orderList[context.Length + 1].ContextDict.ContainsKey(context) &&
+                _orderList[context.Length + 1].ContextDict[context].ContainsKey(symbol))
                 return _orderList[context.Length + 1].ContextDict[context][symbol];
             else
                 return new SymbolInfo(0,0);
@@ -36,7 +37,17 @@ namespace Compression.PPM{
         }
 
         public int TotalCountOfContext(byte[] context) {
-            return _orderList[context.Length + 1].ContextDict[context].TotalCount;
+            if (_orderList[context.Length + 1].ContextDict.ContainsKey(context))
+                return _orderList[context.Length + 1].ContextDict[context].TotalCount;
+            return 0;
+        }
+
+        public int TotalCountOfMinusFirstOrder() {
+            return _orderList[0].ContextDict[new byte[0]].TotalCount;
+        }
+
+        public SymbolInfo GetEscapeInfo(byte[] context) {
+            return _orderList[context.Length + 1].ContextDict[context].EscapeInfo;
         }
         
         private void InitializeTables() {

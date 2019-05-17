@@ -14,6 +14,7 @@ namespace compression.AC_R {
         public void Encode(SymbolInfo symbolInfo, int contextTotalCount) {
             var prevCount = symbolInfo.CumulativeCount - symbolInfo.Count;
             _interval.Narrow(prevCount, symbolInfo.CumulativeCount, contextTotalCount);
+            Console.Write($"Interval: {_interval} ");
 
             ExpansionType et;
             while ((et = _interval.Expand()) != ExpansionType.NONE) {
@@ -33,17 +34,30 @@ namespace compression.AC_R {
                     }
 
                     _bitString.Append(toEncode);
-                    while (_followBits > 0) {
+                    for (;_followBits > 0; --_followBits) {
                         _bitString.Append(!toEncode); // Encode follow bits as the complement
-                        --_followBits;
                     }
                 }
             }
         }
 
+        public void Finalize() {
+            Console.WriteLine($"Final interval: {_interval}");
+            UnevenByte toEncode = _interval.Upper > _interval.Max - _interval.Lower ? UnevenByte.One : UnevenByte.Zero;
+            
+            _bitString.Append(toEncode);
+            for (; _followBits > 0; --_followBits) {
+                _bitString.Append(!toEncode);
+            }
+            _bitString.Append(!toEncode);
+        }
+
         public BitString GetEncodedBitString() {
-            _bitString.Append(UnevenByte.Zero);
             return _bitString;
+        }
+
+        public byte[] GetBytes() {
+            return _bitString.ToArray();
         }
     }
 }

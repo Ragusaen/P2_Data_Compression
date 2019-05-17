@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using compression.AC_R;
 using Compression.BWT;
+using Compression.ByteStructures;
 using Compression.Huffman;
 using Compression.LZ;
 using Compression.PPM;
@@ -13,11 +14,11 @@ namespace Compression {
         public static void Main(string[] args) {
             
             //testArithmetic();
-
+            
             testPPM();
             return;
-            
-            ICompressor compressor = new LZ77();
+
+            ICompressor compressor = new BurrowWheelerCompressor();
             
             string path = "../../res/silesia.tar";
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -69,11 +70,14 @@ namespace Compression {
         }
 
         public static void testPPM() {
-            var ppm = new PredictionByPartialMatching();
-            DataFile input = new DataFile(ByteMethods.StringToByteArray("ababcababcab"));
-
-            DataFile output = ppm.Compress(input);
-            output.WriteToFile("../../res/ppmcmpr");
+            ArithmeticCoder ac = new ArithmeticCoder();
+            ac.Encode(new SymbolInfo(4,4), 10);
+            ac.Encode(new SymbolInfo(4,8), 10);
+            ac.Encode(new SymbolInfo(4,4), 10);
+            ac.Encode(new SymbolInfo(2,10), 10);
+            ac.Finalize();
+            
+            Console.WriteLine(ac.GetEncodedBitString());
         }
 
     }

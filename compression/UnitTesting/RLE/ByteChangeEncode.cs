@@ -7,6 +7,7 @@ namespace UnitTesting.RLE {
     public class ByteChangeEncodingTests {
         [Test]
         public void AddsEntries_AAABAAABAA_as_ABABA_1001100110() {
+            var bce = new ByteChangeEncoder();
             byte[] input = ByteMethods.StringToByteArray("AAABAAABAA");
             byte[] expected = new byte[7];
             byte[] a = ByteMethods.StringToByteArray("ABABA");
@@ -14,7 +15,7 @@ namespace UnitTesting.RLE {
             a.CopyTo(expected, 0);
             b.CopyTo(expected, a.Length);
 
-            byte[] actual = ByteChangeEncoder.EncodeBytes(input).ToBytes();
+            byte[] actual = bce.EncodeBytes(input).ToBytes();
             
             Assert.AreEqual(expected, actual);
         }

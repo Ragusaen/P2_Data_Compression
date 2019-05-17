@@ -11,6 +11,7 @@
     <AssemblyName>Compression</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -99,6 +100,7 @@
     <Compile Include="ArrayIndexer.cs" />
     <Compile Include="BitIndexer.cs" />
     <Compile Include="BitString.cs" />
+    <Compile Include="BWT\BurrowWheelerCompressor.cs" />
     <Compile Include="BWT\BurrowWheelerTransform.cs" />
     <Compile Include="ByteMethods.cs" />
     <Compile Include="ByteStructures\ByteArrayComparer.cs" />
