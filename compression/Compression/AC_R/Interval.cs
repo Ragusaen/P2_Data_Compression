@@ -24,8 +24,8 @@ namespace compression.AC_R {
 
         public ExpansionType Expand() {
             if (Lower >= Max / 2) {
-                Lower = (Lower - Max / 2) * 2;
-                Upper = (Upper - Max / 2) * 2;
+                Lower = 2 * Lower - Max;
+                Upper = 2 * Upper - Max;
                 return ExpansionType.LEFT;
             }
             if (Upper <= Max / 2) {

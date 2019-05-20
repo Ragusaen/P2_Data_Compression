@@ -24,6 +24,8 @@ namespace Compression.LZ {
             var unevenByteConverter = new UnevenByteConverter();
             byte[] bytes = unevenByteConverter.UnevenBytesToBytes(unevenBytes);
             
+            slidingWindow.PrintProbabilities();
+            
             return new DataFile(bytes);
         }
 

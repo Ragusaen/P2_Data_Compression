@@ -14,13 +14,10 @@ namespace Compression {
         public static void Main(string[] args) {
             
             //testArithmetic();
-            
-            testPPM();
-            return;
 
-            ICompressor compressor = new BurrowWheelerCompressor();
+            ICompressor compressor = new LZ77();
             
-            string path = "../../res/silesia.tar";
+            string path = "../../res/big2.txt";
             var watch = System.Diagnostics.Stopwatch.StartNew();
             
             // Load files
@@ -45,7 +42,7 @@ namespace Compression {
             double compressionspeed = input_file.Length / compression_time;
             double decompressionspeed = input_file.Length / (elapsedMs - compression_time);
             Console.WriteLine("\nCompression speed: " + compressionspeed + " kB/s\tDecompression speed: " + decompressionspeed + " kB/s");
-           
+            
         }
 
         public static void testHuffman() {
