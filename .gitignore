@@ -2,6 +2,7 @@
 
 compression/Compression/res/out
 compression/Compression/res/restored
+compression/Compression/res/silesia.tar
 
 # User specific
 **/.idea/**/workspace.xml
