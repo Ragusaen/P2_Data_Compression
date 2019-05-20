@@ -56,6 +56,10 @@ namespace Compression.PPM{
 
             var output = ac.GetEncodedBitString().ToArray();
             
+            
+            ContextTablePrinter ctp = new ContextTablePrinter();
+            ctp.PrintAll(ppmTables._orderList);
+
             return new DataFile(output);
         }
         
