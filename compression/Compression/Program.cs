@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using compression.AC_R;
-using Compression.BWT;
-using Compression.ByteStructures;
-using Compression.Huffman;
 using Compression.LZ;
 using Compression.PPM;
-using Compression.RLE;
 
 namespace Compression {
     internal class Program {
@@ -42,7 +36,6 @@ namespace Compression {
             double compressionspeed = input_file.Length / compression_time;
             double decompressionspeed = input_file.Length / (elapsedMs - compression_time);
             Console.WriteLine("\nCompression speed: " + compressionspeed + " kB/s\tDecompression speed: " + decompressionspeed + " kB/s");
-            
         }
 
         public static void testHuffman() {
@@ -74,6 +67,12 @@ namespace Compression {
             ac.Finalize();
             
             Console.WriteLine(ac.GetEncodedBitString());
+            
+            var ppm = new PredictionByPartialMatching();
+            DataFile input = new DataFile(ByteMethods.StringToByteArray("abcdabcd"));
+
+            DataFile output = ppm.Compress(input);
+            output.WriteToFile("../../res/ppmcmpr");
         }
 
     }

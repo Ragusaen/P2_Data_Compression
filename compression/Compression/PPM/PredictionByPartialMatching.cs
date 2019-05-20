@@ -82,6 +82,7 @@ namespace Compression.PPM{
             for (int i = 0; i < input.Length; i++) {
                 int maxOrder = i < _maxOrder ? i : _maxOrder;
                 for (int contextLength = maxOrder; contextLength >= -1; --contextLength) {
+<<<<<<< HEAD
                     if (contextLength == -1) {
                         SymbolInfo symbolInfo = contextTables.LookUpMinusFirstOrder(input[i]);
                         arithmeticCoder.Encode(symbolInfo, contextTables.TotalCountOfMinusFirstOrder());
@@ -100,11 +101,24 @@ namespace Compression.PPM{
                             break;
                         }
                         arithmeticCoder.Encode(contextTables.GetEscapeInfo(context), totalCount);
+=======
+                    byte[] context = new byte[contextLength];
+                    Array.Copy(input, i, context, 0, contextLength);
+
+                    SymbolInfo symbolInfo = contextTables.LookUp(context, input[i]);
+                    if (symbolInfo.Count > 0) {
+                        int totalCount = contextTables.TotalCountOfContext(context);
+                        arithmeticCoder.Encode(symbolInfo, totalCount);
+                        break;
+>>>>>>> 18479893239b21c93015bd49b93756e3759d7e70
                     }
                 }
             }
 
+<<<<<<< HEAD
             Console.WriteLine(arithmeticCoder.GetEncodedBitString());
+=======
+>>>>>>> 18479893239b21c93015bd49b93756e3759d7e70
             return arithmeticCoder.GetEncodedBitString().ToArray();
         }*/
     }

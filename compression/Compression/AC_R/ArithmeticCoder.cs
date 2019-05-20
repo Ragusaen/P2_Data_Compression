@@ -1,5 +1,9 @@
 using System;
 using Compression.ByteStructures;
+using System.Collections.Generic;
+using System.IO;
+using Compression.ByteStructures;
+using Compression.PPM;
 
 namespace compression.AC_R {
     public class ArithmeticCoder {

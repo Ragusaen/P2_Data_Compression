@@ -38,14 +38,6 @@ namespace Compression.PPM{
             
             return new EncodeInfo(1, entry.Symbol, byte.MaxValue + 1);
         }
-        
-        public SymbolInfo LookUp(byte[] context, byte symbol) {
-            if (_orderList[context.Length + 1].ContextDict.ContainsKey(context) &&
-                _orderList[context.Length + 1].ContextDict[context].ContainsKey(symbol))
-                return _orderList[context.Length + 1].ContextDict[context][symbol];
-            else
-                return new SymbolInfo(0,0);
-        }
 
         public EncodeInfo LookUpSymbol(Entry entry) {
             byte symbol = entry.Symbol;
@@ -68,7 +60,6 @@ namespace Compression.PPM{
 
             return new EncodeInfo(count, cumulative, totalCount);
         }
-
 
         public EncodeInfo LookUpEscape(byte[] context) {
             SymbolDictionary sd = _orderList[context.Length + 1].ContextDict[context];

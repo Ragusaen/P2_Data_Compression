@@ -1,7 +1,4 @@
 
-using System;
-using Compression.ByteStructures;
-
 namespace compression.AC_R {
 
     public enum ExpansionType {

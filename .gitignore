@@ -2,7 +2,10 @@
 
 compression/Compression/res/out
 compression/Compression/res/restored
+<<<<<<< HEAD
 compression/Compression/res/silesia.tar
+=======
+>>>>>>> 18479893239b21c93015bd49b93756e3759d7e70
 
 # User specific
 **/.idea/**/workspace.xml

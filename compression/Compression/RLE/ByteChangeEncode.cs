@@ -43,7 +43,6 @@ namespace Compression.RLE {
     }
     
     public class ByteChangeEncoder {
-        
         public EncodedByteChanges EncodeBytes(byte[] input) {
             EncodedByteChanges ebc = new EncodedByteChanges();
             for (int i = 0; i < input.Length; ++i) {
