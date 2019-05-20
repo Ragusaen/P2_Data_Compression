@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using compression;
 using Compression.ByteStructures;
-using Xceed.Wpf.Toolkit.Primitives;
 
 namespace Compression.Huffman
 {
@@ -33,7 +31,7 @@ namespace Compression.Huffman
 
         public byte[] Decode() {
             List<byte> output = new List<byte>();
-            UnevenByte ub = new UnevenByte();
+            UnevenByte ub = default(UnevenByte);
             
             while (!bitIndexer.AtEnd()) {
                 ub += bitIndexer.GetNext();

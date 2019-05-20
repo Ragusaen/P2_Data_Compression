@@ -112,6 +112,7 @@
     <Compile Include="FileSystemContainer.cs" />
     <Compile Include="Huffman\HuffmanDecoder.cs" />
     <Compile Include="Huffman\HuffmanCompressor.cs" />
+    <Compile Include="Huffman\HuffmanEncoder.cs" />
     <Compile Include="Huffman\Node.cs" />
     <Compile Include="Huffman\HuffmanTree.cs" />
     <Compile Include="Entropy\Entropy.cs" />
