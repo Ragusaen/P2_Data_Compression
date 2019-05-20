@@ -1,11 +1,7 @@
 using System;
 using Compression.ByteStructures;
-using System.Collections.Generic;
-using System.IO;
-using Compression.ByteStructures;
-using Compression.PPM;
 
-namespace compression.AC_R {
+namespace Compression.AC_R {
     public class ArithmeticCoder {
         private const int MAX_INTERVAL = 1 << 16;
         private BitString _bitString = new BitString();

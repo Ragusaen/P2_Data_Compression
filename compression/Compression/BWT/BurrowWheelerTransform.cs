@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Compression;
 
 namespace Compression.BWT {
     public class BurrowWheelerTransform {

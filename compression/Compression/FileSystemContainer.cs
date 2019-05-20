@@ -1,12 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using Compression;
 
-namespace compression {
-    
-   
-    
+namespace Compression {
     public class FileSystemContainer {
         #region Nodes
         private abstract class FileTreeNode {

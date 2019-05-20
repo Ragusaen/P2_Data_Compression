@@ -1,5 +1,4 @@
-
-namespace compression.AC_R {
+namespace Compression.AC_R {
 
     public enum ExpansionType {
         LEFT,

@@ -1,5 +1,5 @@
-using  System; 
-using compression.ByteStructures;
+using System;
+
 namespace Compression {
     public class DataFileIterator {
         protected DataFile file;

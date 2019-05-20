@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using compression.AC_R;
+using Compression.AC_R;
 using Compression;
 using Compression.PPM;
 using NUnit.Framework;

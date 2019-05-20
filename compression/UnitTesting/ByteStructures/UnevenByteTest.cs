@@ -1,7 +1,6 @@
 using System.Linq;
-using compression.ByteStructures;
-using NUnit.Framework;
 using Compression.ByteStructures;
+using NUnit.Framework;
 
 namespace UnitTesting.ByteStructures {
     [TestFixture, Category("UnevenBytes")]

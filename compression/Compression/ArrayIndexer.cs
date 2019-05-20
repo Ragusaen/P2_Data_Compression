@@ -1,5 +1,3 @@
-using System.Dynamic;
-
 namespace Compression.ByteStructures {
     public struct ArrayIndexer<T> {
         public T[] Array;

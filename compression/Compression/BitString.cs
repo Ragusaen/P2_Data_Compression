@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Compression.ByteStructures;
 
-namespace compression {
+namespace Compression {
     public class BitString {
         private List<byte> _bytes = new List<byte>();
         private int _bitIndex = 0;

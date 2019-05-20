@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.SqlServer.Server;
 
 namespace Compression.PPM{
     public class ContextTable : IEnumerable<Dictionary<byte, SymbolInfo>> {

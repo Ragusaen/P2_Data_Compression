@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using compression.ByteStructures;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {

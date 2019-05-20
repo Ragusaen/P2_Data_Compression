@@ -1,8 +1,6 @@
-
 using Compression.ByteStructures;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-namespace compression {
+namespace Compression {
     public class BitIndexer {
         private byte[] _bytes;
         private int _currentIndex = 0;

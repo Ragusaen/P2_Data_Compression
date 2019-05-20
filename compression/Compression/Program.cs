@@ -1,5 +1,5 @@
 ﻿using System;
-using compression.AC_R;
+using Compression.AC_R;
 using Compression.LZ;
 using Compression.PPM;
 
