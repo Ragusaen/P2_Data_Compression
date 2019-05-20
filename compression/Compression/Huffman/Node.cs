@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Compression.ByteStructures;
 
 namespace Compression.Huffman
