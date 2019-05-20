@@ -14,29 +14,29 @@ namespace Compression.PPM{
         public ToEncode UpdateContext(Entry entry) {
             byte symbol = entry.Symbol;
             byte[] context = entry.Context;
+
+            ToEncode toEncode;
             
-            if (!ContextDict.ContainsKey(context)) { // did not match context, do not encode anything
+            if (ContextDict.ContainsKey(context)) { // did not match context, do not encode anything
+                if (ContextDict[context].ContainsKey(symbol)) { // matched context and symbol, encode symbol
+                    ContextDict[context].IncrementSymbol(symbol);
+                    toEncode = ToEncode.EncodeSymbol;
+                }
+                else {
+                    // Matched context but not symbol, encode an escape symbol
+                    ContextDict[context].AddNew(symbol);
+                    ContextDict[context].IncrementEscape();
+                    toEncode = ToEncode.EncodeEscape;
+                }
+            }
+            else {
                 ContextDict.Add(context, new SymbolDictionary());
                 ContextDict[context].AddNew(symbol);
                 ContextDict[context].IncrementEscape();
-                return ToEncode.EncodeNothing;
+                toEncode = ToEncode.EncodeNothing;
             }
 
-            if (ContextDict[context].ContainsKey(symbol)) { // matched context and symbol, encode symbol
-                ContextDict[context].IncrementSymbol(symbol);
-                return ToEncode.EncodeSymbol;
-            }
-            
-            // Matched context but not symbol, encode an escape symbol
-            if (context.Length == 0) {
-                ContextDict[context].AddNew(symbol);
-                ContextDict[context].IncrementEscape();
-                return ToEncode.EncodeMinusFirst;
-            }
-            
-            ContextDict[context].AddNew(symbol);
-            ContextDict[context].IncrementEscape();
-            return ToEncode.EncodeEscape;
+            return toEncode;
         }
 
         public IEnumerator<Dictionary<byte, SymbolInfo>> GetEnumerator() {
