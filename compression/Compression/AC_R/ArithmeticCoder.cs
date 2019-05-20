@@ -3,7 +3,7 @@ using Compression.ByteStructures;
 
 namespace Compression.AC_R {
     public class ArithmeticCoder {
-        private const int MAX_INTERVAL = 1 << 16;
+        private const int MAX_INTERVAL = 1 << 16 - 1;
         private BitString _bitString = new BitString();
         
         private int _followBits = 0;
@@ -20,22 +20,26 @@ namespace Compression.AC_R {
             if(totalCount == 0)
                 throw new ArgumentException("Arithmetic encoder: Total count is zero");
 
-            Console.WriteLine("Encoding -> Count: {0}, CC: {1}, TC: {2}", count, cumulativeCount, totalCount);
+            //Console.WriteLine("Encoding -> Count: {0}, CC: {1}, TC: {2}", count, cumulativeCount, totalCount);
             
             ExpansionType et;
-            while ((et = _interval.Expand()) != ExpansionType.NONE) {                
+            int infiniteCounter = 0;
+            while ((et = _interval.Expand()) != ExpansionType.NONE) {
+                if (++infiniteCounter > 15000)
+                    Console.WriteLine($"Infinite counter reached at arithmetic coding");
+                
                 if (et == ExpansionType.MIDDLE) {
-                    Console.WriteLine("Expand Middle");
+//                    Console.WriteLine("Expand Middle");
                     ++_followBits;
                 }
                 else {
                     UnevenByte toEncode;
                     if (et == ExpansionType.LEFT) {
-                        Console.WriteLine("Expand Left");
+                        //Console.WriteLine("Expand Left");
                         toEncode = UnevenByte.One;
                     }
                     else { // et == ExpansionType.Right
-                        Console.WriteLine("Expand Right");
+//                        Console.WriteLine("Expand Right");
                         toEncode = UnevenByte.Zero;
                     }
 
@@ -48,7 +52,7 @@ namespace Compression.AC_R {
         }
 
         public void Finalize() {
-            Console.WriteLine($"Final interval: {_interval}");
+//            Console.WriteLine($"Final interval: {_interval}");
             UnevenByte toEncode = _interval.Upper > _interval.Max - _interval.Lower ? UnevenByte.One : UnevenByte.Zero;
             
             _bitString.Append(toEncode);

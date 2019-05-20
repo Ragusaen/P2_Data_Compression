@@ -7,9 +7,8 @@ namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
             
-            //testArithmetic();
-
-            ICompressor compressor = new LZ77();
+            //testPPM();
+            ICompressor compressor = new PredictionByPartialMatching();
             
             string path = "../../res/big2.txt";
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -23,10 +22,10 @@ namespace Compression {
             var compression_time = watch.ElapsedMilliseconds;
             Console.WriteLine("Compressions time: " + compression_time + " ms");
             
-            DataFile restoredFile = compressor.Decompress(compressed_file);
+            //DataFile restoredFile = compressor.Decompress(compressed_file);
             
             compressed_file.WriteToFile("../../res/out");
-            restoredFile.WriteToFile("../../res/restored");
+            //restoredFile.WriteToFile("../../res/restored");
             
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -59,18 +58,9 @@ namespace Compression {
         }
 
         public static void testPPM() {
-            ArithmeticCoder ac = new ArithmeticCoder();
-            ac.Encode(4,4, 10);
-            ac.Encode(4,8, 10);
-            ac.Encode(4,4, 10);
-            ac.Encode(2,10, 10);
-            ac.Finalize();
-            
-            Console.WriteLine(ac.GetEncodedBitString());
-            
             var ppm = new PredictionByPartialMatching();
             DataFile input = new DataFile(ByteMethods.StringToByteArray("abcdabcd"));
-
+            
             DataFile output = ppm.Compress(input);
             output.WriteToFile("../../res/ppmcmpr");
         }
