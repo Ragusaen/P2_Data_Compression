@@ -1,4 +1,6 @@
 
+using System;
+
 namespace compression.AC_R {
 
     public enum ExpansionType {
@@ -9,11 +11,11 @@ namespace compression.AC_R {
     };
     
     public class Interval {
-        public int Lower;
-        public int Upper;
-        public int Max;
+        public long Lower;
+        public long Upper;
+        public long Max;
 
-        public Interval(int lower, int upper, int max) {
+        public Interval(long lower, long upper, long max) {
             Lower = lower;
             Upper = upper - 1; // Subtract 1 to make it inclusive
             Max = max;
@@ -40,9 +42,15 @@ namespace compression.AC_R {
         }
 
         public void Narrow(int prevCount, int count, int totalCount) {
-            int tempLower = Lower;
-            Lower = Lower + (prevCount * (Upper - Lower)) / totalCount;
+            long tempLower = Lower;
+            long prevUpper = Upper;
+            Lower = Lower +  (prevCount * (Upper - Lower)) / totalCount;
             Upper = tempLower + (count * (Upper - tempLower)) / totalCount - 1;
+
+            if (Upper <= Lower) {
+                Console.WriteLine($"[{tempLower}, {prevUpper}) -> [{Lower}, {Upper})");
+                throw new ArithmeticException("Arithmetic was not precise enough");
+            }
         }
 
         public ExpansionType ExpandBest() {

@@ -1,9 +1,10 @@
 using System;
+using System.Transactions;
 using Compression.ByteStructures;
 
 namespace compression.AC_R {
     public class ArithmeticCoder {
-        private const int MAX_INTERVAL = 1 << 16 - 1;
+        private const long MAX_INTERVAL = (1 << 20) - 1;
         private BitString _bitString = new BitString();
         
         private int _followBits = 0;
@@ -23,11 +24,7 @@ namespace compression.AC_R {
             //Console.WriteLine("Encoding -> Count: {0}, CC: {1}, TC: {2}", count, cumulativeCount, totalCount);
             
             ExpansionType et;
-            int infiniteCounter = 0;
             while ((et = _interval.Expand()) != ExpansionType.NONE) {
-                if (++infiniteCounter > 15000)
-                    Console.WriteLine($"Infinite counter reached at arithmetic coding");
-                
                 if (et == ExpansionType.MIDDLE) {
 //                    Console.WriteLine("Expand Middle");
                     ++_followBits;

@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Web;
 using compression.AC_R;
+using Compression.ByteStructures;
+using Compression.Huffman;
 using Compression.LZ;
 using Compression.PPM;
+using Xceed.Wpf.Toolkit.Core.Input;
 
 namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
             
             //testPPM();
+            
             ICompressor compressor = new PredictionByPartialMatching();
             
-            string path = "../../res/big2.txt";
+            string path = "../../res/a";
             var watch = System.Diagnostics.Stopwatch.StartNew();
             
             // Load files
@@ -65,5 +70,32 @@ namespace Compression {
             output.WriteToFile("../../res/ppmcmpr");
         }
 
+
+        public static void LZSpeedTests() {
+            DataFile input = new DataFile("../../res/hcandersen.txt");
+            byte[] bytes = input.GetAllBytes();
+
+            double averageratio = 1;
+
+            for (int startIndex = 0; startIndex < 10000; startIndex++) {
+                var longWatch = System.Diagnostics.Stopwatch.StartNew();
+                var longHistory = new ArrayIndexer<byte>(bytes, startIndex, 4096);
+                var longLookAhead = new ArrayIndexer<byte>(bytes, startIndex+4096, 16);
+
+                CFindMatchingBytes.FindLongestMatch(longHistory, longLookAhead);
+                var longTime = longWatch.ElapsedTicks;
+
+                var shortWatch = System.Diagnostics.Stopwatch.StartNew();
+                var shortHistory = new ArrayIndexer<byte>(bytes, startIndex+3968, 128);
+                var shortLookAhead = new ArrayIndexer<byte>(bytes, startIndex+4096, 4);
+
+                CFindMatchingBytes.FindLongestMatch(shortHistory, shortLookAhead);
+                var shortTime = shortWatch.ElapsedTicks;
+
+                averageratio = (averageratio * startIndex + (double)longTime / shortTime) / (startIndex + 1);
+            }
+
+            Console.WriteLine($"Average ratio: {averageratio}");
+        }
     }
 }
