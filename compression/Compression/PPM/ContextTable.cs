@@ -4,14 +4,13 @@ using System.Collections.Generic;
 namespace Compression.PPM{
     public class ContextTable : IEnumerable<Dictionary<byte, SymbolInfo>> {
         public enum ToEncode{
-            EncodeNothing, EncodeSymbol, EncodeEscape, EncodeMinusFirst
+            EncodeNothing, EncodeSymbol, EncodeEscape
         }
         
         public readonly Dictionary<byte[], SymbolDictionary> ContextDict = new Dictionary<byte[], SymbolDictionary>(new ByteArrayComparer());
         public ToEncode UpdateContext(Entry entry) {
             byte symbol = entry.Symbol;
             byte[] context = entry.Context;
-
             ToEncode toEncode;
             
             if (ContextDict.ContainsKey(context)) { // did not match context, do not encode anything
