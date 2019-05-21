@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Compression.PPM{
     public class PPMTables{
-        public List<ContextTable> _orderList = new List<ContextTable>();
+        private List<ContextTable> _orderList = new List<ContextTable>();
         private readonly int _maxOrder;
 
         public PPMTables(int maxOrder = 5) {
