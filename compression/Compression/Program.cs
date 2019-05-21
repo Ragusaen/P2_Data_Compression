@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Web;
-using compression.AC_R;
 using Compression.ByteStructures;
 using Compression.Huffman;
+using Compression.AC_R;
 using Compression.LZ;
 using Compression.PPM;
-using Xceed.Wpf.Toolkit.Core.Input;
 
 namespace Compression {
     internal class Program {

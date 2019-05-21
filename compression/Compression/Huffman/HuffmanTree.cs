@@ -56,24 +56,5 @@ namespace Compression.Huffman
                 EncodeTree(branchNode.RightNode);
             }
         }
-
-        //*** Mangler at bliver testet ***
-        //public void SetCodeEncodeTree(Node node) { //Kan bruges i stedet for SetCode og EncodeTree 
-        //    if(node is BranchNode branchNode) {
-        //        EncodedTreeList.Add(UnevenByte.Zero);
-
-        //        branchNode.LeftNode.code = branchNode.code + UnevenByte.Zero;
-        //        branchNode.RightNode.code = branchNode.code + UnevenByte.One;
-
-        //        SetCodeEncodeTree(branchNode.LeftNode);
-        //        SetCodeEncodeTree(branchNode.RightNode);
-        //    }
-        //    else if(node is LeafNode leafNode) {
-        //        var symbolAsUB = new UnevenByte(leafNode.symbol, 8);
-        //        EncodedTreeList.Add(UnevenByte.One + symbolAsUB);
-
-        //        CodeDictionary.Add(node.symbol, node.code);
-        //    }
-        //}
     }
 }

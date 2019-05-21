@@ -1,5 +1,4 @@
 using System;
-using Compression;
 using Compression.ByteStructures;
 
 namespace PDC {

@@ -2,7 +2,7 @@ using System;
 using System.Transactions;
 using Compression.ByteStructures;
 
-namespace compression.AC_R {
+namespace Compression.AC_R {
     public class ArithmeticCoder {
         private const long MAX_INTERVAL = (1 << 20) - 1;
         private BitString _bitString = new BitString();

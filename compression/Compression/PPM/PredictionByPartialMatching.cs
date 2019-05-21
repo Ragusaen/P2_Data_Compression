@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.PerformanceData;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Web.UI.WebControls;
-using compression.AC_R;
-using Compression.ByteStructures;
+using Compression.AC_R;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
