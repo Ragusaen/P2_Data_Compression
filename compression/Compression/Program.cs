@@ -4,13 +4,15 @@ using Compression.Huffman;
 using Compression.AC_R;
 using Compression.LZ;
 using Compression.PPM;
+using Eto.Forms; 
+using Eto.Drawing;
+using Eto;
 
 namespace Compression {
     internal class Program {
+        
         public static void Main(string[] args) {
-            
-            //testPPM();
-            
+
             ICompressor compressor = new PredictionByPartialMatching();
             
             string path = "../../res/a";
