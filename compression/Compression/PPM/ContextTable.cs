@@ -17,15 +17,13 @@ namespace Compression.PPM{
                 if (ContextDict[context].ContainsKey(symbol)) { // matched context and symbol, encode symbol
                     ContextDict[context].IncrementSymbol(symbol);
                     toEncode = ToEncode.EncodeSymbol;
-                }
-                else {
+                } else {
                     // Matched context but not symbol, encode an escape symbol
                     ContextDict[context].AddNew(symbol);
                     ContextDict[context].IncrementEscape();
                     toEncode = ToEncode.EncodeEscape;
                 }
-            }
-            else {
+            } else {
                 ContextDict.Add(context, new SymbolDictionary());
                 ContextDict[context].AddNew(symbol);
                 ContextDict[context].IncrementEscape();
