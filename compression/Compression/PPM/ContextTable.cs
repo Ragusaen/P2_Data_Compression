@@ -6,8 +6,8 @@ namespace Compression.PPM{
         public enum ToEncode{
             EncodeNothing, EncodeSymbol, EncodeEscape
         }
-        
         public readonly Dictionary<byte[], SymbolDictionary> ContextDict = new Dictionary<byte[], SymbolDictionary>(new ByteArrayComparer());
+        
         public ToEncode UpdateContext(Entry entry) {
             byte symbol = entry.Symbol;
             byte[] context = entry.Context;
