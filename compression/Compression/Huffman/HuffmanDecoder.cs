@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Compression.ByteStructures;
 
 namespace Compression.Huffman
@@ -30,13 +31,23 @@ namespace Compression.Huffman
 
         public byte[] Decode() {
             List<byte> output = new List<byte>();
-            UnevenByte ub = default(UnevenByte);
             
+            int shortestKey = Int32.MaxValue;
+            byte c = 0;
+            foreach (var decodeDictionaryKey in DecodeDictionary.Keys) {
+                if (decodeDictionaryKey.Length < shortestKey) {
+                    shortestKey = decodeDictionaryKey.Length;
+                    c = DecodeDictionary[decodeDictionaryKey];
+                }
+            }
+
+            // Get the first bits
+            UnevenByte ub = default(UnevenByte);
             while (!bitIndexer.AtEnd()) {
-                ub += bitIndexer.GetNext();
+                ub += ub == default(UnevenByte)? bitIndexer.GetNextRange(shortestKey): bitIndexer.GetNext();
                 if (DecodeDictionary.ContainsKey(ub)) {
-                   output.Add(DecodeDictionary[ub]);
-                   ub = default(UnevenByte);
+                    output.Add(DecodeDictionary[ub]);
+                    ub = default(UnevenByte);
                 }
             }
 
