@@ -15,7 +15,6 @@ namespace Compression.Huffman
             BitString bitString = new BitString();
 
             // Calculate filler bits
-
             UnevenByte fillerBits = CreateFillerUnevenByte(huffmanTree);
 
             bitString.Append(fillerBits);
@@ -37,12 +36,12 @@ namespace Compression.Huffman
             int sizeOfTree = huffmanTree.TotalLeafs * 10 - 1;
             int bitsInLastByte = (sizeOfTree + huffmanTree.TotalLength) % 8;
             
-            uint fillOnes = 0;
-            if ( bitsInLastByte > 0) { 
-                fillOnes = (uint)0b11111111 >> bitsInLastByte;
-            }
+            if (bitsInLastByte > 0) { 
+                uint fillOnes = (uint)0b11111111 >> bitsInLastByte;
 
-            return new UnevenByte(fillOnes, 8 - bitsInLastByte);
+                return new UnevenByte(fillOnes, 8 - bitsInLastByte);
+            }
+            return default(UnevenByte);
         }
     }
 }
