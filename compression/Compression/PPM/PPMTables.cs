@@ -49,7 +49,7 @@ namespace Compression.PPM{
             
             // Reduce counts of symbols in 1. and 0. order contexts
             for (int i = 0; i <= 1; ++i) {
-                foreach (var context in _orderList[i].ContextDict.Values) {
+                foreach (var context in _orderList[i].Values) {
                     int cumCount = 0;
                     foreach (var entry in context) {
                         entry.Value.Count /= 128; // Reduce symbol count
