@@ -4,7 +4,7 @@ namespace Compression.PPM{
     public class SymbolDictionary : Dictionary<byte, SymbolInfo>{
         
         public readonly SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
-        public int TotalCount { get; private set; }
+        public int TotalCount { get; set; }
 
         public SymbolDictionary() { }
         public SymbolDictionary(byte symbol) {

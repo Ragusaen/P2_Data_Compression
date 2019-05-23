@@ -8,8 +8,14 @@ namespace Compression.Huffman
         public List<UnevenByte> EncodedTreeList;
         public Dictionary<byte, UnevenByte> CodeDictionary;
         
+        // Total bitlength of the input
+        public int TotalLength = 0;
+        public int TotalLeafs = 0;
+        
         // Create the huffman tree from a list of leafs
         public HuffmanTree(List<Node> listOfNodes) {
+            TotalLeafs = listOfNodes.Count;
+            
             // Create the tree and initialize RootNode
             CreateTree(listOfNodes);
             
@@ -43,6 +49,7 @@ namespace Compression.Huffman
                 SetCode(branchNode.RightNode);
             } else if (inheritCode is LeafNode) {
                 CodeDictionary.Add(inheritCode.symbol, inheritCode.code);
+                TotalLength += inheritCode.count * inheritCode.code.Length;
             }
         }
 
