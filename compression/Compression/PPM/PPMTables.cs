@@ -15,15 +15,13 @@ namespace Compression.PPM{
             ContextTable ct = _orderList[entry.Context.Length];
             byte symbol = entry.Symbol;
             byte[] context = entry.Context;
-
             ContextTable.ToEncode updateResult;
             
             // If it is the minus first order, just encode the symbol
             if (entry.IsMinusFirstOrder) {
                 encodeInfo = new EncodeInfo(1, entry.Symbol + 1, byte.MaxValue + 1);
                 updateResult = ContextTable.ToEncode.EncodeSymbol;
-            }
-            else {
+            } else {
                 updateResult = ct.UpdateContext(entry);
                 SymbolDictionary matchedContext = ct.ContextDict[context];
                 // No matched context or symbol case, encode nothing
