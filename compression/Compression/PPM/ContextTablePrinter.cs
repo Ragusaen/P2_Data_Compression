@@ -5,7 +5,7 @@ namespace Compression.PPM{
     public class ContextTablePrinter {
         public void ConsolePrint(ContextTable CTP) {
             Console.WriteLine("Context | Symbol | Count | Cum_Count");
-            foreach (var t in CTP.ContextDict) {
+            foreach (var t in CTP) {
                 char[] cArr = new char[t.Key.Length];
                 
                 for(int i = 0; i < t.Key.Length; i++) {

@@ -22,10 +22,10 @@ namespace Compression.PPM{
                 updateResult = ContextTable.ToEncode.EncodeSymbol;
             } else {
                 updateResult = ct.UpdateContext(entry);
-                SymbolDictionary matchedContext = ct.ContextDict[context];
+                SymbolDictionary matchedContext = ct[context];
                 // No matched context or symbol case, encode nothing
                 if(updateResult == ContextTable.ToEncode.EncodeNothing)
-                    encodeInfo = new EncodeInfo(0,0,0);
+                    encodeInfo = default(EncodeInfo);
             
                 // Matched context and symbol case
                 else if (updateResult == ContextTable.ToEncode.EncodeSymbol) 
