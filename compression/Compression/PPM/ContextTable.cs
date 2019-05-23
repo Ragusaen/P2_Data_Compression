@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xceed.Wpf.Toolkit.Core.Converters;
 
 namespace Compression.PPM{
-    public class ContextTable : Dictionary<byte[], SymbolDictionary>{
+    public class ContextTable : Dictionary<byte[], SymbolDictionary> {
         public enum ToEncode{
             EncodeNothing, EncodeSymbol, EncodeEscape
         }

@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Compression.PPM{
-    public class PPMTables{
-        private List<ContextTable> _orderList = new List<ContextTable>();
+    public class PPMTables : List<ContextTable> {
         private readonly int _maxOrder;
 
         public PPMTables(int maxOrder = 5) {
@@ -12,7 +11,7 @@ namespace Compression.PPM{
         }
 
         public ContextTable.ToEncode LookUpAndUpdate(Entry entry, out EncodeInfo encodeInfo) {
-            ContextTable ct = _orderList[entry.Context.Length];
+            ContextTable ct = this[entry.Context.Length];
             byte symbol = entry.Symbol;
             byte[] context = entry.Context;
             ContextTable.ToEncode updateResult;
@@ -49,7 +48,7 @@ namespace Compression.PPM{
             
             // Reduce counts of symbols in 1. and 0. order contexts
             for (int i = 0; i <= 1; ++i) {
-                foreach (var context in _orderList[i].Values) {
+                foreach (var context in this[i].Values) {
                     int cumCount = 0;
                     foreach (var entry in context) {
                         entry.Value.Count /= 128; // Reduce symbol count
@@ -67,16 +66,14 @@ namespace Compression.PPM{
                 }
             }
             
-            for (int i = 2; i < _orderList.Count; ++i) {
-                _orderList[i] = new ContextTable();
+            for (int i = 2; i < Count; ++i) {
+                this[i] = new ContextTable();
             }
         }
         
         private void InitializeTables() {
-            _orderList = new List<ContextTable>();
-            
             for (int i = 0; i <= _maxOrder; i++) {
-                _orderList.Add(new ContextTable());
+                Add(new ContextTable());
             }
         }
     }
