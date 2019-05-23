@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Compression.PPM{
@@ -37,6 +38,38 @@ namespace Compression.PPM{
             }
             
             return updateResult;
+        }
+        
+        /// <summary>
+        /// This method removes all of the large contexts' data (3. - 5.) to reduce the memory usage.
+        /// It also reduces the counts of the symbols in the 1. and 0. order, to prevent too specific probabilities.
+        /// If total count get too large, smaller counts may not fit within the integer interval in arithmetic coding.
+        /// </summary>
+        public void CleanUp() {
+            
+            // Reduce counts of symbols in 1. and 0. order contexts
+            for (int i = 0; i <= 1; ++i) {
+                foreach (var context in _orderList[i].ContextDict.Values) {
+                    int cumCount = 0;
+                    foreach (var entry in context) {
+                        entry.Value.Count /= 128; // Reduce symbol count
+                        if (entry.Value.Count == 0)
+                            entry.Value.Count = 1;
+                        
+                        cumCount += entry.Value.Count;
+                        entry.Value.CumulativeCount = cumCount;
+                    }
+                    
+                    // Update escape cumcount and totalcount
+                    cumCount += context.EscapeInfo.Count;
+                    context.EscapeInfo.CumulativeCount = cumCount;
+                    context.TotalCount = cumCount;
+                }
+            }
+            
+            for (int i = 2; i < _orderList.Count; ++i) {
+                _orderList[i] = new ContextTable();
+            }
         }
         
         private void InitializeTables() {

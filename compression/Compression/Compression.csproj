@@ -90,13 +90,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AC\ArithmeticCoding.cs" />
-    <Compile Include="AC\ArithmeticEncoding.cs" />
-    <Compile Include="AC\BinaryFractionInIntervalFinder.cs" />
-    <Compile Include="AC\ArithmeticMath.cs" />
+    <Compile Include="AC\ArithmeticCoder.cs" />
     <Compile Include="AC\Interval.cs" />
-    <Compile Include="AC_R\ArithmeticCoder.cs" />
-    <Compile Include="AC_R\Interval.cs" />
     <Compile Include="ArrayIndexer.cs" />
     <Compile Include="BitIndexer.cs" />
     <Compile Include="BitString.cs" />
@@ -108,14 +103,12 @@
     <Compile Include="ByteStructures\EncodedByte.cs" />
     <Compile Include="ByteStructures\IEncodedByteConverter.cs" />
     <Compile Include="ByteStructures\UnevenByte.cs" />
-    <Compile Include="ByteStructures\UnevenByteConverter.cs" />
     <Compile Include="FileSystemContainer.cs" />
     <Compile Include="Huffman\HuffmanDecoder.cs" />
     <Compile Include="Huffman\HuffmanCompressor.cs" />
     <Compile Include="Huffman\HuffmanEncoder.cs" />
     <Compile Include="Huffman\Node.cs" />
     <Compile Include="Huffman\HuffmanTree.cs" />
-    <Compile Include="Entropy\Entropy.cs" />
     <Compile Include="fileiterator.cs" />
     <Compile Include="Huffman\OnlyOneUniqueByteException.cs" />
     <Compile Include="ICompressor.cs" />

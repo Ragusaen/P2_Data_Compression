@@ -1,5 +1,6 @@
 using System;
 using Compression.AC_R;
+using PDC;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
@@ -14,6 +15,11 @@ namespace Compression.PPM{
             ArithmeticCoder ac = new ArithmeticCoder();
             
             for (int i = 0; i < toCompress.Length; i++) {
+                if (i % 100000 == 0) {
+                    ppmTables.CleanUp();
+                    Console.Write($"\rCompleted {(double)i/toCompress.Length}");
+                }
+                
                 Entry entry = new Entry(toCompress.GetByte(i), GetContextFromFile(toCompress, i));
                 ContextTable.ToEncode toEncode;
                 EncodeInfo encodeInfo;

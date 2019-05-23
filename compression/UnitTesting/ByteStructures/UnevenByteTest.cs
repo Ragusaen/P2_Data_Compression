@@ -5,30 +5,6 @@ using NUnit.Framework;
 namespace UnitTesting.ByteStructures {
     [TestFixture, Category("UnevenBytes")]
     public class UnevenByteTest {
-
-        public class UnEvenBytesToBytesTest {
-            [Test]
-            public void Returns_abc_from_3_even_bytes_a_b_c() {
-                UnevenByte[] array = {new UnevenByte(97, 8), new UnevenByte(98,8), new UnevenByte(99, 8)};
-                byte[] expected = {97, 98, 99};
-                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
-
-                byte[] actual = unevenByteConverter.UnevenBytesToBytes(array.ToList());
-            
-                Assert.AreEqual(expected, actual);
-            }
-            [Test]
-            public void ReturnsCorrectFromUnevenBytes() {
-                UnevenByte[] array = {new UnevenByte(500, 9), new UnevenByte(78642,17), new UnevenByte(5, 3)};
-                byte[] expected = {250, 76, 204, 168};
-                UnevenByteConverter unevenByteConverter = new UnevenByteConverter();
-
-                byte[] actual = unevenByteConverter.UnevenBytesToBytes(array.ToList());
-            
-                Assert.AreEqual(expected, actual);
-            }
-        }
-        
         public class GetBitsTests {
             [Test]
             public void Returns_7_from_1111101_7_get_3() {

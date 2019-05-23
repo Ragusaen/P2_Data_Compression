@@ -8,36 +8,33 @@ using Compression.PPM;
 namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
+            ICompressor compressor = new HuffmanCompressor();
             
-            //testPPM();
-            
-            ICompressor compressor = new PredictionByPartialMatching();
-            
-            string path = "../../res/a";
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            
-            // Load files
-            DataFile input_file = new DataFile(path);
-            DataFile compressed_file;
+            string[] paths = {
+                "../../res/silesia.tar",
+                "../../res/silesia/data",
+                "../../res/silesia/exe",
+                "../../res/silesia/html",
+                "../../res/silesia/img",
+                "../../res/silesia/pdf",
+                "../../res/silesia/src",
+                "../../res/silesia/txt"
+            };
 
-            compressed_file = compressor.Compress(input_file);
+            foreach (string path in paths) {
+                DataFile dataFile = new DataFile(path);
+                
+                var compressionWatch = System.Diagnostics.Stopwatch.StartNew();
+                var compressed = compressor.Compress(dataFile);
+                var compressionTime = compressionWatch.ElapsedMilliseconds;
 
-            var compression_time = watch.ElapsedMilliseconds;
-            Console.WriteLine("Compressions time: " + compression_time + " ms");
-            
-            //DataFile restoredFile = compressor.Decompress(compressed_file);
-            
-            compressed_file.WriteToFile("../../res/out");
-            //restoredFile.WriteToFile("../../res/restored");
-            
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            Console.WriteLine("\nTime elapsed: " + elapsedMs + " ms");
-            Console.WriteLine("\nSize before: " + input_file.Length + "\nSize after: " + compressed_file.Length + "\nCompressionratio: " + (double)compressed_file.Length/input_file.Length);
+                var decompressionWatch = System.Diagnostics.Stopwatch.StartNew();
+                compressor.Decompress(compressed);
+                var decompressionTime = decompressionWatch.ElapsedMilliseconds;
 
-            double compressionspeed = input_file.Length / compression_time;
-            double decompressionspeed = input_file.Length / (elapsedMs - compression_time);
-            Console.WriteLine("\nCompression speed: " + compressionspeed + " kB/s\tDecompression speed: " + decompressionspeed + " kB/s");
+                Console.WriteLine($"{path}: R: {(double)compressed.Length / dataFile.Length}, C: {(double)dataFile.Length / compressionTime} kB/s, D: {(double)compressed.Length / decompressionTime}");
+            }
+            
         }
 
         public static void testHuffman() {
