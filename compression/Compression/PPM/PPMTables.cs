@@ -45,18 +45,17 @@ namespace Compression.PPM{
         /// If total count get too large, smaller counts may not fit within the integer interval in arithmetic coding.
         /// </summary>
         public void CleanUp() {
-            
             // Reduce counts of symbols in 1. and 0. order contexts
             for (int i = 0; i <= 1; ++i) {
                 foreach (var context in this[i].Values) {
                     int cumCount = 0;
-                    foreach (var entry in context) {
-                        entry.Value.Count /= 128; // Reduce symbol count
-                        if (entry.Value.Count == 0)
-                            entry.Value.Count = 1;
+                    foreach (var symbol in context.Values) {
+                        symbol.Count /= 128; // Reduce symbol count
+                        if (symbol.Count == 0)
+                            symbol.Count = 1;
                         
-                        cumCount += entry.Value.Count;
-                        entry.Value.CumulativeCount = cumCount;
+                        cumCount += symbol.Count;
+                        symbol.CumulativeCount = cumCount;
                     }
                     
                     // Update escape cumcount and totalcount
