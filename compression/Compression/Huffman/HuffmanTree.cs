@@ -54,13 +54,15 @@ namespace Compression.Huffman
         }
 
         public void EncodeTree(Node node) { //public for unit tests
-            if (node is LeafNode leafNode) {
-                var symbolAsUB = new UnevenByte(leafNode.symbol, 8);
-                EncodedTreeList.Add(UnevenByte.One + symbolAsUB);
-            } else if (node is BranchNode branchNode) {
+            if (node is BranchNode branchNode) {
                 EncodedTreeList.Add(UnevenByte.Zero);
+
                 EncodeTree(branchNode.LeftNode);
                 EncodeTree(branchNode.RightNode);
+            }
+            else if (node is LeafNode leafNode) {
+                var symbolAsUB = new UnevenByte(leafNode.symbol, 8);
+                EncodedTreeList.Add(UnevenByte.One + symbolAsUB);
             }
         }
     }

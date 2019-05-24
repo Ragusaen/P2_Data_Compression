@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Compression.ByteStructures;
+﻿using Compression.ByteStructures;
 
 namespace Compression.Huffman
 {
     public class HuffmanEncoder {
-        public DataFile dataFile;
-
-        public HuffmanEncoder(HuffmanTree tree, byte[] data) {
-            dataFile = EncodeAllBytes(tree, data);
-        }
-
-        private DataFile EncodeAllBytes (HuffmanTree huffmanTree, byte[] data) {
+        public byte[] EncodeAllBytes (HuffmanTree huffmanTree, byte[] data) {
             BitString bitString = new BitString();
 
             // Calculate filler bits
@@ -29,7 +21,7 @@ namespace Compression.Huffman
                 bitString.Append(huffmanTree.CodeDictionary[data[i]]);
             }
 
-            return new DataFile(bitString.ToArray());
+            return bitString.ToArray();
         }
 
         private UnevenByte CreateFillerUnevenByte(HuffmanTree huffmanTree) {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Compression.Huffman {
     public class HuffmanCompressor : ICompressor {
@@ -12,9 +11,11 @@ namespace Compression.Huffman {
             }
             
             var huffmanTree = new HuffmanTree(listOfNodes);
-            var huffmanEncoder = new HuffmanEncoder(huffmanTree, data);
+            var huffmanEncoder = new HuffmanEncoder();
 
-            return huffmanEncoder.dataFile;
+            byte[] encodedBytes = huffmanEncoder.EncodeAllBytes(huffmanTree, data);
+
+            return new DataFile(encodedBytes);
         }
 
         public DataFile Decompress(DataFile file) {
