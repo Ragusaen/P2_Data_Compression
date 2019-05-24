@@ -1,12 +1,12 @@
 namespace Compression.ByteStructures {
-    public struct ArrayIndexer<T> {
-        public T[] Array;
+    public struct ByteArrayIndexer {
+        public byte[] Array;
         public int Index;
         public int Length;
         
-        public T this[int index] => Array[Index + index];
+        public byte this[int index] => Array[Index + index];
 
-        public ArrayIndexer(T[] array, int index, int length) {
+        public ByteArrayIndexer(byte[] array, int index, int length) {
             Array = array;
             Index = index;
             Length = length;

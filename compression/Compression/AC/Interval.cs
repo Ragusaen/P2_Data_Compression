@@ -1,5 +1,5 @@
 using System;
-namespace Compression.AC_R {
+namespace Compression.AC {
     public enum ExpansionType {
         LEFT,
         RIGHT,
@@ -38,14 +38,12 @@ namespace Compression.AC_R {
             return ExpansionType.NONE;
         }
 
-        public void Narrow(int prevCount, int count, int totalCount) {
+        public void Narrow(long prevCount, long cumCount, long totalCount) {
             long tempLower = Lower;
-            long prevUpper = Upper;
             Lower = Lower +  (prevCount * (Upper - Lower)) / totalCount;
-            Upper = tempLower + (count * (Upper - tempLower)) / totalCount - 1;
-
+            Upper = tempLower + (cumCount * (Upper - tempLower)) / totalCount - 1;
+            
             if (Upper <= Lower) {
-                Console.WriteLine($"[{tempLower}, {prevUpper}) -> [{Lower}, {Upper})");
                 throw new ArithmeticException("Arithmetic was not precise enough");
             }
         }

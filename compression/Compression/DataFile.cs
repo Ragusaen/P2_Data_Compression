@@ -36,8 +36,8 @@ namespace Compression {
             return result;
         }
 
-        public ArrayIndexer<byte> GetArrayIndexer(int start, int len) {
-            return new ArrayIndexer<byte>(_byteArray, start, len);
+        public ByteArrayIndexer GetArrayIndexer(int start, int len) {
+            return new ByteArrayIndexer(_byteArray, start, len);
         }
         
         public byte GetByte(int i) {

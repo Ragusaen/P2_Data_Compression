@@ -112,7 +112,6 @@
     <Compile Include="LZ\LZ77Test.cs" />
     <Compile Include="LZ\SlidingWindowTest.cs" />
     <Compile Include="PPM\PPMTest.cs" />
-    <Compile Include="RLE\ByteChangeEncode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

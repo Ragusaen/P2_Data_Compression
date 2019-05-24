@@ -13,8 +13,8 @@ namespace UnitTesting {
         public void CompareArrayIndexersFrom0_True() {
             byte[] first = {102, 103, 104};
             byte[] second = {102, 103, 104};
-            var firstIndexer = new ArrayIndexer<byte>(first, 0, first.Length);
-            var secondIndexer = new ArrayIndexer<byte>(second, 0, second.Length);
+            var firstIndexer = new ArrayIndexer(first, 0, first.Length);
+            var secondIndexer = new ArrayIndexer(second, 0, second.Length);
 
             Boolean actual = FindMatchingBytes.ByteArrayEqualityByIndexing(firstIndexer, 0, secondIndexer);
             
@@ -25,8 +25,8 @@ namespace UnitTesting {
         public void CompareArrayIndexersFrom0_False() {
             byte[] first = {102, 102, 104};
             byte[] second = {102, 103, 104};
-            var firstIndexer = new ArrayIndexer<byte>(first, 0, first.Length);
-            var secondIndexer = new ArrayIndexer<byte>(second, 0, second.Length);
+            var firstIndexer = new ArrayIndexer(first, 0, first.Length);
+            var secondIndexer = new ArrayIndexer(second, 0, second.Length);
 
             Boolean actual = FindMatchingBytes.ByteArrayEqualityByIndexing(firstIndexer, 0, secondIndexer);
             
@@ -37,8 +37,8 @@ namespace UnitTesting {
         public void CompareArrayIndexersFromMid_True() {
             byte[] first = {102, 103, 104, 105, 97, 125, 38, 17, 97};
             byte[] second = {105, 97, 125};
-            var firstIndexer = new ArrayIndexer<byte>(first, 0, first.Length);
-            var secondIndexer = new ArrayIndexer<byte>(second, 0, second.Length);
+            var firstIndexer = new ArrayIndexer(first, 0, first.Length);
+            var secondIndexer = new ArrayIndexer(second, 0, second.Length);
 
             Boolean actual = FindMatchingBytes.ByteArrayEqualityByIndexing(firstIndexer, 3, secondIndexer);
             
@@ -49,8 +49,8 @@ namespace UnitTesting {
         public void CompareArrayIndexersFromMid_False() {
             byte[] first = {102, 103, 104, 105, 97, 125, 38, 17, 97};
             byte[] second = {105, 98, 125};
-            var firstIndexer = new ArrayIndexer<byte>(first, 0, first.Length);
-            var secondIndexer = new ArrayIndexer<byte>(second, 0, second.Length);
+            var firstIndexer = new ArrayIndexer(first, 0, first.Length);
+            var secondIndexer = new ArrayIndexer(second, 0, second.Length);
 
             Boolean actual = FindMatchingBytes.ByteArrayEqualityByIndexing(firstIndexer, 3, secondIndexer);
             
@@ -61,8 +61,8 @@ namespace UnitTesting {
         public void CompareArrayIndexersFromMidWithOffset_True() {
             byte[] first = {102, 103, 104, 105, 97, 125, 38, 17, 97};
             byte[] second = {105, 97, 125};
-            var firstIndexer = new ArrayIndexer<byte>(first, 2, 5);
-            var secondIndexer = new ArrayIndexer<byte>(second, 0, second.Length);
+            var firstIndexer = new ArrayIndexer(first, 2, 5);
+            var secondIndexer = new ArrayIndexer(second, 0, second.Length);
 
             Boolean actual = FindMatchingBytes.ByteArrayEqualityByIndexing(firstIndexer, 1, secondIndexer);
             
@@ -73,8 +73,8 @@ namespace UnitTesting {
         public void CompareArrayIndexersFromMidWithOffset_False() {
             byte[] first = {102, 103, 104, 105, 97, 125, 38, 17, 97};
             byte[] second = {105, 98, 125};
-            var firstIndexer = new ArrayIndexer<byte>(first, 2, first.Length);
-            var secondIndexer = new ArrayIndexer<byte>(second, 0, second.Length);
+            var firstIndexer = new ArrayIndexer(first, 2, first.Length);
+            var secondIndexer = new ArrayIndexer(second, 0, second.Length);
 
             Boolean actual = FindMatchingBytes.ByteArrayEqualityByIndexing(firstIndexer, 1, secondIndexer);
             
@@ -88,8 +88,8 @@ namespace UnitTesting {
             MatchPointer? expected = new MatchPointer(5, (int) 6);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -100,8 +100,8 @@ namespace UnitTesting {
             MatchPointer? expected = new MatchPointer(0, (int) 4);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -113,8 +113,8 @@ namespace UnitTesting {
             MatchPointer? expected = new MatchPointer(5, (int) 4);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -125,8 +125,8 @@ namespace UnitTesting {
             var expected = new MatchPointer(0,0);
 
             MatchPointer actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -137,8 +137,8 @@ namespace UnitTesting {
             var expected = new MatchPointer(0,0);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -149,8 +149,8 @@ namespace UnitTesting {
             var expected = new MatchPointer(0,0);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -162,8 +162,8 @@ namespace UnitTesting {
             MatchPointer expected = new MatchPointer(0,4);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -175,8 +175,8 @@ namespace UnitTesting {
             MatchPointer expected = new MatchPointer(3,3);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -188,8 +188,8 @@ namespace UnitTesting {
             MatchPointer expected = new MatchPointer(3,3);
 
             MatchPointer? actual = FindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -201,8 +201,8 @@ namespace UnitTesting {
             MatchPointer expected = new MatchPointer(3,3);
 
             MatchPointer? actual = CFindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }
@@ -214,8 +214,8 @@ namespace UnitTesting {
             MatchPointer expected = new MatchPointer(6,3);
 
             MatchPointer? actual = CFindMatchingBytes.FindLongestMatch(
-                new ArrayIndexer<byte>(haystack, 0, haystack.Length),
-                new ArrayIndexer<byte>(needle, 0, needle.Length));
+                new ByteArrayIndexer(haystack, 0, haystack.Length),
+                new ByteArrayIndexer(needle, 0, needle.Length));
             
             Assert.AreEqual(expected, actual);
         }

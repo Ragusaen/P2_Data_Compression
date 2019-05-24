@@ -2,7 +2,7 @@ using System;
 using System.Transactions;
 using Compression.ByteStructures;
 
-namespace Compression.AC_R {
+namespace Compression.AC {
     public class ArithmeticCoder {
         private const long MAX_INTERVAL = (1 << 20) - 1;
         private BitString _bitString = new BitString();
@@ -12,8 +12,9 @@ namespace Compression.AC_R {
 
         public void Encode(int count, int cumulativeCount, int totalCount) {
             var prevCount = cumulativeCount - count;
-            _interval.Narrow(prevCount, cumulativeCount, totalCount);
             
+            _interval.Narrow(prevCount, cumulativeCount, totalCount);
+
             if(count == 0)
                 throw new ArgumentException("Arithmetic encoder: Count is zero");
             if(cumulativeCount == 0)

@@ -51,7 +51,7 @@ namespace Compression.PPM{
                 foreach (var context in this[i].Values) {
                     int cumCount = 0;
                     foreach (var entry in context) {
-                        entry.Value.Count /= 128; // Reduce symbol count
+                        entry.Value.Count /= 8; // Reduce symbol count
                         if (entry.Value.Count == 0)
                             entry.Value.Count = 1;
                         

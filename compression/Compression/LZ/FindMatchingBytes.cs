@@ -2,7 +2,7 @@ using Compression.ByteStructures;
 
 namespace Compression.LZ {
     
-    public delegate MatchPointer FindLongestMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> needle);
+    public delegate MatchPointer FindLongestMatch(ByteArrayIndexer haystack, ByteArrayIndexer needle);
     
     public struct MatchPointer {
         public readonly int Index;
@@ -19,7 +19,7 @@ namespace Compression.LZ {
     }
 
     public static class FindMatchingBytes{
-        public static MatchPointer FindLongestMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> needle) {
+        public static MatchPointer FindLongestMatch(ByteArrayIndexer haystack, ByteArrayIndexer needle) {
             int longestMatch = 1;
             int indexOfLongestMatch = 0;
             
@@ -36,7 +36,7 @@ namespace Compression.LZ {
                                        default(MatchPointer);
         }
         
-        public static int MatchingBytesCount(ArrayIndexer<byte> a, int index, ArrayIndexer<byte> b ) {
+        public static int MatchingBytesCount(ByteArrayIndexer a, int index, ByteArrayIndexer b ) {
             int i = 0;
             for (; i < b.Length && index + i < a.Length; ++i)
                 if (a[index + i] != b[i])

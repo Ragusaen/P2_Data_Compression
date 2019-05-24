@@ -4,6 +4,6 @@ using Compression.ByteStructures;
 namespace Compression.LZ {
     public class CFindMatchingBytes {
         [DllImport("findmatchingbytes", EntryPoint = "find_longest_match")]
-        public static extern MatchPointer FindLongestMatch(ArrayIndexer<byte> haystack, ArrayIndexer<byte> needle);
+        public static extern MatchPointer FindLongestMatch(ByteArrayIndexer haystack, ByteArrayIndexer needle);
     }
 }

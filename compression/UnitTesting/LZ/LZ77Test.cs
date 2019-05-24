@@ -15,7 +15,7 @@ namespace UnitTesting.LZ {
                 string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
                 DataFile inputFile = new DataFile(inputPath);
                 
-                LZ77 comp = new LZ77();
+                LZSS comp = new LZSS();
                 DataFile actualFile = comp.Compress(inputFile);
                 
                 Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
@@ -27,7 +27,7 @@ namespace UnitTesting.LZ {
                 inputFile.LoadBytes(inputBytes);
                 byte[] expected = {48, 152, 140, 96};
                 
-                LZ77 comp = new LZ77();
+                LZSS comp = new LZSS();
                 DataFile output = comp.Compress(inputFile);
                 byte[] actual = output.GetBytes(0, output.Length);
                 
@@ -42,7 +42,7 @@ namespace UnitTesting.LZ {
                 DataFile expected = new DataFile();
                 expected.LoadBytes(expectedData);
                 
-                LZ77 comp = new LZ77();
+                LZSS comp = new LZSS();
                 DataFile actual = comp.Compress(inputFile);
                 
                 Assert.IsTrue(DataFile.Compare(expected, actual));
@@ -56,7 +56,7 @@ namespace UnitTesting.LZ {
                 DataFile expected = new DataFile();
                 expected.LoadBytes(expectedData);
                 
-                LZ77 comp = new LZ77();
+                LZSS comp = new LZSS();
                 DataFile actual = comp.Compress(inputFile);
                 
                 ByteArrayPrinter.PrintBits(expected.GetBytes(0, expected.Length));
@@ -75,7 +75,7 @@ namespace UnitTesting.LZ {
                 DataFile expectedFile = new DataFile(expectedPath);
                 DataFile inputFile = new DataFile(inputPath);
             
-                LZ77 comp = new LZ77();
+                LZSS comp = new LZSS();
                 DataFile actualFile = comp.Decompress(inputFile);
             
                 Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
