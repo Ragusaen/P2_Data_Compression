@@ -22,7 +22,7 @@ namespace Compression.LZ {
             try {
                 match = findLongestMatch(history, lookAhead);
             } catch (Exception exception) { // If the loading went bad
-                if (exception is TypeLoadException ||
+                if (exception is DllNotFoundException ||
                     exception is System.Runtime.InteropServices.MarshalDirectiveException) {
                     // Change to using the C# implementation
                     findLongestMatch = FindMatchingBytes.FindLongestMatch;
@@ -41,12 +41,6 @@ namespace Compression.LZ {
             else {
                 r = new RawByte(lookAhead[0]);
                 currentIndex++;                
-            }
-            
-            // Console print
-            if (currentIndex % 100000 == 0) {
-                string str = (Math.Truncate((decimal) currentIndex / file.Length * 10000)/100).ToString();
-                Console.Write("\rPercentage complete: "  + str + "%   ");
             }
 
             return r;
