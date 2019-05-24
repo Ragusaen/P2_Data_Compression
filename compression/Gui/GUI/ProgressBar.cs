@@ -8,7 +8,7 @@ namespace Gui {
             layout.AddRow(Indeterminate());
 
             layout.Add(null, null, true);
-
+            
             Content = layout;
         }
 

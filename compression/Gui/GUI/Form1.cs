@@ -9,7 +9,6 @@ using System.Windows.Input;
 using Compression;
 using Compression.ByteStructures;
 using Compression.Huffman;
-using Compression.AC_R;
 using Compression.LZ;
 using Compression.PPM;
 using Eto.Forms; 
@@ -19,7 +18,7 @@ using Eto;
 namespace Gui {
     public partial class Form1 : Form {
         private readonly ICompressor _ppmCompressor = new PredictionByPartialMatching();
-        private readonly ICompressor _lzCompressor = new LZ77();
+        private readonly ICompressor _lzCompressor = new LZSS();
         private readonly ICompressor _huffCompressor = new HuffmanCompressor();
         
         bool ppmClicked = false;
@@ -32,9 +31,9 @@ namespace Gui {
         // UITimer timer;
 
         public string path = "";
-        public const string DocPath = "../../res/";
+        //public const string DocPath = "../../res/";
         private String fileName;
-        private System.IO.FileInfo fileInfo;
+        private FileInfo fileInfo;
 
         public Form1() {
             InitializeComponent();
@@ -54,17 +53,16 @@ namespace Gui {
         private void RunHuffmanCompressButton(Object sender, EventArgs e) {
             if (huffClicked == true) {
                 DataFile input_file = new DataFile(path);
-                String tempDocPath = DocPath + fileName + ".HM";
+                String tempDocPath = path + fileName + ".HM";
                 var compressed_huffman = _huffCompressor.Compress(input_file);
                 compressed_huffman.WriteToFile(tempDocPath);
             }
-           
         }
 
         private void RunLZCompressButton(Object sender, EventArgs e) {
             if (lzClicked == true) {
                 DataFile input_file = new DataFile(path);
-                String tempDocPath = DocPath + fileName + ".LZ";
+                String tempDocPath = path + fileName + ".LZ";
                 var compressed_lz = _lzCompressor.Compress(input_file);
                 compressed_lz.WriteToFile(tempDocPath);
             }
@@ -73,7 +71,7 @@ namespace Gui {
         private void RunPPMCompressButton(Object sender, EventArgs e) {
             if (ppmClicked == true) {
                 DataFile input_file = new DataFile(path);
-                String tempDocPath = DocPath + fileName + ".PPM";
+                String tempDocPath = path + fileName + ".PPM";
                 var compressed_PPM = _ppmCompressor.Compress(input_file);
 
                 compressed_PPM.WriteToFile(tempDocPath);

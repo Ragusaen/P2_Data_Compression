@@ -96,7 +96,6 @@
         <Compile Include="GUI\Form1.cs" />
         <Compile Include="GUI\ButtonColorChanger.cs" />
         <Compile Include="GUI\ProgressBar.cs" />
-        <Compile Include="GUI\ValidateDropDownMenuItem.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

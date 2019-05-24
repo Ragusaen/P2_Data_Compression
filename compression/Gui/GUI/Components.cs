@@ -44,16 +44,15 @@ namespace Gui {
             runButton.BindDataContext(c => c.BackgroundColor, (ButtonColor m) => m.ButtonBackgroundColor);
             runButton.BindDataContext(c => c.Command, (ButtonColor m) => m.ChangeColorCommand);
 
-            Control fileTextArea() {
-                var FtextArea = new TextBox();
-                FtextArea.TextInput += (sender, args) => {
+            Control fileTextAreaChooseFile() {
+                var FiletextArea = new TextBox();
+                FiletextArea.TextInput += (sender, args) => {
                     openFileButton.Click += OpenFileClick; 
-                    FtextArea.Text = fileName;
+                    FiletextArea.Text = fileName;
                     Console.WriteLine(fileName);
                 }; 
-                return FtextArea; 
+                return FiletextArea; 
             }
-
 
             Control Selectbutton() {
                 var selecButton = new DropDown();
@@ -128,7 +127,7 @@ namespace Gui {
 
                     ),
                     new TableRow(
-                        new TableCell(fileTextArea())
+                        new TableCell(fileTextAreaChooseFile())
                     ),
                     new TableRow{ScaleHeight = true}
                 }
