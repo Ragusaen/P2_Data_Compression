@@ -1,46 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using Xceed.Wpf.Toolkit.Core.Converters;
 
 namespace Compression.PPM{
-    public class ContextTable : IEnumerable<Dictionary<byte, SymbolInfo>> {
+    public class ContextTable : Dictionary<byte[], SymbolDictionary> {
         public enum ToEncode{
             EncodeNothing, EncodeSymbol, EncodeEscape
         }
+
+        public ContextTable() : base(new ByteArrayComparer()) { }
         
-        public readonly Dictionary<byte[], SymbolDictionary> ContextDict = new Dictionary<byte[], SymbolDictionary>(new ByteArrayComparer());
         public ToEncode UpdateContext(Entry entry) {
             byte symbol = entry.Symbol;
             byte[] context = entry.Context;
             ToEncode toEncode;
             
-            if (ContextDict.ContainsKey(context)) { // did not match context, do not encode anything
-                if (ContextDict[context].ContainsKey(symbol)) { // matched context and symbol, encode symbol
-                    ContextDict[context].IncrementSymbol(symbol);
+            if (ContainsKey(context)) { // did not match context, do not encode anything
+                if (this[context].ContainsKey(symbol)) { // matched context and symbol, encode symbol
+                    this[context].IncrementSymbol(symbol);
                     toEncode = ToEncode.EncodeSymbol;
-                }
-                else {
+                } else {
                     // Matched context but not symbol, encode an escape symbol
-                    ContextDict[context].AddNew(symbol);
-                    ContextDict[context].IncrementEscape();
+                    this[context].AddNew(symbol);
+                    this[context].IncrementEscape();
                     toEncode = ToEncode.EncodeEscape;
                 }
-            }
-            else {
-                ContextDict.Add(context, new SymbolDictionary());
-                ContextDict[context].AddNew(symbol);
-                ContextDict[context].IncrementEscape();
+            } else {
+                Add(context, new SymbolDictionary());
+                this[context].AddNew(symbol);
+                    this[context].IncrementEscape();
                 toEncode = ToEncode.EncodeNothing;
             }
-
+            
             return toEncode;
-        }
-
-        public IEnumerator<Dictionary<byte, SymbolInfo>> GetEnumerator() {
-            return ContextDict.Values.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
         }
     }
 }

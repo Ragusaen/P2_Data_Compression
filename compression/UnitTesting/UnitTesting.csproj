@@ -138,13 +138,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AC\ACTest.cs" />
-    <Compile Include="AC\AC_RTest.cs" />
-    <Compile Include="AC\BinaryFractionInIntervalFinderTest.cs" />
     <Compile Include="BWT\BWTTest.cs" />
     <Compile Include="ByteStructures\UnevenByteTest.cs" />
     <Compile Include="DataFileTest.cs" />
-    <Compile Include="Entropy\EntropyTest.cs" />
     <Compile Include="FindMatchingBytesTest.cs" />
     <Compile Include="Huffman\HuffmanDecoderTest.cs" />
     <Compile Include="Huffman\HuffmanEncoderTest.cs" />
@@ -156,7 +152,6 @@
     <Compile Include="LZ\LZ77Test.cs" />
     <Compile Include="LZ\SlidingWindowTest.cs" />
     <Compile Include="PPM\PPMTest.cs" />
-    <Compile Include="RLE\ByteChangeEncode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

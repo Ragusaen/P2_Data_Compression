@@ -1,13 +1,68 @@
-using Compression.ByteStructures;
-
+using System;
 namespace Compression.AC {
+    public enum ExpansionType {
+        LEFT,
+        RIGHT,
+        MIDDLE,
+        NONE
+    };
+    
     public class Interval {
-        public UnevenByte high;
-        public UnevenByte low;
+        public long Lower;
+        public long Upper;
+        public long Max;
 
-        public Interval(UnevenByte low, UnevenByte high) {
-            this.high = high;
-            this.low = low; 
+        public Interval(long lower, long upper, long max) {
+            Lower = lower;
+            Upper = upper - 1; // Subtract 1 to make it inclusive
+            Max = max;
+        }
+
+        public ExpansionType Expand() {
+            if (Lower >= Max / 2) {
+                Lower = 2 * Lower - Max;
+                Upper = 2 * Upper - Max;
+                return ExpansionType.LEFT;
+            }
+            if (Upper <= Max / 2) {
+                Lower *= 2;
+                Upper *= 2;
+                return ExpansionType.RIGHT;
+            }
+            if (Lower >= Max / 4 && Upper <= 3 * Max / 4) {
+                Lower = 2 * Lower - Max / 2;
+                Upper = 2 * Upper - Max / 2;
+                return ExpansionType.MIDDLE;
+            }
+
+            return ExpansionType.NONE;
+        }
+
+        public void Narrow(long prevCount, long cumCount, long totalCount) {
+            long tempLower = Lower;
+            Lower = Lower +  (prevCount * (Upper - Lower)) / totalCount;
+            Upper = tempLower + (cumCount * (Upper - tempLower)) / totalCount - 1;
+            
+            if (Upper <= Lower) {
+                throw new ArithmeticException("Arithmetic was not precise enough");
+            }
+        }
+
+        public ExpansionType ExpandBest() {
+            if (Max - Lower > Upper) {
+                Lower *= 2;
+                Upper = Max;
+                return ExpansionType.RIGHT;
+            }
+            else {
+                Lower = 0;
+                Upper = (Upper - Max / 2) * 2;
+                return ExpansionType.LEFT;
+            }
+        }
+
+        public override string ToString() {
+            return $"[{(double)Lower / Max}, {(double)Upper / Max})";
         }
     }
 }

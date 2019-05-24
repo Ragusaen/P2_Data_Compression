@@ -1,8 +1,14 @@
 using Compression.ByteStructures;
+using Xceed.Wpf.AvalonDock.Themes;
 
 namespace Compression {
+    /// <summary>
+    /// This class is an abstraction over reading a byte array bit by bit. 
+    /// </summary>
     public class BitIndexer {
+        // The array the holds the bytes
         private byte[] _bytes;
+        // The current index in bits
         private int _currentIndex = 0;
 
         public int Remaining {

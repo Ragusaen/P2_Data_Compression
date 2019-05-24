@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
-    public class LZ77 : ICompressor {
+    public class LZSS : ICompressor {
         public DataFile Compress(DataFile input) {
             SlidingWindow slidingWindow = new SlidingWindow(input);
             List<UnevenByte> unevenBytes = new List<UnevenByte>();
             LZByteConverter lzByteConverter = new LZByteConverter();
+            BitString bitString = new BitString();
 
             while (!slidingWindow.AtEnd()) {
                 // Encode the next byte
@@ -15,22 +16,17 @@ namespace Compression.LZ {
                 // Convert to UnevenByte
                 UnevenByte ub = lzByteConverter.ToUnevenByte(eb);
                 
-                // Add ub to list
-                unevenBytes.Add(ub);
+                // Add to bitString
+                bitString.Append(ub);
             }
             
-            // Convert unevenBytes to even bytes
-            var unevenByteConverter = new UnevenByteConverter();
-            byte[] bytes = unevenByteConverter.UnevenBytesToBytes(unevenBytes);
-            
-            return new DataFile(bytes);
+            return new DataFile(bitString.ToArray());
         }
 
         public DataFile Decompress(DataFile dataFile) {
             byte[] inputBytes = dataFile.GetAllBytes();
             LZDecoderList outputList = new LZDecoderList();
             LZByteConverter lzByteConverter = new LZByteConverter();
-            UnevenByteConverter ubConverter = new UnevenByteConverter();
 
             BitIndexer bitIndexer = new BitIndexer(inputBytes);
 

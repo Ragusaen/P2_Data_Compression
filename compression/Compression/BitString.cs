@@ -3,35 +3,57 @@ using System.Collections.Generic;
 using Compression.ByteStructures;
 
 namespace Compression {
+    /// <summary>
+    /// This class is an abstration over a byte-list, such that it acts like a bitstring, without
+    /// using as much memory as having an actual list of "bits".
+    /// </summary>
     public class BitString {
+        // The list that holds all the data
         private List<byte> _bytes = new List<byte>();
+        
+        // The index of the next bit in the last byte of the list. This is used to insert new bits
+        // at the correct location
         private int _bitIndex = 0;
 
         public BitString() {
+            // There should always be a non-full byte at the end of the list.
             _bytes.Add(0);
         }
 
+        public int Length {
+            get { return _bytes.Count - (8 - _bitIndex); }
+        }
+        
+        /// <summary>
+        /// This method appends any UnevenByte to the bitstring.
+        /// </summary>
+        /// <param name="ub">The UnevenByte to append</param>
         public void Append(UnevenByte ub) {
-            if (ub.Length != 1) {
-                throw new ArgumentException("You can only add UnevenByte of length 1 to bitstring");
+            // Keep splitting the UnevenByte until it is empty
+            while (ub.Length != 0) {
+                // If the UnevenByte has more bits left, than there is bits left in the current byte
+                if (ub.Length >= 8 - _bitIndex) {
+                    // Add the next 8-_bitIndex bits to the byte to fill it
+                    _bytes[_bytes.Count - 1] += (byte) ub.GetBits(8 - _bitIndex);
+                    ub -= 8 - _bitIndex; // Redude the length of the UnevenByte
+                   
+                    // Since the byte is now full, set bitIndex to 0 and add an empty byte.
+                    _bitIndex = 0;
+                    _bytes.Add(0);
+                } else { // else if the rest of the UnevenByte cannot fit in the last byte
+                    // Add the remaining part
+                    _bytes[_bytes.Count - 1] += (byte)(ub.GetBits(ub.Length) << (8 - _bitIndex - ub.Length));
+                    _bitIndex += ub.Length; // Update the bitIndex
+                    ub = default(UnevenByte); // Somce the rest of the UnevenByte was used, it must now be empty
+                }
             }
-            
-            if (ub == UnevenByte.One) {
-                _bytes[_bytes.Count - 1] += (byte) (1 << (7 - _bitIndex));
-            }
-
-            IncrementBitIndex();
         }
-
-        private void IncrementBitIndex() {
-            _bitIndex++;
-            if (_bitIndex >= 8) {
-                _bitIndex = 0;
-                _bytes.Add(0);
-            }
-        }
-
+        
+        
         public byte[] ToArray() {
+            // Remove the last byte if it is empty
+            if (_bitIndex == 0)
+                _bytes.RemoveAt(_bytes.Count - 1);
             return _bytes.ToArray();
         }
 

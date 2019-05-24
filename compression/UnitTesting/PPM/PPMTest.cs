@@ -69,12 +69,12 @@ namespace UnitTesting.PPM{
                 Entry e = new Entry(letter, context);
                 
                 orderX.UpdateContext(e);
-                orderX.ContextDict[context].CalculateCumulativeCounts();
-                int first = orderX.ContextDict[context][letter].CumulativeCount;
+                orderX[context].CalculateCumulativeCounts();
+                int first = orderX[context][letter].CumulativeCount;
                 e.Symbol = letter2;
                 orderX.UpdateContext(e);
-                orderX.ContextDict[context].CalculateCumulativeCounts();
-                int second = orderX.ContextDict[context][letter2].CumulativeCount;
+                orderX[context].CalculateCumulativeCounts();
+                int second = orderX[context][letter2].CumulativeCount;
                 int actual = second - first;
                 
                 Assert.AreEqual(expected, actual);
@@ -94,8 +94,8 @@ namespace UnitTesting.PPM{
                     orderX.UpdateContext(e);
                 }
 
-                int actual = orderX.ContextDict[context][letterArray[1]].CumulativeCount -
-                              orderX.ContextDict[context][letterArray[0]].CumulativeCount;
+                int actual = orderX[context][letterArray[1]].CumulativeCount -
+                              orderX[context][letterArray[0]].CumulativeCount;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -123,7 +123,7 @@ namespace UnitTesting.PPM{
 
                 int actual = 0;
 
-                foreach (var t in orderX.ContextDict) {
+                foreach (var t in orderX) {
                     actual += t.Value.TotalCount;
                 }
                 
@@ -160,7 +160,7 @@ namespace UnitTesting.PPM{
                     orderX.UpdateContext(e3);
                 }
 
-                int actual = orderX.ContextDict.First().Value.Sum(p => p.Value.Count) + orderX.ContextDict.First().Value.EscapeInfo.Count;
+                int actual = orderX.First().Value.Sum(p => p.Value.Count) + orderX.First().Value.EscapeInfo.Count;
                 
                 Assert.AreEqual(expected, actual);
             }
@@ -194,7 +194,7 @@ namespace UnitTesting.PPM{
                 }
                 
                 
-                int actual = orderX.ContextDict[context2].Sum(p => p.Value.Count) + orderX.ContextDict[context2].EscapeInfo.Count;
+                int actual = orderX[context2].Sum(p => p.Value.Count) + orderX[context2].EscapeInfo.Count;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -227,7 +227,7 @@ namespace UnitTesting.PPM{
                     orderX.UpdateContext(e3);
                 }
                 
-                int actual = orderX.ContextDict[context3].Sum(p => p.Value.Count) + orderX.ContextDict[context3].EscapeInfo.Count;
+                int actual = orderX[context3].Sum(p => p.Value.Count) + orderX[context3].EscapeInfo.Count;
 
                 Assert.AreEqual(expected, actual);
             }
@@ -241,7 +241,7 @@ namespace UnitTesting.PPM{
 
                 ct.UpdateContext(new Entry(symbol, context));
 
-                Assert.IsTrue(ct.ContextDict.ContainsKey(context));
+                Assert.IsTrue(ct.ContainsKey(context));
             }
 
             [Test]
@@ -255,7 +255,7 @@ namespace UnitTesting.PPM{
                 ct.UpdateContext(new Entry(symbol, context));
                 ct.UpdateContext(new Entry(symbol, context2));
 
-                Assert.IsTrue(ct.ContextDict.ContainsKey(context2));
+                Assert.IsTrue(ct.ContainsKey(context2));
             }
 
             [Test]
@@ -265,7 +265,7 @@ namespace UnitTesting.PPM{
 
                 ct.UpdateContext(new Entry(symbol, new byte[0]));
 
-                Assert.IsTrue(ct.ContextDict[new byte[0]].ContainsKey(symbol));
+                Assert.IsTrue(ct[new byte[0]].ContainsKey(symbol));
             }
 
             [Test]
@@ -277,7 +277,7 @@ namespace UnitTesting.PPM{
                 ct.UpdateContext(new Entry(symbol, new byte[0]));
                 ct.UpdateContext(new Entry(symbol2, new byte[0]));
 
-                Assert.IsTrue(ct.ContextDict[new byte[0]].ContainsKey(symbol2));
+                Assert.IsTrue(ct[new byte[0]].ContainsKey(symbol2));
             }
 
             [Test]
@@ -289,7 +289,7 @@ namespace UnitTesting.PPM{
                 for (int i = 0; i <= 5; i++)
                     ct.UpdateContext(new Entry((byte) (symbol + i), new byte[0]));
 
-                Assert.IsTrue(ct.ContextDict[new byte[0]].ContainsKey(104));
+                Assert.IsTrue(ct[new byte[0]].ContainsKey(104));
             }
         }
     }

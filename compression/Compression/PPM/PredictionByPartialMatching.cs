@@ -1,12 +1,14 @@
 using System;
-using Compression.AC_R;
+using Compression.AC;
 
 namespace Compression.PPM{
     public class PredictionByPartialMatching : ICompressor{
         private readonly int _maxOrder;
+        private int _cleanUpLimit;
         
-        public PredictionByPartialMatching(int maxOrder = 5) {
+        public PredictionByPartialMatching(int maxOrder = 5, int cleanUpLimit = 100000) {
             _maxOrder = maxOrder;
+            _cleanUpLimit = cleanUpLimit;
         }
         
         public DataFile Compress(DataFile toCompress) {
@@ -14,6 +16,10 @@ namespace Compression.PPM{
             ArithmeticCoder ac = new ArithmeticCoder();
             
             for (int i = 0; i < toCompress.Length; i++) {
+                if (i % _cleanUpLimit == 0) {
+                    ppmTables.CleanUp();
+                }
+                
                 Entry entry = new Entry(toCompress.GetByte(i), GetContextFromFile(toCompress, i));
                 ContextTable.ToEncode toEncode;
                 EncodeInfo encodeInfo;
@@ -23,7 +29,6 @@ namespace Compression.PPM{
                         ac.Encode(encodeInfo.Count, encodeInfo.CumulativeCount, encodeInfo.TotalCount);
                     entry.NextContext();
                 }
-                ac.Encode(encodeInfo.Count, encodeInfo.CumulativeCount, encodeInfo.TotalCount);
             }
             
             ac.Finalize();

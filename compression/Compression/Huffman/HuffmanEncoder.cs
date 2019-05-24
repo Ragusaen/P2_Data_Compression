@@ -1,46 +1,39 @@
-﻿using System.Collections.Generic;
-using Compression.ByteStructures;
+﻿using Compression.ByteStructures;
 
 namespace Compression.Huffman
 {
     public class HuffmanEncoder {
-        public DataFile dataFile;
+        public byte[] EncodeAllBytes (HuffmanTree huffmanTree, byte[] data) {
+            BitString bitString = new BitString();
 
-        public HuffmanEncoder(HuffmanTree tree, byte[] data) {
-            dataFile = EncodeAllBytes(tree, data);
-        }
+            // Calculate filler bits
+            UnevenByte fillerBits = CreateFillerUnevenByte(huffmanTree);
 
-        private DataFile EncodeAllBytes (HuffmanTree huffmanTree, byte[] data) {
-            List<UnevenByte> unevenByteList = new List<UnevenByte>();
-            unevenByteList.AddRange(huffmanTree.EncodedTreeList);
+            bitString.Append(fillerBits);
             
+            // Append the encoded tree
+            for (int i = 0; i < huffmanTree.EncodedTreeList.Count; ++i) {
+                bitString.Append(huffmanTree.EncodedTreeList[i]);
+            }
+            
+            // Encode all the bytes
             for (int i = 0; i < data.Length; i++) {
-                unevenByteList.Add(huffmanTree.CodeDictionary[data[i]]);
+                bitString.Append(huffmanTree.CodeDictionary[data[i]]);
             }
-            
-            UnevenByte filler = CreateFillerUnevenByte(unevenByteList);
-            unevenByteList.Insert(0, filler);
 
-            var unevenByteConverter = new UnevenByteConverter();
-            return new DataFile(unevenByteConverter.UnevenBytesToBytes(unevenByteList));
+            return bitString.ToArray();
         }
 
-        private UnevenByte CreateFillerUnevenByte(List<UnevenByte> NodeList) {
-            var ubConverter = new UnevenByteConverter();
-
-            int totalBitLength = 0;
-            for (int i = 0; i < NodeList.Count; ++i) { 
-                totalBitLength += NodeList[i].Length;
-            }
-
-            int bitsInLastByte = totalBitLength % 8;
+        private UnevenByte CreateFillerUnevenByte(HuffmanTree huffmanTree) {
+            int sizeOfTree = huffmanTree.TotalLeafs * 10 - 1;
+            int bitsInLastByte = (sizeOfTree + huffmanTree.TotalLength) % 8;
             
-            uint fillOnes = 0;
-            if ( bitsInLastByte > 0) { 
-                fillOnes = (uint)0b11111111 >> bitsInLastByte;
-            }
+            if (bitsInLastByte > 0) { 
+                uint fillOnes = (uint)0b11111111 >> bitsInLastByte;
 
-            return new UnevenByte(fillOnes, 8 - bitsInLastByte);
+                return new UnevenByte(fillOnes, 8 - bitsInLastByte);
+            }
+            return default(UnevenByte);
         }
     }
 }

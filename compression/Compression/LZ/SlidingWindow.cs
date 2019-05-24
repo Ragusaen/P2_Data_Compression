@@ -21,10 +21,16 @@ namespace Compression.LZ {
             MatchPointer match;
             try {
                 match = findLongestMatch(history, lookAhead);
-            } catch (TypeLoadException) { // If the loading went bad
-                // Change to using the C# implementation
-                findLongestMatch = FindMatchingBytes.FindLongestMatch;
-                match = findLongestMatch(history, lookAhead);
+            } catch (Exception exception) { // If the loading went bad
+                if (exception is TypeLoadException ||
+                    exception is System.Runtime.InteropServices.MarshalDirectiveException) {
+                    // Change to using the C# implementation
+                    findLongestMatch = FindMatchingBytes.FindLongestMatch;
+                    match = findLongestMatch(history, lookAhead);
+                }
+                else {
+                    throw;
+                }
             }
             
             EncodedLZByte r;
@@ -46,7 +52,7 @@ namespace Compression.LZ {
             return r;
         }
 
-        private ArrayIndexer<byte> LoadHistory(int length) {
+        private ByteArrayIndexer LoadHistory(int length) {
             int historyIndex;
             if(length > currentIndex) {
                 historyIndex = 0;
@@ -57,7 +63,7 @@ namespace Compression.LZ {
             return file.GetArrayIndexer(historyIndex, currentIndex - historyIndex);
         }
 
-        private ArrayIndexer<byte> LoadLookAhead(int length) {
+        private ByteArrayIndexer LoadLookAhead(int length) {
             if (length + currentIndex > file.Length)
                 length = (int)file.Length - currentIndex;
             return file.GetArrayIndexer(currentIndex, length);

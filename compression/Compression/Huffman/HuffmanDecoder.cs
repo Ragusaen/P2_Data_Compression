@@ -29,17 +29,25 @@ namespace Compression.Huffman
         }
 
         public byte[] Decode() {
-            List<byte> output = new List<byte>();
-            UnevenByte ub = default(UnevenByte);
-            
-            while (!bitIndexer.AtEnd()) {
-                ub += bitIndexer.GetNext();
-                if (DecodeDictionary.ContainsKey(ub)) {
-                   output.Add(DecodeDictionary[ub]);
-                   ub = default(UnevenByte);
+            int shortestKey = 8;
+
+            foreach (var decodeDictionaryKey in DecodeDictionary.Keys) {
+                if (decodeDictionaryKey.Length < shortestKey) {
+                    shortestKey = decodeDictionaryKey.Length;
                 }
             }
 
+            List<byte> output = new List<byte>();
+            UnevenByte ub = default(UnevenByte);
+
+            while (!bitIndexer.AtEnd()) {
+                ub += ub == default(UnevenByte)? bitIndexer.GetNextRange(shortestKey) : bitIndexer.GetNext();
+
+                if (DecodeDictionary.ContainsKey(ub)) {
+                    output.Add(DecodeDictionary[ub]);
+                    ub = default(UnevenByte);
+                }
+            }
             return output.ToArray();
         }
     }

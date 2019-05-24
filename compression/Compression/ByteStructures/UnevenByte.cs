@@ -32,12 +32,7 @@ namespace Compression.ByteStructures{
             return new UnevenByte((uint)(~ub.Data % (1 << ub.Length)), ub.Length);
         }
 
-        public static UnevenByte RemoveFromBack(UnevenByte ub, int l) {
-            return new UnevenByte((ub.Data >> l), ub.Length - l);
-        }
-
         public static readonly UnevenByte One = new UnevenByte(1,1);
-        public static readonly UnevenByte OneOne = new UnevenByte(0b11,2);
         public static readonly UnevenByte Zero = new UnevenByte(0,1);
 
         public int GetBits(int count) {

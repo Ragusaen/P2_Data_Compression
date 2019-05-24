@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 
 namespace Compression.PPM{
-    public class PPMTables{
-        private List<ContextTable> _orderList = new List<ContextTable>();
+    public class PPMTables : List<ContextTable> {
         private readonly int _maxOrder;
 
         public PPMTables(int maxOrder = 5) {
@@ -11,23 +11,21 @@ namespace Compression.PPM{
         }
 
         public ContextTable.ToEncode LookUpAndUpdate(Entry entry, out EncodeInfo encodeInfo) {
-            ContextTable ct = _orderList[entry.Context.Length];
+            ContextTable ct = this[entry.Context.Length];
             byte symbol = entry.Symbol;
             byte[] context = entry.Context;
-
             ContextTable.ToEncode updateResult;
             
             // If it is the minus first order, just encode the symbol
             if (entry.IsMinusFirstOrder) {
                 encodeInfo = new EncodeInfo(1, entry.Symbol + 1, byte.MaxValue + 1);
                 updateResult = ContextTable.ToEncode.EncodeSymbol;
-            }
-            else {
+            } else {
                 updateResult = ct.UpdateContext(entry);
-                SymbolDictionary matchedContext = ct.ContextDict[context];
+                SymbolDictionary matchedContext = ct[context];
                 // No matched context or symbol case, encode nothing
                 if(updateResult == ContextTable.ToEncode.EncodeNothing)
-                    encodeInfo = new EncodeInfo(0,0,0);
+                    encodeInfo = default(EncodeInfo);
             
                 // Matched context and symbol case
                 else if (updateResult == ContextTable.ToEncode.EncodeSymbol) 
@@ -41,11 +39,41 @@ namespace Compression.PPM{
             return updateResult;
         }
         
-        private void InitializeTables() {
-            _orderList = new List<ContextTable>();
+        /// <summary>
+        /// This method removes all of the large contexts' data (3. - 5.) to reduce the memory usage.
+        /// It also reduces the counts of the symbols in the 1. and 0. order, to prevent too specific probabilities.
+        /// If total count get too large, smaller counts may not fit within the integer interval in arithmetic coding.
+        /// </summary>
+        public void CleanUp() {
+            // Reduce counts of symbols in 1. and 0. order contexts
+            for (int i = 0; i <= 1; ++i) {
+                foreach (var context in this[i].Values) {
+                    int cumCount = 0;
+                    
+                    foreach (var symbol in context.Values) {
+                        symbol.Count /= 8; // Reduce symbol count
+                        if (symbol.Count == 0)
+                            symbol.Count = 1;
+                        
+                        cumCount += symbol.Count;
+                        symbol.CumulativeCount = cumCount;
+                    }
+                    
+                    // Update escape cumcount and totalcount
+                    cumCount += context.EscapeInfo.Count;
+                    context.EscapeInfo.CumulativeCount = cumCount;
+                    context.TotalCount = cumCount;
+                }
+            }
             
+            for (int i = 2; i < Count; ++i) {
+                this[i] = new ContextTable();
+            }
+        }
+        
+        private void InitializeTables() {
             for (int i = 0; i <= _maxOrder; i++) {
-                _orderList.Add(new ContextTable());
+                Add(new ContextTable());
             }
         }
     }
