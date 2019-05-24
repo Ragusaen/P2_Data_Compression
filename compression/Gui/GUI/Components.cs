@@ -39,14 +39,53 @@ namespace Gui {
             
             var openFileButton = new Button{Text = "Open"};
             openFileButton.Click += (OpenFileClick);
-            
+
             var runButton = new Button{Text = "Run"};
-            runButton.Click += (RunHuffmanCompressButton);
             runButton.BindDataContext(c => c.BackgroundColor, (ButtonColor m) => m.ButtonBackgroundColor);
             runButton.BindDataContext(c => c.Command, (ButtonColor m) => m.ChangeColorCommand);
 
-            var selecButton = new Button();
-            
+            Control fileTextArea() {
+                var FtextArea = new TextBox();
+                FtextArea.TextInput += (sender, args) => {
+                    openFileButton.Click += OpenFileClick; 
+                    FtextArea.Text = fileName;
+                    Console.WriteLine(fileName);
+                }; 
+                return FtextArea; 
+            }
+
+
+            Control Selectbutton() {
+                var selecButton = new DropDown();
+                selecButton.Items.Add("Prediction by Partial Matching", "a");
+                selecButton.Items.Add("Huffman encoder", "b");
+                selecButton.Items.Add("LzSS compression", "c");
+                selecButton.SelectedIndex = 0; 
+                selecButton.SelectedIndexChanged += (sender, args) => {
+                    if (selecButton.SelectedKey == "a") {
+                        ppmClicked = true;
+                        huffClicked = false;
+                        lzClicked = false;
+                        runButton.Click += RunPPMCompressButton; 
+                        Console.WriteLine("ppm selected");
+                    }
+                    else if (selecButton.SelectedKey == "b") {
+                        huffClicked = true;
+                        ppmClicked = false;
+                        lzClicked = false;
+                        runButton.Click += RunHuffmanCompressButton; 
+                        Console.WriteLine("huffman selected");
+                    }
+                    else if (selecButton.SelectedKey == "c") {
+                        lzClicked = true;
+                        ppmClicked = false;
+                        huffClicked = false;
+                        runButton.Click += RunPPMCompressButton; 
+                        Console.WriteLine("Lz Selected");
+                    }
+                };
+                return selecButton; 
+            }
             #endregion
 
             #region Menu
@@ -69,11 +108,11 @@ namespace Gui {
             #endregion
 
             #region Content
-
+  
             Content = new TableLayout
             {
                 Spacing = new Size(5,5),
-                Padding = new Padding(10,10,10,10),
+                Padding = new Padding(10,10,10,2),
                 Rows = {
                     new TableRow(
                         new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Please select file"}, true),
@@ -83,10 +122,13 @@ namespace Gui {
                     ),
                     new TableRow(
                         openFileButton,
-                        new DropDown { Items = { "Prediction by Partial Match", "Huffman", "LZSS" } },
+                        Selectbutton(),
                         runButton,
                         new Progressbar()
 
+                    ),
+                    new TableRow(
+                        new TableCell(fileTextArea())
                     ),
                     new TableRow{ScaleHeight = true}
                 }
@@ -96,5 +138,7 @@ namespace Gui {
             #endregion
 
         }
+
+
     }
 }
