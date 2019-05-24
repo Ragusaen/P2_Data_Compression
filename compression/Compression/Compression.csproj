@@ -171,6 +171,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="findmatchingbytes.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="libfindmatchingbytes.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
