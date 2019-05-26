@@ -27,10 +27,10 @@ namespace Compression {
         }
 
         public static void SilesiaCompressionTests() {
-            ICompressor compressor = new PredictionByPartialMatching();
+            ICompressor compressor = new LZSS();
             
             string[] paths = {/*
-                "../../res/silesia.tar",*/
+                "../../res/silesia.tar", */
                 "../../res/silesia/data",
                 "../../res/silesia/exe",
                 "../../res/silesia/html",
