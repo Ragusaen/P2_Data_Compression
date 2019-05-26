@@ -1,2 +1,2 @@
-# P2 Data Compression
+# Implementation of data compression algorithms
 

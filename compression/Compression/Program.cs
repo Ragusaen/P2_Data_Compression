@@ -9,7 +9,7 @@ namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
 //            PPMCleanUpTest();
-            SilesiaCompressionTests();
+           SilesiaCompressionTests();
         }
 
         public static void PPMCleanUpTest() {
@@ -47,16 +47,23 @@ namespace Compression {
                 var compressed = compressor.Compress(dataFile);
                 var compressionTime = compressionWatch.ElapsedMilliseconds;
 
-//                var decompressionWatch = System.Diagnostics.Stopwatch.StartNew();
-//                compressor.Decompress(compressed);
-//                var decompressionTime = decompressionWatch.ElapsedMilliseconds;
-
-                Console.WriteLine($"{path}: R: {(double)compressed.Length / dataFile.Length}, C: {(double)dataFile.Length / compressionTime} kB/s, D: {/*(double)compressed.Length / decompressionTime*/1}");
+                long decompressionTime = 0;
+                try {
+                    var decompressionWatch = System.Diagnostics.Stopwatch.StartNew();
+                    compressor.Decompress(compressed);
+                    decompressionTime = decompressionWatch.ElapsedMilliseconds;
+                    
+                    Console.WriteLine($"{path}: R: {(double)compressed.Length / dataFile.Length}, C: {(double)dataFile.Length / compressionTime} kB/s, D: {(double)compressed.Length / decompressionTime}");
+                }
+                catch (NotImplementedException) {
+                    Console.WriteLine(
+                        $"{path}: R: {(double) compressed.Length / dataFile.Length}, C: {(double) dataFile.Length / compressionTime} kB/s");
+                }
             }
         }
 
         public static void LZSpeedTests() {
-            DataFile input = new DataFile("../../res/hcandersen.txt");
+            DataFile input = new DataFile("../../res/big2.txt");
             byte[] bytes = input.GetAllBytes();
 
             double averageratio = 1;
