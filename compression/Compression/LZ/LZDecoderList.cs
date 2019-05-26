@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 
 namespace Compression.LZ {
+    /// <summary>
+    /// A simple extension of List<byte> which allows for adding and decoding EncodedĹZBytes easily.
+    /// </summary>
     public class LZDecoderList : List<byte> {
         public void DecodeAndAddEncodedByte( EncodedLZByte eb ) {
             if (eb is PointerByte pb) {

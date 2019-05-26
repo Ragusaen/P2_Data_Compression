@@ -2,15 +2,33 @@ using System;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
-    public class SlidingWindow : DataFileIterator{
+    /// <summary>
+    /// Sliding window which has 2 windows, one looking forward and one looking backwards. This is used for
+    /// finding the bytes to encode with LZSS.
+    /// </summary>
+    public class SlidingWindow {
         private int _historyLength = PointerByte.GetPointerSpan();
         private int _lookAheadLength = PointerByte.GetLengthSpan();
         private FindLongestMatch findLongestMatch;
+       
+        private byte[] _bytes;
+        private int _currentIndex = 0;
         
-        public SlidingWindow(DataFile file) : base(file) {
+        public SlidingWindow(byte[] bytes) {
+            _bytes = bytes;
             findLongestMatch = CFindMatchingBytes.FindLongestMatch;
         }
+
+        public Boolean AtEnd() {
+            return _currentIndex >= _bytes.Length; 
+        }
         
+        /// <summary>
+        /// This method creates the windows and finds longest match from lookahead in history. If one
+        /// longer than 2 is found, then a PointerByte is returned indicating where the match is relative
+        /// to the current index.
+        /// </summary>
+        /// <returns> EncodedLZByte that is either a pointer to match or raw data. </returns>
         public EncodedLZByte Slide() {
             if (AtEnd())
                 return null;
@@ -36,11 +54,11 @@ namespace Compression.LZ {
             EncodedLZByte r;
             if (match.Length != 0) {
                 r = new PointerByte( history.Length - match.Index - 1, match.Length - 1);
-                currentIndex += match.Length;
+                _currentIndex += match.Length;
             }
             else {
                 r = new RawByte(lookAhead[0]);
-                currentIndex++;                
+                _currentIndex++;                
             }
 
             return r;
@@ -48,19 +66,19 @@ namespace Compression.LZ {
 
         private ByteArrayIndexer LoadHistory(int length) {
             int historyIndex;
-            if(length > currentIndex) {
+            if(length > _currentIndex) {
                 historyIndex = 0;
             }
             else {
-                historyIndex = currentIndex - length;
+                historyIndex = _currentIndex - length;
             }
-            return file.GetArrayIndexer(historyIndex, currentIndex - historyIndex);
+            return new ByteArrayIndexer(_bytes, historyIndex, _currentIndex - historyIndex);
         }
 
         private ByteArrayIndexer LoadLookAhead(int length) {
-            if (length + currentIndex > file.Length)
-                length = (int)file.Length - currentIndex;
-            return file.GetArrayIndexer(currentIndex, length);
+            if (length + _currentIndex > _bytes.Length)
+                length = (int)_bytes.Length - _currentIndex;
+            return new ByteArrayIndexer(_bytes, _currentIndex, length);
         }
     }
 }

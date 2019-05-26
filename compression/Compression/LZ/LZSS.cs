@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
+    /// <summary>
+    /// The class that allows for LZSS compression.
+    /// </summary>
     public class LZSS : ICompressor {
         public DataFile Compress(DataFile input) {
-            SlidingWindow slidingWindow = new SlidingWindow(input);
-            List<UnevenByte> unevenBytes = new List<UnevenByte>();
+            SlidingWindow slidingWindow = new SlidingWindow(input.GetAllBytes());
             LZByteConverter lzByteConverter = new LZByteConverter();
             BitString bitString = new BitString();
 

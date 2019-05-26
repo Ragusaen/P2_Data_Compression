@@ -1,16 +1,10 @@
 using System;
 
 namespace Compression {
+    /// <summary>
+    /// This 
+    /// </summary>
     public class DataFileIterator {
-        protected DataFile file;
-        protected int currentIndex = 0;
-
-        public DataFileIterator(DataFile file) {
-            this.file = file; 
-        }
-
-        public Boolean AtEnd() {
-            return currentIndex >= file.Length; 
-        }
+        
     }
 }

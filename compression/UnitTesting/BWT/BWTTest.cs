@@ -9,7 +9,7 @@ namespace UnitTesting.BWT_Test {
         public void TransformReturnsBNNAAAFromBANANA() {
             byte[] input = {(byte)'^',(byte) 'B', (byte) 'A', (byte) 'N', (byte) 'A', (byte) 'N', (byte) 'A', (byte)'|'};
             byte[] expected = {(byte) 'B', (byte) 'N', (byte) 'N', (byte) '^', (byte) 'A', (byte) 'A', (byte) '|', (byte) 'A'};
-            BurrowWheelerTransform bwt = new BurrowWheelerTransform();
+            BurrowsWheelerTransform bwt = new BurrowsWheelerTransform();
             
             byte[] result = bwt.Transform(input);
             
@@ -20,7 +20,7 @@ namespace UnitTesting.BWT_Test {
         public void InverseTransformReturnsBANANAFromBNNAAA() {
             byte[] expected = {(byte)'^',(byte) 'B', (byte) 'A', (byte) 'N', (byte) 'A', (byte) 'N', (byte) 'A', (byte)'|'};
             byte[] input = {(byte) 'B', (byte) 'N', (byte) 'N', (byte) '^', (byte) 'A', (byte) 'A', (byte) '|', (byte) 'A'};
-            BurrowWheelerTransform bwt = new BurrowWheelerTransform();
+            BurrowsWheelerTransform bwt = new BurrowsWheelerTransform();
             
             byte[] result = bwt.InverseTransform(input);
             
@@ -31,7 +31,7 @@ namespace UnitTesting.BWT_Test {
         public void TransformReturnsFromFemFladeFloedeboller() {
             string input = "^fem flade flødeboller på et fladt flødebolle fad|";
             string expected = "åemtter|llfeeaøøaaldddfl  ^    ffllooffebb eeddpll"; //Has not been validated
-            BurrowWheelerTransform bwt = new BurrowWheelerTransform();
+            BurrowsWheelerTransform bwt = new BurrowsWheelerTransform();
             
             byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.Transform(inArr);
@@ -44,7 +44,7 @@ namespace UnitTesting.BWT_Test {
         public void InverseTransformReturnsFromFemFladeFloedeboller() {
             string expected = "^fem flade flødeboller på et fladt flødebolle fad|";
             string input = "åemtter|llfeeaøøaaldddfl  ^    ffllooffebb eeddpll"; //Has not been validated
-            BurrowWheelerTransform bwt = new BurrowWheelerTransform();
+            BurrowsWheelerTransform bwt = new BurrowsWheelerTransform();
             
             byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.InverseTransform(inArr);
@@ -57,7 +57,7 @@ namespace UnitTesting.BWT_Test {
         public void TransformFromText1() {
             string input = "^This is some small file, that noone wants to read because it is boring. Therefore it has been hidden here. Please do not share with any hostile intelligence.|";
             string expected = "..hdsseltnnyetseetootes,seeeege  ^|emw hhehc   enaid slrsmnrlrcrlbbrtdeghh enits t T T hltfr  h   wliiPlaesoeeeoi  iaadtsonfbhnoae eoaiiitau   oiiaoni s na  n."; //Has not been validated
-            BurrowWheelerTransform bwt = new BurrowWheelerTransform();
+            BurrowsWheelerTransform bwt = new BurrowsWheelerTransform();
             
             byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.Transform(inArr);
@@ -70,7 +70,7 @@ namespace UnitTesting.BWT_Test {
         public void InverseTransformFromText1() {
             string expected = "^This is some small file, that noone wants to read because it is boring. Therefore it has been hidden here. Please do not share with any hostile intelligence.|";
             string input = "..hdsseltnnyetseetootes,seeeege  ^|emw hhehc   enaid slrsmnrlrcrlbbrtdeghh enits t T T hltfr  h   wliiPlaesoeeeoi  iaadtsonfbhnoae eoaiiitau   oiiaoni s na  n."; //Has not been validated
-            BurrowWheelerTransform bwt = new BurrowWheelerTransform();
+            BurrowsWheelerTransform bwt = new BurrowsWheelerTransform();
             
             byte[] inArr = ByteMethods.StringToByteArray(input);
             byte[] output = bwt.InverseTransform(inArr);

@@ -59,10 +59,6 @@ namespace UnitTesting.LZ {
                 LZSS comp = new LZSS();
                 DataFile actual = comp.Compress(inputFile);
                 
-                ByteArrayPrinter.PrintBits(expected.GetBytes(0, expected.Length));
-                Console.WriteLine();
-                ByteArrayPrinter.PrintBits(actual.GetBytes(0,actual.Length));
-                
                 Assert.AreEqual(expected.GetBytes(0, expected.Length), actual.GetBytes(0, actual.Length));
             }
         }

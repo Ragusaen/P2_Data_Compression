@@ -10,7 +10,7 @@ namespace UnitTesting.LZ {
         public void SlideReturnsRawByte_a_AsFirstByte() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
             DataFile file = new DataFile(path);
-            SlidingWindow sw = new SlidingWindow(file);
+            SlidingWindow sw = new SlidingWindow(file.GetAllBytes());
             RawByte expected = new RawByte(97);
 
             RawByte actual = (RawByte) sw.Slide();
@@ -22,7 +22,7 @@ namespace UnitTesting.LZ {
         public void SlideReturnsPointer_5_FromTestFile2AtPos10() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
             DataFile file = new DataFile(path);
-            SlidingWindow sw = new SlidingWindow(file);
+            SlidingWindow sw = new SlidingWindow(file.GetAllBytes());
             uint expected = 5;
 
             for (int i = 0; i < 9; i++)
@@ -36,7 +36,7 @@ namespace UnitTesting.LZ {
         public void SlideReturnsPointerLength_2_FromTestFile2AtPos10() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
             DataFile file = new DataFile(path);
-            SlidingWindow sw = new SlidingWindow(file);
+            SlidingWindow sw = new SlidingWindow(file.GetAllBytes());
             var expected = new PointerByte(5, 2);
 
             for (int i = 0; i < 9; i++)
@@ -51,7 +51,7 @@ namespace UnitTesting.LZ {
         public void SlideNotAtEndWhenInBeginningOfFile() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
             DataFile file = new DataFile(path);
-            SlidingWindow sw = new SlidingWindow(file);
+            SlidingWindow sw = new SlidingWindow(file.GetAllBytes());
 
             Assert.IsFalse(sw.AtEnd());
         }
@@ -60,7 +60,7 @@ namespace UnitTesting.LZ {
         public void SlideAtEndWhenAtEnd() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
             DataFile file = new DataFile(path);
-            SlidingWindow sw = new SlidingWindow(file);
+            SlidingWindow sw = new SlidingWindow(file.GetAllBytes());
 
             for (int i = 0; i < 3; i++)
                 sw.Slide();
@@ -72,7 +72,7 @@ namespace UnitTesting.LZ {
         public void SlideReturnsPointer_3_FromTestFile3AtPos4() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
             DataFile file = new DataFile(path);
-            SlidingWindow sw = new SlidingWindow(file);
+            SlidingWindow sw = new SlidingWindow(file.GetAllBytes());
             uint expected = 3;
 
             for (int i = 0; i < 4; i++)
@@ -86,7 +86,7 @@ namespace UnitTesting.LZ {
         public void SlideReturnsPointerLength_3_FromTestFile3AtPos4() {
             string path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
             DataFile file = new DataFile(path);
-            SlidingWindow sw = new SlidingWindow(file);
+            SlidingWindow sw = new SlidingWindow(file.GetAllBytes());
             uint expected = 3;
 
             for (int i = 0; i < 4; i++)

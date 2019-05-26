@@ -1,6 +1,10 @@
 using System;
 
 namespace Compression {
+    
+    /// <summary>
+    /// Collection of methods on byte arrays, primarily used by non-essential code.
+    /// </summary>
     public class ByteMethods {
         public static string ByteArrayToString(byte[] b) {
             string res = "";

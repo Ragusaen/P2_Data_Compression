@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 
 namespace Compression.BWT {
-    public class BurrowWheelerTransform {
+    
+    /// <summary>
+    /// This class performs the Burrows-Wheeler-Transform.
+    /// </summary>
+    public class BurrowsWheelerTransform {
 
         public byte[] Transform(byte[] input) {
             List<byte[]> transformMatrix = new List<byte[]>();

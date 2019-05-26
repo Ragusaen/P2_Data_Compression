@@ -2,9 +2,14 @@ using System;
 using Compression.ByteStructures;
 
 namespace Compression.LZ{
-
-    public abstract class EncodedLZByte : EncodedByte { }
-
+    /// <summary>
+    /// Simple class to contain both pointer- and raw encodings.
+    /// </summary>
+    public abstract class EncodedLZByte { }
+    
+    /// <summary>
+    /// The encoded byte that describes a pointer backwards in the file.
+    /// </summary>
     public class PointerByte : EncodedLZByte, IEquatable<PointerByte> {
         public const int POINTER_SIZE = 12;
         public const int LENGTH_SIZE = 4;
@@ -51,8 +56,11 @@ namespace Compression.LZ{
         #endregion
     }
 
+    /// <summary>
+    /// The encoded byte that describes a raw data point.
+    /// </summary>
     public class RawByte : EncodedLZByte {
-        public const uint RAW_SIZE = 8;
+        public const int RAW_SIZE = 8;
         
         public byte Data;
 

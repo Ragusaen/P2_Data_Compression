@@ -4,6 +4,9 @@ using System.Linq;
 using Compression.ByteStructures;
 
 namespace Compression {
+    /// <summary>
+    /// This class is used to store the data of a file.
+    /// </summary>
     public class DataFile{
         private byte[] _byteArray;
         public int Length {
@@ -34,10 +37,6 @@ namespace Compression {
             Array.Copy(_byteArray, start, result, 0, len);
             
             return result;
-        }
-
-        public ByteArrayIndexer GetArrayIndexer(int start, int len) {
-            return new ByteArrayIndexer(_byteArray, start, len);
         }
         
         public byte GetByte(int i) {

@@ -2,8 +2,16 @@ using System;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {
-    public class LZByteConverter : IEncodedByteConverter<EncodedLZByte> {
+    /// <summary>
+    /// This class converts UnevenBytes to EncodedLZBytes and vice versa.
+    /// </summary>
+    public class LZByteConverter {
+        /// <summary>
+        /// Converts an UnevenByte to EncodedLZByte based on the control bit-
+        /// </summary>
+        /// <param name="unevenByte"> UnevenByte to convert. </param>
         public EncodedLZByte ToEncodedByte(UnevenByte unevenByte) {
+            // Check if control bit is 1
             if (unevenByte[0] == 1) {
                 unevenByte -= 1;
                 int pointerData = unevenByte.GetBits(PointerByte.POINTER_SIZE);
@@ -22,12 +30,10 @@ namespace Compression.LZ {
                 int data = (1 << PointerByte.POINTER_SIZE) + pb.Pointer;
                 data = (data << PointerByte.LENGTH_SIZE) + pb.Length;
 
-                return new UnevenByte((uint)data, 17);
+                return new UnevenByte((uint)data, PointerByte.POINTER_SIZE + PointerByte.LENGTH_SIZE + 1);
+            } else {
+                return new UnevenByte(((RawByte)eb).Data, RawByte.RAW_SIZE + 1);
             }
-            if (eb is RawByte rb) {
-                return new UnevenByte(rb.Data,9);
-            }
-            throw new ArgumentException("EncodedByte was not of valid type");
         }
 
         public int GetUnevenByteLength(UnevenByte controlBit) {
