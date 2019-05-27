@@ -9,24 +9,24 @@ namespace Compression.Huffman
     /// </summary>
     public abstract class Node : IComparable<Node>
     {
-        public byte symbol;
-        public int count;
-        public UnevenByte code = default(UnevenByte);
+        public byte Symbol;
+        public int Count;
+        public UnevenByte Code = default(UnevenByte);
 
         /// <summary>
         /// Simply compare whether a Node has appeared more than another node. It sorts 
-        /// from lowest to highest, if equal then by highest byte value.
+        /// from lowest to highest, if equal then by highestget byte value.
         /// </summary>
         /// <returns> 1 if Node's count is larger than the node it's compared to, -1 if 
         /// Node's count is smaller </returns>
         public int CompareTo(Node other) {
-            int c = count.CompareTo(other.count);
+            int c = Count.CompareTo(other.Count);
 
             if (c != 0) {
                 return c;
             }
             else {
-                return symbol.CompareTo(other.symbol);
+                return Symbol.CompareTo(other.Symbol);
             }
         }
     }
@@ -37,8 +37,8 @@ namespace Compression.Huffman
     /// </summary>
     public class LeafNode : Node {
         public LeafNode(byte character, int frequency) {
-            symbol = character;
-            count = frequency;
+            Symbol = character;
+            Count = frequency;
         }
     }
 
@@ -47,12 +47,12 @@ namespace Compression.Huffman
     /// classes to inherit code to LeafNode.
     /// </summary>
     public class BranchNode : Node {
-        public Node LeftNode;
-        public Node RightNode;
+        public Node LeftNode { get; }
+        public Node RightNode { get; }
         
         public BranchNode(Node left, Node right) { 
-            symbol = right.symbol;
-            count = left.count + right.count;
+            Symbol = right.Symbol;
+            Count = left.Count + right.Count;
 
             LeftNode = left;
             RightNode = right;
