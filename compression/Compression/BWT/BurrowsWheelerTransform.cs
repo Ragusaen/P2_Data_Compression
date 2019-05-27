@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using compression.ByteStructures;
 
 namespace Compression.BWT {
     
@@ -44,10 +45,11 @@ namespace Compression.BWT {
             return null;
         }
 
-        public static void PrintByteArrayList(List<byte[]> l) {
-            for (int i = 0; i < l.Count; i++) {
-                for (int j = 0; j < l[i].Length; j++)
-                    Console.Write(l[i][j] + ",");
+        public static void PrintByteArrayList(IEnumerable<byte[]> l) {
+            foreach (var t in l) {
+                foreach (var t1 in t)
+                    Console.Write(t1 + ",");
+
                 Console.WriteLine();
             }
         }

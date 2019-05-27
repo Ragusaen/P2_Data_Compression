@@ -30,15 +30,15 @@ namespace Compression.AC {
             
             // Expand the interval as long as possible.
             ExpansionType et;
-            while ((et = _interval.Expand()) != ExpansionType.NONE) {
+            while ((et = _interval.Expand()) != ExpansionType.None) {
                 // If middle expansion, increment follow bits, to account for intervals around the middle
-                if (et == ExpansionType.MIDDLE) {
+                if (et == ExpansionType.Middle) {
                     ++_followBits;
                 }
                 else {
                     // Encode 0 or 1 depending on left or right expansion
                     UnevenByte toEncode;
-                    if (et == ExpansionType.LEFT) {
+                    if (et == ExpansionType.Left) {
                         toEncode = UnevenByte.One;
                     }
                     else { // et == ExpansionType.Right

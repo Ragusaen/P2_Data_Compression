@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using compression.ByteStructures;
 
 namespace Compression.PPM{
     public class ContextTable : Dictionary<byte[], SymbolDictionary> {

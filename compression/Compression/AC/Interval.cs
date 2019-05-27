@@ -1,11 +1,11 @@
 using System;
 namespace Compression.AC {
     public enum ExpansionType {
-        LEFT,
-        RIGHT,
-        MIDDLE,
-        NONE
-    };
+        Left,
+        Right,
+        Middle,
+        None
+    }
     
     /// <summary>
     /// This class handles integer intervals. It contains a Lower and Upper bound, as well as a max. Instead
@@ -16,7 +16,7 @@ namespace Compression.AC {
     public class Interval {
         public long Lower;
         public long Upper;
-        public long Max;
+        public long Max { get; }
 
         public Interval(long lower, long upper, long max) {
             Lower = lower;
@@ -34,33 +34,33 @@ namespace Compression.AC {
             if (Lower >= Max / 2) {
                 Lower = 2 * Lower - Max;
                 Upper = 2 * Upper - Max;
-                return ExpansionType.LEFT;
+                return ExpansionType.Left;
             }
             if (Upper <= Max / 2) {
                 Lower *= 2;
                 Upper *= 2;
-                return ExpansionType.RIGHT;
+                return ExpansionType.Right;
             }
             if (Lower >= Max / 4 && Upper <= 3 * Max / 4) {
                 Lower = 2 * Lower - Max / 2;
                 Upper = 2 * Upper - Max / 2;
-                return ExpansionType.MIDDLE;
+                return ExpansionType.Middle;
             }
 
-            return ExpansionType.NONE;
+            return ExpansionType.None;
         }
         
         /// <summary>
         /// Narrow the interval to within the given counts given.
         /// </summary>
-        /// <param name="count"> The count of the symbol. </param>
-        /// <param name="cumulativeCount"> The count of the symbol, and all of the symbols below it. </param>
+        /// <param name="prevCumCount">The cumulative count of the previous symbol</param>
+        /// <param name="cumCount"> The count of the symbol, and all of the symbols below it. </param>
         /// <param name="totalCount"> The total count of all the symbols. </param>
         /// <exception cref="ArithmeticException"> If parameters are too large, the integer arithmetic can
         /// get too large, therefore an exception is thrown if this is detected. </exception>
-        public void Narrow(long prevCount, long cumCount, long totalCount) {
+        public void Narrow(long prevCumCount, long cumCount, long totalCount) {
             long tempLower = Lower;
-            Lower = Lower +  (prevCount * (Upper - Lower)) / totalCount;
+            Lower = Lower +  (prevCumCount * (Upper - Lower)) / totalCount;
             Upper = tempLower + (cumCount * (Upper - tempLower)) / totalCount - 1;
             
             if (Upper <= Lower) {

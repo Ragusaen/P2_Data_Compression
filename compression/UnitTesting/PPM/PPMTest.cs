@@ -1,4 +1,5 @@
 using System.Linq;
+using compression.ByteStructures;
 using Compression;
 using Compression.PPM;
 using NUnit.Framework;
