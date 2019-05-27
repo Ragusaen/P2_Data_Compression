@@ -3,12 +3,11 @@ using System.Linq;
 
 namespace Compression.PPM {
     public class Entry {
+        public byte Symbol;
         public byte[] Context;
         public bool IsMinusFirstOrder;
-        public byte Symbol;
-
-        public Entry() {
-        }
+        
+        public Entry() { }
 
         public Entry(byte symbol, byte[] context) {
             Symbol = symbol;

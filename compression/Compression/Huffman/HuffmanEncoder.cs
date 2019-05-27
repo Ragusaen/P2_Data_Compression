@@ -28,8 +28,8 @@ namespace Compression.Huffman {
         ///     This method creates an UnevenByte so the last byte contains 8 bits.
         /// </summary>
         /// <param name="huffmanTree"> Contains TotalLeafs and TotalLength </param>
-        /// <param name="sizeOfTree"> Number of different byte that appeared in input </param>
-        /// <param name="TotalLength"> The total size of all the encoded bytes </param>
+        /// <param name="huffmanTree.sizeOfTree"> Number of different byte that appeared in input </param>
+        /// <param name="huffmanTree.TotalLength"> The total size of all the encoded bytes </param>
         /// <returns> An UnevenByte filled with 1s with a length that fills the last byte </returns>
         private UnevenByte CreateFillerUnevenByte(HuffmanTree huffmanTree) {
             var sizeOfTree = huffmanTree.TotalLeafs * 10 - 1;

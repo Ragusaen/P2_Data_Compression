@@ -7,9 +7,9 @@ namespace Compression.Huffman {
     ///     IComparable interface for sorting List of its class.
     /// </summary>
     public abstract class Node : IComparable<Node> {
-        public UnevenByte code = default(UnevenByte);
-        public int count;
-        public byte symbol;
+        public UnevenByte Code = default(UnevenByte);
+        public int Count;
+        public byte Symbol;
 
         /// <summary>
         ///     Simply compare whether a Node has appeared more than another node. It sorts
@@ -20,11 +20,12 @@ namespace Compression.Huffman {
         ///     Node's count is smaller
         /// </returns>
         public int CompareTo(Node other) {
-            var c = count.CompareTo(other.count);
-
+            int c = Count.CompareTo(other.Count);
             if (c != 0)
                 return c;
-            return symbol.CompareTo(other.symbol);
+            else {
+                return Symbol.CompareTo(other.Symbol);
+            }
         }
     }
 
@@ -34,8 +35,8 @@ namespace Compression.Huffman {
     /// </summary>
     public class LeafNode : Node {
         public LeafNode(byte character, int frequency) {
-            symbol = character;
-            count = frequency;
+            Symbol = character;
+            Count = frequency;
         }
     }
 
@@ -44,12 +45,12 @@ namespace Compression.Huffman {
     ///     classes to inherit code to LeafNode.
     /// </summary>
     public class BranchNode : Node {
-        public Node LeftNode;
-        public Node RightNode;
-
-        public BranchNode(Node left, Node right) {
-            symbol = right.symbol;
-            count = left.count + right.count;
+        public Node LeftNode { get; }
+        public Node RightNode { get; }
+        
+        public BranchNode(Node left, Node right) { 
+            Symbol = right.Symbol;
+            Count = left.Count + right.Count;
 
             LeftNode = left;
             RightNode = right;

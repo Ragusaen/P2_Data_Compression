@@ -1,19 +1,11 @@
 using System.Collections.Generic;
 
-namespace Compression.PPM {
-    public class SymbolDictionary : Dictionary<byte, SymbolInfo> {
-        public readonly SymbolInfo EscapeInfo = new SymbolInfo(0);
-
-        public SymbolDictionary() {
-        }
-
-        public SymbolDictionary(byte symbol) {
-            Add(symbol, new SymbolInfo());
-            UpdateCounts();
-        }
-
+namespace Compression.PPM{
+    public class SymbolDictionary : Dictionary<byte, SymbolInfo>{
+        
+        public readonly SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
         public int TotalCount { get; set; }
-
+        
         public void AddNew(byte symbol) {
             Add(symbol, new SymbolInfo());
             UpdateCounts();
@@ -29,7 +21,7 @@ namespace Compression.PPM {
             UpdateCounts();
         }
 
-        public void UpdateCounts() {
+        private void UpdateCounts() {
             TotalCount++;
             CalculateCumulativeCounts();
         }

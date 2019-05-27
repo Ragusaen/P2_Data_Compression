@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using compression.ByteStructures;
 
 namespace Compression.BWT {
     /// <summary>
@@ -39,14 +40,6 @@ namespace Compression.BWT {
                 if (itm[i][0] == (byte) '^')
                     return itm[i];
             return null;
-        }
-
-        public static void PrintByteArrayList(List<byte[]> l) {
-            for (var i = 0; i < l.Count; i++) {
-                for (var j = 0; j < l[i].Length; j++)
-                    Console.Write(l[i][j] + ",");
-                Console.WriteLine();
-            }
         }
     }
 }

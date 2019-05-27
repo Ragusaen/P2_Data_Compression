@@ -5,7 +5,7 @@ namespace Compression.PPM {
     public class PredictionByPartialMatching : ICompressor {
         private readonly int _maxOrder;
         private readonly int _cleanUpLimit;
-
+        
         public PredictionByPartialMatching(int maxOrder = 5, int cleanUpLimit = 100000) {
             _maxOrder = maxOrder;
             _cleanUpLimit = cleanUpLimit;

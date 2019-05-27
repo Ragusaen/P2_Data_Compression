@@ -56,15 +56,14 @@ namespace Compression.Huffman {
         private void SetCode(Node inheritCode) {
             //public for unit tests
             if (inheritCode is BranchNode branchNode) {
-                branchNode.LeftNode.code = inheritCode.code + UnevenByte.Zero;
-                branchNode.RightNode.code = inheritCode.code + UnevenByte.One;
-
+                branchNode.LeftNode.Code = inheritCode.Code + UnevenByte.Zero;
+                branchNode.RightNode.Code = inheritCode.Code + UnevenByte.One;
+                
                 SetCode(branchNode.LeftNode);
                 SetCode(branchNode.RightNode);
-            }
-            else if (inheritCode is LeafNode) {
-                CodeDictionary.Add(inheritCode.symbol, inheritCode.code);
-                TotalLength += inheritCode.count * inheritCode.code.Length;
+            } else if (inheritCode is LeafNode) {
+                CodeDictionary.Add(inheritCode.Symbol, inheritCode.Code);
+                TotalLength += inheritCode.Count * inheritCode.Code.Length;
             }
         }
 
@@ -81,7 +80,7 @@ namespace Compression.Huffman {
                 EncodeTree(branchNode.RightNode);
             }
             else if (node is LeafNode leafNode) {
-                var symbolAsUB = new UnevenByte(leafNode.symbol, 8);
+                var symbolAsUB = new UnevenByte(leafNode.Symbol, 8);
                 EncodedTreeList.Add(UnevenByte.One + symbolAsUB);
             }
         }

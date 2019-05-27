@@ -1,4 +1,5 @@
 using System.Linq;
+using compression.ByteStructures;
 using Compression;
 using Compression.PPM;
 using NUnit.Framework;
@@ -124,9 +125,6 @@ namespace UnitTesting.PPM {
                 var actual = 0;
 
                 foreach (var t in orderX) actual += t.Value.TotalCount;
-
-                var ctp = new ContextTablePrinter();
-                ctp.ConsolePrint(orderX);
 
                 Assert.AreEqual(expected, actual);
             }

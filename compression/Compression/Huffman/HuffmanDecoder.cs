@@ -3,45 +3,46 @@ using Compression.ByteStructures;
 
 namespace Compression.Huffman {
     public class HuffmanDecoder {
-        private readonly BitIndexer bitIndexer;
-        private readonly Dictionary<UnevenByte, byte> DecodeDictionary = new Dictionary<UnevenByte, byte>();
+        private readonly Dictionary<UnevenByte, byte> _decodeDictionary = new Dictionary<UnevenByte, byte>();
+        private readonly BitIndexer _bitIndexer;
 
         public HuffmanDecoder(byte[] input) {
-            bitIndexer = new BitIndexer(input);
-
+            _bitIndexer = new BitIndexer(input);
+            
             // Remove filler ones
-            while (bitIndexer.GetNext() == UnevenByte.One) ;
-            bitIndexer.GoToPrevious(); // Go back, because we read the first 0
-
+            while (_bitIndexer.GetNext() == UnevenByte.One) { }
+            _bitIndexer.GoToPrevious(); // Go back, because we read the first 0
+            
             AddDictionaryEntries(default(UnevenByte));
         }
 
         private void AddDictionaryEntries(UnevenByte code) {
-            if (bitIndexer.GetNext() == UnevenByte.Zero) {
+            if (_bitIndexer.GetNext() == UnevenByte.Zero) {
                 AddDictionaryEntries(code + UnevenByte.Zero);
                 AddDictionaryEntries(code + UnevenByte.One);
             }
             else {
-                var b = (byte) bitIndexer.GetNextRange(8).Data;
-                DecodeDictionary.Add(code, b);
+                byte b = (byte) _bitIndexer.GetNextRange(8).Data;
+                _decodeDictionary.Add(code, b);
             }
         }
 
         public byte[] Decode() {
             var shortestKey = 8;
-
-            foreach (var decodeDictionaryKey in DecodeDictionary.Keys)
-                if (decodeDictionaryKey.Length < shortestKey)
+            foreach (var decodeDictionaryKey in _decodeDictionary.Keys) {
+                if (decodeDictionaryKey.Length < shortestKey) {
                     shortestKey = decodeDictionaryKey.Length;
+                }
+            }
 
             var output = new List<byte>();
             var ub = default(UnevenByte);
 
-            while (!bitIndexer.AtEnd()) {
-                ub += ub == default(UnevenByte) ? bitIndexer.GetNextRange(shortestKey) : bitIndexer.GetNext();
+            while (!_bitIndexer.AtEnd()) {
+                ub += ub == default(UnevenByte)? _bitIndexer.GetNextRange(shortestKey) : _bitIndexer.GetNext();
 
-                if (DecodeDictionary.ContainsKey(ub)) {
-                    output.Add(DecodeDictionary[ub]);
+                if (_decodeDictionary.ContainsKey(ub)) {
+                    output.Add(_decodeDictionary[ub]);
                     ub = default(UnevenByte);
                 }
             }

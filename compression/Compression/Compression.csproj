@@ -159,7 +159,6 @@
     <Compile Include="PPM\Entry.cs" />
     <Compile Include="PPM\PPMTables.cs" />
     <Compile Include="PPM\SymbolDictionary.cs" />
-    <Compile Include="PPM\ContextTablePrinter.cs" />
     <Compile Include="PPM\PredictionByPartialMatching.cs" />
     <Compile Include="PPM\SymbolInfo.cs" />
     <Compile Include="Program.cs" />

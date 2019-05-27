@@ -69,7 +69,7 @@ namespace Compression.PPM {
 
             for (var i = 2; i < Count; ++i) this[i] = new ContextTable();
         }
-
+        
         private void InitializeTables() {
             for (var i = 0; i <= _maxOrder; i++) Add(new ContextTable());
         }

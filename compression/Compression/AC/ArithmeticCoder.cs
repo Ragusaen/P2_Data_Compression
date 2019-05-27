@@ -28,25 +28,28 @@ namespace Compression.AC {
 
             // Expand the interval as long as possible.
             ExpansionType et;
-            while ((et = _interval.Expand()) != ExpansionType.NONE
-            ) // If middle expansion, increment follow bits, to account for intervals around the middle
-                if (et == ExpansionType.MIDDLE) {
+            while ((et = _interval.Expand()) != ExpansionType.None) {
+                // If middle expansion, increment follow bits, to account for intervals around the middle
+                if (et == ExpansionType.Middle) {
                     ++_followBits;
                 }
                 else {
                     // Encode 0 or 1 depending on left or right expansion
                     UnevenByte toEncode;
-                    if (et == ExpansionType.LEFT)
+                    if (et == ExpansionType.Left) {
                         toEncode = UnevenByte.One;
-                    else
+                    }
+                    else { // ExpansionType is Zero
                         toEncode = UnevenByte.Zero;
-                    _bitString.Append(toEncode);
+                        _bitString.Append(toEncode);
+                    }
 
                     // If there are any follow bits, encode the complement of the bit follow bit times
-                    for (; _followBits > 0; --_followBits)
-                        _bitString.Append(!toEncode); // Encode follow bits as the complement
+                        for (; _followBits > 0; --_followBits)
+                            _bitString.Append(!toEncode); // Encode follow bits as the complement
+                    }
                 }
-        }
+            }
 
         /// <summary>
         ///     This method finalizes the interval by finding the bits that make the interval within the interval
