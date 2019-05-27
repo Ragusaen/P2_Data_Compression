@@ -132,12 +132,12 @@
   <ItemGroup>
     <Compile Include="AC\ArithmeticCoder.cs" />
     <Compile Include="AC\Interval.cs" />
-    <Compile Include="ByteArrayIndexer.cs" />
-    <Compile Include="BitIndexer.cs" />
-    <Compile Include="BitString.cs" />
     <Compile Include="BWT\BurrowsWheelerTransform.cs" />
-    <Compile Include="ByteMethods.cs" />
+    <Compile Include="ByteStructures\BitIndexer.cs" />
+    <Compile Include="ByteStructures\BitString.cs" />
     <Compile Include="ByteStructures\ByteArrayComparer.cs" />
+    <Compile Include="ByteStructures\ByteArrayIndexer.cs" />
+    <Compile Include="ByteStructures\ByteMethods.cs" />
     <Compile Include="ByteStructures\UnevenByte.cs" />
     <Compile Include="Huffman\HuffmanDecoder.cs" />
     <Compile Include="Huffman\HuffmanCompressor.cs" />

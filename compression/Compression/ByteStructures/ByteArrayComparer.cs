@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace compression.ByteStructures {
+namespace Compression.ByteStructures {
     /// <summary>
     ///     This class is used to compare arrays of bytes, and therefore implements both the IComparer and
     ///     IEqualityComparer interfaces.

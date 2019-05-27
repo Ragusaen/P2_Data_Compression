@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using compression.ByteStructures;
+using Compression.ByteStructures;
 
 namespace Compression.BWT {
     /// <summary>
@@ -10,7 +9,7 @@ namespace Compression.BWT {
         public byte[] Transform(byte[] input) {
             var transformMatrix = new List<byte[]>();
 
-            for (var i = 0; i < input.Length; i++) transformMatrix.Add(ByteMethods.shiftArray(input, i));
+            for (var i = 0; i < input.Length; i++) transformMatrix.Add(ByteMethods.ShiftArray(input, i));
 
             transformMatrix.Sort(new ByteArrayComparer());
 
@@ -29,7 +28,7 @@ namespace Compression.BWT {
 
             for (var i = 0; i < itm.Count; i++) {
                 for (var j = 0; j < input.Length; j++) {
-                    itm[j] = ByteMethods.shiftArray(itm[j], 1);
+                    itm[j] = ByteMethods.ShiftArray(itm[j], 1);
                     itm[j][0] = input[j];
                 }
 

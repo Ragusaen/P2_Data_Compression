@@ -1,10 +1,10 @@
 using System;
 
-namespace Compression {
+namespace Compression.ByteStructures {
     /// <summary>
     ///     Collection of methods on byte arrays, primarily used by non-essential code.
     /// </summary>
-    public class ByteMethods {
+    public static class ByteMethods {
         public static string ByteArrayToString(byte[] b) {
             var res = "";
             for (var i = 0; i < b.Length; i++)
@@ -36,15 +36,15 @@ namespace Compression {
             return res;
         }
 
-        public static byte[] shiftArray(byte[] input, int n) {
+        public static byte[] ShiftArray(byte[] input, int n) {
             var result = new byte[input.Length];
 
-            for (var i = 0; i < input.Length; i++) result[congMod(i + n, input.Length)] = input[i];
+            for (var i = 0; i < input.Length; i++) result[CongMod(i + n, input.Length)] = input[i];
 
             return result;
         }
 
-        public static int congMod(int n, int m) {
+        public static int CongMod(int n, int m) {
             return n < 0 ? m - -n % m : n % m;
         }
     }

@@ -1,15 +1,16 @@
 using Compression;
 using Compression.BWT;
 using NUnit.Framework;
+using Compression.ByteStructures;
 
-namespace UnitTesting.BWT_Test {
+namespace UnitTesting.BWT {
     [TestFixture]
     [Category("BurrowsWheelerTransform")]
     public class BWTTest {
         [Test]
         public void ByteArrayToStringFromFile3() {
             var path = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
-            var input_file = new DataFile(path);
+            var inputFile = new DataFile(path);
         }
 
         [Test]

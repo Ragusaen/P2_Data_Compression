@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Compression.ByteStructures;
 
-namespace Compression {
+namespace Compression.ByteStructures{
     /// <summary>
     ///     This class is an abstraction over a byte-list, such that it acts like a bitstring, without
     ///     using as much memory as having an actual list of "bits".

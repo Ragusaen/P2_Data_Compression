@@ -1,5 +1,6 @@
 using Compression;
 using Compression.Huffman;
+using Compression.ByteStructures;
 using NUnit.Framework;
 
 namespace UnitTesting.Huffman {

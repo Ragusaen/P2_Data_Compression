@@ -1,6 +1,4 @@
-using Compression.ByteStructures;
-
-namespace Compression {
+namespace Compression.ByteStructures {
     /// <summary>
     ///     This class is an abstraction over reading a byte array bit by bit.
     /// </summary>

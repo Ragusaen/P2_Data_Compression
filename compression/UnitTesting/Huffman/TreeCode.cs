@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace UnitTesting.Huffman {
     [TestFixture]
     [Category("HuffmanEncodedTreeList")]
-    internal class CreateListOf_EncodedInput {
+    internal class CreateListOfEncodedInput {
         [Test]
         public void TreeMapOver_AB() {
             var input = new List<Node> {

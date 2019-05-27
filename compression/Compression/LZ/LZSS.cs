@@ -1,3 +1,5 @@
+using Compression.ByteStructures;
+
 namespace Compression.LZ {
     /// <summary>
     ///     The class that allows for LZSS compression.
