@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Compression.ByteStructures;
 
 namespace Compression.Huffman {

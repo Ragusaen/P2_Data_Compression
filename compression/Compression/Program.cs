@@ -23,6 +23,7 @@ namespace Compression {
 
                 if (args.Contains("-A")) {
                     var i = Array.IndexOf(args, "-A") + 1;
+                    Console.WriteLine($"{args[i]}");
                     switch (args[i]) {
                         case "lz":
                             compressor = new LZSS();
@@ -30,19 +31,24 @@ namespace Compression {
                             break;
                         case "ppm":
                             compressor = new PredictionByPartialMatching();
-                            fileExtension = "lz";
+                            fileExtension = "ppm";
                             break;
                         case "huffman":
                             compressor = new HuffmanCompressor();
+                            fileExtension = "huffman";
                             break;
                         default:
                             throw new InvalidCompressorException();
                     }
                 }
-
+                
                 var compress = !args.Contains("-D");
 
-                outputPath = Path.GetDirectoryName(inputPath) + "/compressed." + fileExtension;
+                if (!compress)
+                    fileExtension = "";
+
+                outputPath = Path.GetDirectoryName(inputPath) + "/" + Path.GetFileNameWithoutExtension(inputPath) + (fileExtension == ""? "": ".") + fileExtension;
+                    
                 if (args.Contains("-o")) {
                     var i = Array.IndexOf(args, "-o") + 1;
                     outputPath = args[i];
@@ -58,8 +64,8 @@ namespace Compression {
                 output.WriteToFile(outputPath);
                 Console.WriteLine("File written to {0}", outputPath);
             }
-            catch (FileNotFoundException) {
-                Console.WriteLine("File was not find: {0}");
+            catch (FileNotFoundException e) {
+                Console.WriteLine("File was not found: {0}", e.Message);
             }
             catch (InvalidCompressorException) {
                 Console.WriteLine("The compression algorithm specified does not exist");
