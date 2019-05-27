@@ -24,7 +24,7 @@ namespace Compression.Huffman {
         }
 
 
-        public List<Node> CreateLeafNodes(byte[] data) { //public for unit tests
+        private List<Node> CreateLeafNodes(byte[] data) { //public for unit tests
             int[] counts = new int[byte.MaxValue + 1]; 
             for (int i = 0; i < data.Length; ++i) {
                 counts[data[i]]++;
