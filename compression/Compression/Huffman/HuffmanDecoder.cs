@@ -4,6 +4,10 @@ using Compression.ByteStructures;
 
 namespace Compression.Huffman {
     public class HuffmanDecoder {
+        /// <summary>
+        /// This class implements Huffman decoding. It creates a decoding dictionary from BitIndexer until
+        /// Huffman tree is complete. 
+        /// </summary>
         private readonly Dictionary<UnevenByte, byte> _decodeDictionary = new Dictionary<UnevenByte, byte>();
         private readonly BitIndexer _bitIndexer;
 
@@ -17,6 +21,11 @@ namespace Compression.Huffman {
             AddDictionaryEntries(default(UnevenByte));
         }
 
+        /// <summary>
+        /// This method is a recursive method. It creates a decoding dictionary from BitIndexer until
+        /// the Huffman tree is complete. A 0 bit indicate a 'branch' and a 1 bit indicate a 'leaf'.
+        /// </summary>
+        /// <param name="code"> It is the decoding code that gets inherit to a 'leaf'. </param>
         private void AddDictionaryEntries(UnevenByte code) {
             if (_bitIndexer.GetNext() == UnevenByte.Zero) {
                 AddDictionaryEntries(code + UnevenByte.Zero);
@@ -28,6 +37,12 @@ namespace Compression.Huffman {
             }
         }
 
+        /// <summary>
+        /// This method goes through the rest of the BitIndexer and adds bits till an UnevenByte until
+        /// it matches with the decode dictionary where it adds them till a list of byte. When the 
+        /// BitIndexer has been through all bits the list gets converted to a byte array.
+        /// </summary>
+        /// <returns> The decoded file as a byte array. </returns>
         public byte[] Decode() {
             var shortestKey = 8;
             foreach (var decodeDictionaryKey in _decodeDictionary.Keys) {
