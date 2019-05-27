@@ -1,5 +1,5 @@
-namespace Compression.PPM{
-    public class SymbolInfo{
+namespace Compression.PPM {
+    public class SymbolInfo {
         public int Count;
         public int CumulativeCount;
 

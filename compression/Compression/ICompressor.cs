@@ -1,6 +1,6 @@
 namespace Compression {
     /// <summary>
-    /// Interface that all the compression algorithm implements to allow for generalized use of them.
+    ///     Interface that all the compression algorithm implements to allow for generalized use of them.
     /// </summary>
     public interface ICompressor {
         DataFile Compress(DataFile toCompress);

@@ -1,4 +1,3 @@
-using Eto.Drawing;
 using Eto.Forms;
 
 namespace Gui {
@@ -8,11 +7,11 @@ namespace Gui {
             layout.AddRow(Indeterminate());
 
             layout.Add(null, null, true);
-            
+
             Content = layout;
         }
 
-         Control Indeterminate() {
+        private Control Indeterminate() {
             var control = new ProgressBar {
                 Indeterminate = false
             };

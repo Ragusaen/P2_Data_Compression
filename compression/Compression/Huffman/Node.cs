@@ -1,30 +1,28 @@
 ﻿using System;
 using Compression.ByteStructures;
 
-namespace Compression.Huffman
-{
+namespace Compression.Huffman {
     /// <summary>
-    /// This class contains a byte's value, count and encoding code. It implements the 
-    /// IComparable interface for sorting List of its class.
+    ///     This class contains a byte's value, count and encoding code. It implements the
+    ///     IComparable interface for sorting List of its class.
     /// </summary>
-    public abstract class Node : IComparable<Node>
-    {
-        public byte Symbol;
-        public int Count;
+    public abstract class Node : IComparable<Node> {
         public UnevenByte Code = default(UnevenByte);
+        public int Count;
+        public byte Symbol;
 
         /// <summary>
-        /// Simply compare whether a Node has appeared more than another node. It sorts 
-        /// from lowest to highest, if equal then by highestget byte value.
+        ///     Simply compare whether a Node has appeared more than another node. It sorts
+        ///     from lowest to highest, if equal then by highest byte value.
         /// </summary>
-        /// <returns> 1 if Node's count is larger than the node it's compared to, -1 if 
-        /// Node's count is smaller </returns>
+        /// <returns>
+        ///     1 if Node's count is larger than the node it's compared to, -1 if
+        ///     Node's count is smaller
+        /// </returns>
         public int CompareTo(Node other) {
             int c = Count.CompareTo(other.Count);
-
-            if (c != 0) {
+            if (c != 0)
                 return c;
-            }
             else {
                 return Symbol.CompareTo(other.Symbol);
             }
@@ -32,8 +30,8 @@ namespace Compression.Huffman
     }
 
     /// <summary>
-    /// Simpel sub-class of Node used to contain byte's value and frequenzy from input.
-    /// It's used by other classes to differentiate between BranchNode.
+    ///     Simpel sub-class of Node used to contain byte's value and frequenzy from input.
+    ///     It's used by other classes to differentiate between BranchNode.
     /// </summary>
     public class LeafNode : Node {
         public LeafNode(byte character, int frequency) {
@@ -43,8 +41,8 @@ namespace Compression.Huffman
     }
 
     /// <summary>
-    /// Another sub-class of Node and is created from other Nodes. It's used by other 
-    /// classes to inherit code to LeafNode.
+    ///     Another sub-class of Node and is created from other Nodes. It's used by other
+    ///     classes to inherit code to LeafNode.
     /// </summary>
     public class BranchNode : Node {
         public Node LeftNode { get; }

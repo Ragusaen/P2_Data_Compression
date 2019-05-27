@@ -144,7 +144,6 @@
     <Compile Include="Huffman\HuffmanEncoder.cs" />
     <Compile Include="Huffman\Node.cs" />
     <Compile Include="Huffman\HuffmanTree.cs" />
-    <Compile Include="fileiterator.cs" />
     <Compile Include="Huffman\OnlyOneUniqueByteException.cs" />
     <Compile Include="ICompressor.cs" />
     <Compile Include="DataFile.cs" />
@@ -160,7 +159,6 @@
     <Compile Include="PPM\Entry.cs" />
     <Compile Include="PPM\PPMTables.cs" />
     <Compile Include="PPM\SymbolDictionary.cs" />
-    <Compile Include="PPM\ContextTablePrinter.cs" />
     <Compile Include="PPM\PredictionByPartialMatching.cs" />
     <Compile Include="PPM\SymbolInfo.cs" />
     <Compile Include="Program.cs" />
@@ -173,8 +171,6 @@
     <Content Include="libfindmatchingbytes.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="res\big.txt" />
-    <Content Include="res\hcandersen.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

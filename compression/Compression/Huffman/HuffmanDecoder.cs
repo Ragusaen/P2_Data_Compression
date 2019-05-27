@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Compression.ByteStructures;
 
-namespace Compression.Huffman
-{
+namespace Compression.Huffman {
     public class HuffmanDecoder {
         private readonly Dictionary<UnevenByte, byte> _decodeDictionary = new Dictionary<UnevenByte, byte>();
         private readonly BitIndexer _bitIndexer;
@@ -29,16 +28,15 @@ namespace Compression.Huffman
         }
 
         public byte[] Decode() {
-            int shortestKey = 8;
-
+            var shortestKey = 8;
             foreach (var decodeDictionaryKey in _decodeDictionary.Keys) {
                 if (decodeDictionaryKey.Length < shortestKey) {
                     shortestKey = decodeDictionaryKey.Length;
                 }
             }
 
-            List<byte> output = new List<byte>();
-            UnevenByte ub = default(UnevenByte);
+            var output = new List<byte>();
+            var ub = default(UnevenByte);
 
             while (!_bitIndexer.AtEnd()) {
                 ub += ub == default(UnevenByte)? _bitIndexer.GetNextRange(shortestKey) : _bitIndexer.GetNext();
@@ -48,6 +46,7 @@ namespace Compression.Huffman
                     ub = default(UnevenByte);
                 }
             }
+
             return output.ToArray();
         }
     }

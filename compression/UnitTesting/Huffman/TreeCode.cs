@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Compression;
-using Compression.Huffman;
+﻿using System.Collections.Generic;
 using Compression.ByteStructures;
+using Compression.Huffman;
+using NUnit.Framework;
 
-namespace UnitTesting.Huffman
-{
-    [TestFixture, Category("HuffmanEncodedTreeList")]
-    class CreateListOf_EncodedInput {
+namespace UnitTesting.Huffman {
+    [TestFixture]
+    [Category("HuffmanEncodedTreeList")]
+    internal class CreateListOf_EncodedInput {
         [Test]
         public void TreeMapOver_AB() {
-            List<Node> input = new List<Node> {
-                new LeafNode((byte)'A', 1),
-                new LeafNode((byte)'B', 1)
+            var input = new List<Node> {
+                new LeafNode((byte) 'A', 1),
+                new LeafNode((byte) 'B', 1)
             };
 
-            List<UnevenByte> expected = new List<UnevenByte> {
+            var expected = new List<UnevenByte> {
                 new UnevenByte(0b0, 1),
                 new UnevenByte(0b101000001, 9),
                 new UnevenByte(0b101000010, 9)

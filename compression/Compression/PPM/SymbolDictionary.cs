@@ -27,11 +27,9 @@ namespace Compression.PPM{
         }
 
         public void CalculateCumulativeCounts() {
-            int cumCount = 0;
-            
-            foreach (var t in this) {
-                t.Value.CumulativeCount = cumCount += t.Value.Count;
-            }
+            var cumCount = 0;
+
+            foreach (var t in this) t.Value.CumulativeCount = cumCount += t.Value.Count;
 
             EscapeInfo.CumulativeCount = cumCount + EscapeInfo.Count;
         }

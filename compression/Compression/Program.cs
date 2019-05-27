@@ -1,86 +1,80 @@
 ﻿using System;
-using Compression.ByteStructures;
+using System.IO;
+using System.Linq;
 using Compression.Huffman;
-using Compression.AC;
 using Compression.LZ;
 using Compression.PPM;
 
 namespace Compression {
     internal class Program {
         public static void Main(string[] args) {
-//            PPMCleanUpTest();
-           SilesiaCompressionTests();
-        }
-
-        public static void PPMCleanUpTest() {
-            
-            DataFile dataFile = new DataFile("../../res/big2.txt");
-            for (int limit = 1000000; limit >= 100; limit /= 10) {
-                ICompressor compressor = new PredictionByPartialMatching(cleanUpLimit: limit);
-
-                var timer = System.Diagnostics.Stopwatch.StartNew();
-                DataFile compressedFile = compressor.Compress(dataFile);
-                var compressionTime = timer.ElapsedMilliseconds;
-
-                Console.WriteLine($"{limit}, {(double)compressedFile.Length/dataFile.Length}, {compressionTime}");
+            if (args.Length < 1) {
+                Console.WriteLine("Usage: <input path> [-o <output path>] [-C <compressor (lz, ppm, huffman)>]");
+                return;
             }
-        }
 
-        public static void SilesiaCompressionTests() {
+            DataFile input;
+            string outputPath;
             ICompressor compressor = new LZSS();
-            
-            string[] paths = {/*
-                "../../res/silesia.tar", */
-                "../../res/big2.txt"
-            };
+            var fileExtension = "lz";
+            try {
+                var inputPath = args[0];
+                input = new DataFile(inputPath);
 
-            foreach (string path in paths) {
-                DataFile dataFile = new DataFile(path);
-                
-                var compressionWatch = System.Diagnostics.Stopwatch.StartNew();
-                var compressed = compressor.Compress(dataFile);
-                var compressionTime = compressionWatch.ElapsedMilliseconds;
+                if (args.Contains("-A")) {
+                    var i = Array.IndexOf(args, "-A") + 1;
+                    switch (args[i]) {
+                        case "lz":
+                            compressor = new LZSS();
+                            fileExtension = "lz";
+                            break;
+                        case "ppm":
+                            compressor = new PredictionByPartialMatching();
+                            fileExtension = "lz";
+                            break;
+                        case "huffman":
+                            compressor = new HuffmanCompressor();
+                            break;
+                        default:
+                            throw new InvalidCompressorException();
+                    }
+                }
 
-                long decompressionTime = 0;
-                try {
-                    var decompressionWatch = System.Diagnostics.Stopwatch.StartNew();
-                    compressor.Decompress(compressed);
-                    decompressionTime = decompressionWatch.ElapsedMilliseconds;
-                    
-                    Console.WriteLine($"{path}: R: {(double)compressed.Length / dataFile.Length}, C: {(double)dataFile.Length / compressionTime} kB/s, D: {(double)compressed.Length / decompressionTime}");
+                var compress = !args.Contains("-D");
+
+                outputPath = Path.GetDirectoryName(inputPath) + "/compressed." + fileExtension;
+                if (args.Contains("-o")) {
+                    var i = Array.IndexOf(args, "-o") + 1;
+                    outputPath = args[i];
                 }
-                catch (NotImplementedException) {
-                    Console.WriteLine(
-                        $"{path}: R: {(double) compressed.Length / dataFile.Length}, C: {(double) dataFile.Length / compressionTime} kB/s");
-                }
+
+                Console.WriteLine("{0}ompressing file with algorithm {1}.", compress ? "C" : "Dec", fileExtension);
+                DataFile output;
+                if (compress)
+                    output = compressor.Compress(input);
+                else
+                    output = compressor.Decompress(input);
+
+                output.WriteToFile(outputPath);
+                Console.WriteLine("File written to {0}", outputPath);
+            }
+            catch (FileNotFoundException) {
+                Console.WriteLine("File was not find: {0}");
+            }
+            catch (InvalidCompressorException) {
+                Console.WriteLine("The compression algorithm specified does not exist");
+            }
+            catch (DirectoryNotFoundException e) {
+                Console.WriteLine("Directory or file does not exist: {0}", e.Message);
             }
         }
 
-        public static void LZSpeedTests() {
-            DataFile input = new DataFile("../../res/big2.txt");
-            byte[] bytes = input.GetAllBytes();
-
-            double averageratio = 1;
-
-            for (int startIndex = 0; startIndex < 10000; startIndex++) {
-                var longWatch = System.Diagnostics.Stopwatch.StartNew();
-                var longHistory = new ByteArrayIndexer(bytes, startIndex, 4096);
-                var longLookAhead = new ByteArrayIndexer(bytes, startIndex+4096, 16);
-
-                CFindMatchingBytes.FindLongestMatch(longHistory, longLookAhead);
-                var longTime = longWatch.ElapsedTicks;
-
-                var shortWatch = System.Diagnostics.Stopwatch.StartNew();
-                var shortHistory = new ByteArrayIndexer(bytes, startIndex+3968, 128);
-                var shortLookAhead = new ByteArrayIndexer(bytes, startIndex+4096, 4);
-
-                CFindMatchingBytes.FindLongestMatch(shortHistory, shortLookAhead);
-                var shortTime = shortWatch.ElapsedTicks;
-
-                averageratio = (averageratio * startIndex + (double)longTime / shortTime) / (startIndex + 1);
+        public class InvalidCompressorException : ArgumentException {
+            public InvalidCompressorException() {
             }
 
-            Console.WriteLine($"Average ratio: {averageratio}");
+            public InvalidCompressorException(string msg) : base(msg) {
+            }
         }
     }
 }
