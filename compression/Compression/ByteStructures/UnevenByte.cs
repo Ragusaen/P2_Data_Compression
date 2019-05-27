@@ -6,7 +6,7 @@ namespace Compression.ByteStructures{
     /// can have any length. The length describes the amount of LSB of Data which are relevant. The struct has
     /// implemented several methods to manipulate the data conveniently.
     /// </summary>
-    public struct UnevenByte {
+    public struct UnevenByte : IEquatable<UnevenByte> {
         public readonly uint Data;
         public readonly int Length;
 
@@ -76,6 +76,21 @@ namespace Compression.ByteStructures{
             while (s.Length < Length)
                 s = "0" + s;
             return s;
+        }
+
+        public bool Equals(UnevenByte other) {
+            return Data == other.Data && Length == other.Length;
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is UnevenByte other && Equals(other);
+        }
+
+        public override int GetHashCode() {
+            unchecked {
+                return ((int) Data * 397) ^ Length;
+            }
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Compression.AC {
         /// This method finalizes the interval by finding the bits that make the interval within the interval
         /// of the last symbol encoded.
         /// </summary>
-        public void Finalize() {
+        public void FinalizeInterval() {
             // Chooses the bit which has the most of the interval within it.
             UnevenByte toEncode = _interval.Upper > _interval.Max - _interval.Lower ? UnevenByte.One : UnevenByte.Zero;
             _bitString.Append(toEncode);

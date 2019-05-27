@@ -31,7 +31,7 @@ namespace Compression.PPM{
                 }
             }
             
-            ac.Finalize();
+            ac.FinalizeInterval();
             var output = ac.GetEncodedBitString().ToArray();
 
             return new DataFile(output);
