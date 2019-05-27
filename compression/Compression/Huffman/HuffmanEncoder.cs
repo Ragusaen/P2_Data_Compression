@@ -2,6 +2,10 @@
 
 namespace Compression.Huffman
 {
+    /// <summary>
+    /// This class implements Huffman Encoding. It creates a BitString and inserts the encoded
+    /// dictionary and all the encoded bytes.
+    /// </summary>
     public class HuffmanEncoder {
         public byte[] EncodeAllBytes (HuffmanTree huffmanTree, byte[] data) {
             BitString bitString = new BitString();
@@ -23,7 +27,14 @@ namespace Compression.Huffman
 
             return bitString.ToArray();
         }
-
+        
+        /// <summary>
+        /// This method creates an UnevenByte so the last byte contains 8 bits.
+        /// </summary>
+        /// <param name="huffmanTree"> Contains TotalLeafs and TotalLength </param>
+        /// <param name="sizeOfTree"> Number of different byte that appeared in input </param>
+        /// <param name="TotalLength"> The total size of all the encoded bytes </param>
+        /// <returns> An UnevenByte filled with 1s with a length that fills the last byte </returns>
         private UnevenByte CreateFillerUnevenByte(HuffmanTree huffmanTree) {
             int sizeOfTree = huffmanTree.TotalLeafs * 10 - 1;
             int bitsInLastByte = (sizeOfTree + huffmanTree.TotalLength) % 8;

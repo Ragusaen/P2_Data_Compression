@@ -1,10 +1,14 @@
 using System;
-using System.Net.Mime;
+using Compression.Huffman;
+using Compression.LZ;
+using Compression.PPM;
 using Eto.Drawing;
 using Eto.Forms;
 
 namespace Gui {
     partial class Form1 {
+        private ProgressBar _progressBar;
+
         private void InitializeComponent() {
             #region Client
             Title = "Compression";
@@ -20,8 +24,8 @@ namespace Gui {
             openFileCommand.Executed += (sender, e) => {
                 OpenFileDialog s = new OpenFileDialog();
                 if (s.ShowDialog(Application.Instance.MainForm) == DialogResult.Ok) {
-                    path = s.FileName;
-                };
+                    Path = s.FileName;
+                }
             };
             
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
@@ -37,22 +41,16 @@ namespace Gui {
 
             #region Buttons
             
-            var openFileButton = new Button{Text = "Open"};
-            openFileButton.Click += (OpenFileClick);
+            var openfileButton = new Button {Text = "Open"};
+            openfileButton.Click += OpenFileClick;
 
-            var runButton = new Button{Text = "Run"};
-            runButton.BindDataContext(c => c.BackgroundColor, (ButtonColor m) => m.ButtonBackgroundColor);
-            runButton.BindDataContext(c => c.Command, (ButtonColor m) => m.ChangeColorCommand);
+            var _runButton = new Button {Text = "Run"};
+            _runButton.BindDataContext(c => c.BackgroundColor, (ButtonColor m) => m.ButtonBackgroundColor);
+            _runButton.BindDataContext(c => c.Command, (ButtonColor m) => m.ChangeColorCommand);
+            
+            #endregion
 
-            Control fileTextAreaChooseFile() {
-                var FiletextArea = new TextBox();
-                FiletextArea.TextInput += (sender, args) => {
-                    openFileButton.Click += OpenFileClick; 
-                    FiletextArea.Text = fileName;
-                    Console.WriteLine(fileName);
-                }; 
-                return FiletextArea; 
-            }
+            #region Control
 
             Control Selectbutton() {
                 var selecButton = new DropDown();
@@ -62,29 +60,35 @@ namespace Gui {
                 selecButton.SelectedIndex = 0; 
                 selecButton.SelectedIndexChanged += (sender, args) => {
                     if (selecButton.SelectedKey == "a") {
-                        ppmClicked = true;
-                        huffClicked = false;
-                        lzClicked = false;
-                        runButton.Click += RunPPMCompressButton; 
-                        Console.WriteLine("ppm selected");
+                        _compressor =  new PredictionByPartialMatching();
+                        _typeOfCompression = "PPM";
+                        _runButton.Click += Compress; 
                     }
                     else if (selecButton.SelectedKey == "b") {
-                        huffClicked = true;
-                        ppmClicked = false;
-                        lzClicked = false;
-                        runButton.Click += RunHuffmanCompressButton; 
-                        Console.WriteLine("huffman selected");
+                        _compressor = new HuffmanCompressor();
+                        _typeOfCompression = "HM";
+                        _runButton.Click += Compress;
                     }
                     else if (selecButton.SelectedKey == "c") {
-                        lzClicked = true;
-                        ppmClicked = false;
-                        huffClicked = false;
-                        runButton.Click += RunPPMCompressButton; 
-                        Console.WriteLine("Lz Selected");
+                        _compressor = new LZSS();
+                        _typeOfCompression = "LZSS";
+                        _runButton.Click += Compress;
                     }
                 };
                 return selecButton; 
             }
+            
+            Control Indeterminate() {
+                var control = new ProgressBar {
+                    Indeterminate = _isRunning
+                };
+                return control;
+            }
+
+            var textlabel = new Label();
+            textlabel.Text = "Compression Name";
+            
+            
             #endregion
 
             #region Menu
@@ -107,7 +111,6 @@ namespace Gui {
             #endregion
 
             #region Content
-  
             Content = new TableLayout
             {
                 Spacing = new Size(5,5),
@@ -120,16 +123,37 @@ namespace Gui {
                         new TableCell()
                     ),
                     new TableRow(
-                        openFileButton,
+                        openfileButton,
                         Selectbutton(),
-                        runButton,
-                        new Progressbar()
+                        _runButton,
+                        _progressBar
 
                     ),
                     new TableRow(
-                        new TableCell(fileTextAreaChooseFile())
+                        new TableCell(filetextArea)
+                    ),
+                    new TableRow(
+                        new TableCell()
+                        ),
+                    new TableRow(
+                        new TableCell()
+                    ),
+                    new TableRow(
+                        new TableCell(
+                            new Label{Text = "Compression type"}, true),
+                            new TableCell(new Label{Text = "Filename"}, true),
+                        new TableCell(new Label{Text = "Compression Ratio"}, true), 
+                        new TableCell(new Label{Text = "Compression Speed"}, true),
+                        new TableCell()
+                    ),new TableRow(
+                        new TableCell(typeOfCompressionLabel),
+                        new TableCell(filenameTableLabel),
+                        new TableCell(compressionRatioLabel),
+                        new TableCell(compressionSpeedlabel),
+                        new TableCell()
                     ),
                     new TableRow{ScaleHeight = true}
+                    
                 }
             };
             

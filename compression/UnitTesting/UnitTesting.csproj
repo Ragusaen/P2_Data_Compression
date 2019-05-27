@@ -145,8 +145,6 @@
     <Compile Include="Huffman\HuffmanDecoderTest.cs" />
     <Compile Include="Huffman\HuffmanEncoderTest.cs" />
     <Compile Include="Huffman\RecreateMap.cs" />
-    <Compile Include="Huffman\ListOfLeaves.cs" />
-    <Compile Include="Huffman\ListOfTree.cs" />
     <Compile Include="Huffman\TreeCode.cs" />
     <Compile Include="LZ\EncodedLZBytesTest.cs" />
     <Compile Include="LZ\LZ77Test.cs" />
