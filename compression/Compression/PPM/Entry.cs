@@ -5,7 +5,7 @@ namespace Compression.PPM{
     public class Entry{
         public byte Symbol;
         public byte[] Context;
-        public bool IsMinusFirstOrder = false;
+        public bool IsMinusFirstOrder;
         
         public Entry() { }
 

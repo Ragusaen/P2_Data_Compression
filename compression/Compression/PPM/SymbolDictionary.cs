@@ -5,12 +5,6 @@ namespace Compression.PPM{
         
         public readonly SymbolInfo EscapeInfo = new SymbolInfo(count: 0);
         public int TotalCount { get; set; }
-
-        public SymbolDictionary() { }
-        public SymbolDictionary(byte symbol) {
-            Add(symbol, new SymbolInfo());
-            UpdateCounts();
-        }
         
         public void AddNew(byte symbol) {
             Add(symbol, new SymbolInfo());
@@ -27,7 +21,7 @@ namespace Compression.PPM{
             UpdateCounts();
         }
 
-        public void UpdateCounts() {
+        private void UpdateCounts() {
             TotalCount++;
             CalculateCumulativeCounts();
         }

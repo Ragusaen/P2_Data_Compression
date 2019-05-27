@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Compression.ByteStructures;
 
 namespace Compression.LZ {

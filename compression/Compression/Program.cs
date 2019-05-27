@@ -31,13 +31,7 @@ namespace Compression {
             
             string[] paths = {/*
                 "../../res/silesia.tar", */
-                "../../res/silesia/data",
-                "../../res/silesia/exe",
-                "../../res/silesia/html",
-                "../../res/silesia/img",
-                "../../res/silesia/pdf",
-                "../../res/silesia/src",
-                "../../res/silesia/txt"
+                "../../res/big2.txt"
             };
 
             foreach (string path in paths) {

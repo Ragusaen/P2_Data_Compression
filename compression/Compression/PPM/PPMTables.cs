@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Compression.PPM{
@@ -59,7 +58,7 @@ namespace Compression.PPM{
                         symbol.CumulativeCount = cumCount;
                     }
                     
-                    // Update escape cumcount and totalcount
+                    // Update escape cumCount and totalCount
                     cumCount += context.EscapeInfo.Count;
                     context.EscapeInfo.CumulativeCount = cumCount;
                     context.TotalCount = cumCount;
@@ -70,6 +69,7 @@ namespace Compression.PPM{
                 this[i] = new ContextTable();
             }
         }
+        
         
         private void InitializeTables() {
             for (int i = 0; i <= _maxOrder; i++) {

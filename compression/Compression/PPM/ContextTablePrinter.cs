@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Compression.PPM{
     public class ContextTablePrinter {
-        public void ConsolePrint(ContextTable CTP) {
+        public void ConsolePrint(ContextTable ctp) {
             Console.WriteLine("Context | Symbol | Count | Cum_Count");
-            foreach (var t in CTP) {
+            foreach (var t in ctp) {
                 char[] cArr = new char[t.Key.Length];
                 
                 for(int i = 0; i < t.Key.Length; i++) {
@@ -30,7 +30,7 @@ namespace Compression.PPM{
             Console.Write("".PadLeft(8 - count.ToString().Length, ' ') + cumCount + "\n");
         }
 
-        public void PrintAll(List<ContextTable> ppmTables) {
+        public void PrintAll(IEnumerable<ContextTable> ppmTables) {
             int i = 0;
             
             foreach (var t in ppmTables) {
