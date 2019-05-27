@@ -17,7 +17,7 @@ namespace Compression.Huffman
             AddDictionaryEntries(default(UnevenByte));
         }
 
-        public void AddDictionaryEntries(UnevenByte code) {
+        private void AddDictionaryEntries(UnevenByte code) {
             if (bitIndexer.GetNext() == UnevenByte.Zero) {
                 AddDictionaryEntries(code + UnevenByte.Zero);
                 AddDictionaryEntries(code + UnevenByte.One);

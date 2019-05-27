@@ -17,7 +17,7 @@ namespace Gui {
         private Label compressionSpeedlabel = new Label();
         private Label compressionRatioLabel = new Label();
         private Label filenameTableLabel = new Label();
-        private Label typeOfCompression = new Label();
+        private Label typeOfCompressionLabel = new Label();
         private Thread _thread2 = null;
 
         private delegate void SafeCallDelegate(DataFile file);
@@ -41,11 +41,10 @@ namespace Gui {
             var compressionTime = timer.ElapsedMilliseconds;
             compressedFile.WriteToFile(tempDocPath);
 
+            typeOfCompressionLabel.Text = _typeOfCompression;
             filenameTableLabel.Text = _fileName;
             compressionSpeedlabel.Text = compressionTime.ToString() + " ms";
             compressionRatioLabel.Text = ((double) compressedFile.Length / input_file.Length).ToString();
-            typeOfCompression.Text = _typeOfCompression;
-
         }
 
         private void Decompress(object sender, EventArgs e) {

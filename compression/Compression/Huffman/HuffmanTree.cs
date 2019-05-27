@@ -3,8 +3,11 @@ using Compression.ByteStructures;
 
 namespace Compression.Huffman
 {
+    /// <summary>
+    /// This class creates the encoding dictionary and encodes the dictionary.
+    /// </summary>
     public class HuffmanTree {
-        public Node RootNode;
+        private Node RootNode;
         public List<UnevenByte> EncodedTreeList;
         public Dictionary<byte, UnevenByte> CodeDictionary;
         
@@ -28,7 +31,12 @@ namespace Compression.Huffman
             EncodeTree(RootNode);
         }
 
-        public void CreateTree(List<Node> listOfNodes) { //public for unit tests
+        /// <summary>
+        /// This method creates a single BranchNode containing all LeafNodes. By creating BranchNodes 
+        /// of two first nodes in the listofNodes and then remove the two nodes from the list and 
+        /// resort it, until there's 1 node left in the list.
+        /// </summary>
+        private void CreateTree(List<Node> listOfNodes) {
             while (listOfNodes.Count > 1) {
                 listOfNodes.Add(new BranchNode(listOfNodes[0], listOfNodes[1]));
 
@@ -39,8 +47,14 @@ namespace Compression.Huffman
             }
             RootNode = listOfNodes[0];
         }
-        
-        public void SetCode(Node inheritCode) { //public for unit tests
+
+        /// <summary>
+        /// This method gives each LeafNode and encoding code and count the total length of all the
+        /// encoded bytes. The method is recursive and it calls itself until it meets a LeafNode.
+        /// </summary>
+        /// <param name="inheritCode"> The inheritCode Node holds part of the encoded code and gets inherit to the LeafNodes. </param>
+
+        private void SetCode(Node inheritCode) { //public for unit tests
             if (inheritCode is BranchNode branchNode) {
                 branchNode.LeftNode.code = inheritCode.code + UnevenByte.Zero;
                 branchNode.RightNode.code = inheritCode.code + UnevenByte.One;
@@ -53,7 +67,12 @@ namespace Compression.Huffman
             }
         }
 
-        public void EncodeTree(Node node) { //public for unit tests
+        /// <summary>
+        /// This method encodes the dictionary for the decoder. The method is rucursive and it calls
+        /// itself until it meets a LeafNode.
+        /// </summary>
+        /// <param name="node"> Indicates what node it is in the RootNode </param>
+        private void EncodeTree(Node node) { 
             if (node is BranchNode branchNode) {
                 EncodedTreeList.Add(UnevenByte.Zero);
 
