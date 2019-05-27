@@ -7,6 +7,9 @@ using Eto.Forms;
 namespace Gui {
     partial class Form1 {
         private ProgressBar _progressBar;
+        private bool comp = true;
+        private bool decomp = false;    
+
 
         private void InitializeComponent() {
             #region Client
@@ -56,8 +59,39 @@ namespace Gui {
 
             #region Control
 
+            _compressor = new LZSS();
+            _typeOfCompression = "LZSS";
+            _runButton.Click += Compress;
+            
             Control Selectbutton() {
                 var selecButton = new DropDown();
+<<<<<<< HEAD
+                
+                selecButton.Items.Add("LzSS compression", "a");
+                selecButton.Items.Add("Prediction by Partial Matching", "b");
+                selecButton.Items.Add("Huffman encoder", "c");
+                selecButton.SelectedIndex = 0; 
+                Console.WriteLine(comp + " and " + decomp);
+                selecButton.SelectedIndexChanged += (sender, args) => {
+                    if (selecButton.SelectedKey == "a") {
+                        Console.WriteLine(comp + " and " + decomp);
+                        _compressor = new LZSS();
+                        _typeOfCompression = "LZSS";
+                        if (comp) {
+                            _runButton.Click += Compress;
+                        }else if (decomp) {
+                            _runButton.Click += Decompress;
+                        }
+                    }
+                    else if (selecButton.SelectedKey == "b") {
+                        _compressor =  new PredictionByPartialMatching();
+                        _typeOfCompression = "PPM";
+                        if (comp) {
+                            _runButton.Click += Compress;
+                        }else if (decomp) {
+                            _runButton.Click += Decompress;
+                        }
+=======
                 selecButton.Items.Add("Prediction by Partial Matching", "a");
                 selecButton.Items.Add("Huffman encoder", "b");
                 selecButton.Items.Add("LzSS compression", "c");
@@ -67,16 +101,17 @@ namespace Gui {
                         _compressor = new PredictionByPartialMatching();
                         _typeOfCompression = "PPM";
                         _runButton.Click += Compress;
-                    }
-                    else if (selecButton.SelectedKey == "b") {
-                        _compressor = new HuffmanCompressor();
-                        _typeOfCompression = "HM";
-                        _runButton.Click += Compress;
+>>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
                     }
                     else if (selecButton.SelectedKey == "c") {
-                        _compressor = new LZSS();
-                        _typeOfCompression = "LZSS";
-                        _runButton.Click += Compress;
+                        
+                        _compressor = new HuffmanCompressor();
+                        _typeOfCompression = "HM";
+                        if (comp) {
+                            _runButton.Click += Compress;
+                        }else if (decomp) {
+                            _runButton.Click += Decompress;
+                        }
                     }
                 };
                 return selecButton;
@@ -89,6 +124,24 @@ namespace Gui {
                 return control;
             }
 
+            Control selectCompButton() {
+                var selectComp = new DropDown();
+                selectComp.Items.Add("Compress", "d");
+                selectComp.Items.Add("Decompress", "e");
+                selectComp.SelectedIndex = 0;
+                selectComp.SelectedIndexChanged += (sender, args) => {
+                    if (selectComp.SelectedKey == "d") {
+                        comp = true;
+                        decomp = false;
+                    }
+                    else if (selectComp.SelectedKey == "e") {
+                        decomp = true;
+                        comp = false;
+                    }
+                };
+                return selectComp; 
+            }
+            
             var textlabel = new Label();
             textlabel.Text = "Compression Name";
 
@@ -121,6 +174,13 @@ namespace Gui {
                 Padding = new Padding(10, 10, 10, 2),
                 Rows = {
                     new TableRow(
+<<<<<<< HEAD
+                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Compress or Decompress"}, true),
+                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Please select file"}, true),
+                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Please select compression method"}, true),
+                        new Label{TextAlignment = TextAlignment.Center, Text = "Run"}
+                        
+=======
                         new TableCell(new Label {TextAlignment = TextAlignment.Center, Text = "Please select file"},
                             true),
                         new TableCell(
@@ -128,15 +188,23 @@ namespace Gui {
                             true),
                         new Label {TextAlignment = TextAlignment.Center, Text = "Run"},
                         new TableCell()
+>>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
                     ),
                     new TableRow(
+                        selectCompButton(),
                         openfileButton,
                         Selectbutton(),
+<<<<<<< HEAD
+                        _runButton
+                        
+
+=======
                         _runButton,
                         _progressBar
+>>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
                     ),
                     new TableRow(
-                        new TableCell(filetextArea)
+                        new TableCell(_filetextArea)
                     ),
                     new TableRow(
                         new TableCell()
@@ -146,6 +214,15 @@ namespace Gui {
                     ),
                     new TableRow(
                         new TableCell(
+<<<<<<< HEAD
+                            new Label{Text = "Compression type"}, true),
+                            new TableCell(new Label{Text = "Filename"}, true),
+                        new TableCell(new Label{Text = "Compression Ratio"}, true), 
+                        new TableCell(new Label{Text = "Compression Time"}, true),
+                        new TableCell()
+                    ),new TableRow(
+                        new TableCell(_typeOfCompressionLabel),
+=======
                             new Label {Text = "Compression type"}, true),
                         new TableCell(new Label {Text = "Filename"}, true),
                         new TableCell(new Label {Text = "Compression Ratio"}, true),
@@ -154,9 +231,10 @@ namespace Gui {
                     ),
                     new TableRow(
                         new TableCell(typeOfCompressionLabel),
+>>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
                         new TableCell(filenameTableLabel),
-                        new TableCell(compressionRatioLabel),
-                        new TableCell(compressionSpeedlabel),
+                        new TableCell(_compressionRatioLabel),
+                        new TableCell(_compressionSpeedlabel),
                         new TableCell()
                     ),
                     new TableRow {ScaleHeight = true}
