@@ -1,5 +1,5 @@
-namespace Compression.PPM{
-    public struct EncodeInfo{
+namespace Compression.PPM {
+    public struct EncodeInfo {
         public int Count;
         public int CumulativeCount;
         public int TotalCount;
@@ -11,7 +11,7 @@ namespace Compression.PPM{
         }
 
         public override string ToString() {
-            return "Count: " + Count.ToString() + "  CumCount: " + CumulativeCount.ToString() + "  TotalCount: " + TotalCount.ToString();
+            return "Count: " + Count + "  CumCount: " + CumulativeCount + "  TotalCount: " + TotalCount;
         }
     }
 }

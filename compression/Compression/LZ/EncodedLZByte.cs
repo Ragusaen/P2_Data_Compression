@@ -1,22 +1,22 @@
 using System;
-using Compression.ByteStructures;
 
-namespace Compression.LZ{
+namespace Compression.LZ {
     /// <summary>
-    /// Simple class to contain both pointer- and raw encodings.
+    ///     Simple class to contain both pointer- and raw encodings.
     /// </summary>
-    public abstract class EncodedLZByte { }
-    
+    public abstract class EncodedLZByte {
+    }
+
     /// <summary>
-    /// The encoded byte that describes a pointer backwards in the file.
+    ///     The encoded byte that describes a pointer backwards in the file.
     /// </summary>
     public class PointerByte : EncodedLZByte, IEquatable<PointerByte> {
         public const int POINTER_SIZE = 12;
         public const int LENGTH_SIZE = 4;
+        public int Length;
 
         public int Pointer;
-        public int Length;
-        
+
         public PointerByte(int pointer, int length) {
             Pointer = pointer;
             Length = length;
@@ -25,7 +25,7 @@ namespace Compression.LZ{
         public static int GetPointerSpan() {
             return 1 << POINTER_SIZE;
         }
-        
+
         public static int GetLengthSpan() {
             return 1 << LENGTH_SIZE;
         }
@@ -35,6 +35,7 @@ namespace Compression.LZ{
         }
 
         #region IEquatable
+
         public bool Equals(PointerByte other) {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -44,24 +45,25 @@ namespace Compression.LZ{
         public override bool Equals(object obj) {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((PointerByte) obj);
         }
 
         public override int GetHashCode() {
             unchecked {
-                return ((int) Pointer * 397) ^ (int) Length;
+                return (Pointer * 397) ^ Length;
             }
         }
+
         #endregion
     }
 
     /// <summary>
-    /// The encoded byte that describes a raw data point.
+    ///     The encoded byte that describes a raw data point.
     /// </summary>
     public class RawByte : EncodedLZByte {
         public const int RAW_SIZE = 8;
-        
+
         public byte Data;
 
         public RawByte(byte data) {
@@ -69,7 +71,7 @@ namespace Compression.LZ{
         }
 
         public override string ToString() {
-            return "RawByte: " + (char)Data;
+            return "RawByte: " + (char) Data;
         }
     }
 }

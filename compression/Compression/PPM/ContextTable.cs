@@ -1,37 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
-using Xceed.Wpf.Toolkit.Core.Converters;
 
-namespace Compression.PPM{
+namespace Compression.PPM {
     public class ContextTable : Dictionary<byte[], SymbolDictionary> {
-        public enum ToEncode{
-            EncodeNothing, EncodeSymbol, EncodeEscape
+        public enum ToEncode {
+            EncodeNothing,
+            EncodeSymbol,
+            EncodeEscape
         }
 
-        public ContextTable() : base(new ByteArrayComparer()) { }
-        
+        public ContextTable() : base(new ByteArrayComparer()) {
+        }
+
         public ToEncode UpdateContext(Entry entry) {
-            byte symbol = entry.Symbol;
-            byte[] context = entry.Context;
+            var symbol = entry.Symbol;
+            var context = entry.Context;
             ToEncode toEncode;
-            
-            if (ContainsKey(context)) { // did not match context, do not encode anything
-                if (this[context].ContainsKey(symbol)) { // matched context and symbol, encode symbol
+
+            if (ContainsKey(context)) {
+                // did not match context, do not encode anything
+                if (this[context].ContainsKey(symbol)) {
+                    // matched context and symbol, encode symbol
                     this[context].IncrementSymbol(symbol);
                     toEncode = ToEncode.EncodeSymbol;
-                } else {
+                }
+                else {
                     // Matched context but not symbol, encode an escape symbol
                     this[context].AddNew(symbol);
                     this[context].IncrementEscape();
                     toEncode = ToEncode.EncodeEscape;
                 }
-            } else {
+            }
+            else {
                 Add(context, new SymbolDictionary());
                 this[context].AddNew(symbol);
-                    this[context].IncrementEscape();
+                this[context].IncrementEscape();
                 toEncode = ToEncode.EncodeNothing;
             }
-            
+
             return toEncode;
         }
     }

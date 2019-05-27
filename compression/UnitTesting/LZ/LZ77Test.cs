@@ -1,64 +1,66 @@
-using System;
-using NUnit.Framework;
 using Compression;
 using Compression.LZ;
-using Compression.ByteStructures;
+using NUnit.Framework;
 
 namespace UnitTesting.LZ {
-    [TestFixture, Category("LZ77")]
-    public class LZ77Test{
+    [TestFixture]
+    [Category("LZ77")]
+    public class LZ77Test {
         public class CompressTests {
             [Test]
             public void CompressSimpleText() {
-                string expectedPath = TestContext.CurrentContext.TestDirectory + "../../../res/compressedTestFile";
-                DataFile expectedFile = new DataFile(expectedPath);
-                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
-                DataFile inputFile = new DataFile(inputPath);
-                
-                LZSS comp = new LZSS();
-                DataFile actualFile = comp.Compress(inputFile);
-                
-                Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
+                var expectedPath = TestContext.CurrentContext.TestDirectory + "../../../res/compressedTestFile";
+                var expectedFile = new DataFile(expectedPath);
+                var inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+                var inputFile = new DataFile(inputPath);
+
+                var comp = new LZSS();
+                var actualFile = comp.Compress(inputFile);
+
+                Assert.AreEqual(expectedFile.GetBytes(0, expectedFile.Length),
+                    actualFile.GetBytes(0, actualFile.Length));
+                ;
             }
+
             [Test]
             public void CompressSimpleTextNoPointersByteArraysOnly() {
                 byte[] inputBytes = {97, 98, 99};
-                DataFile inputFile = new DataFile();
+                var inputFile = new DataFile();
                 inputFile.LoadBytes(inputBytes);
                 byte[] expected = {48, 152, 140, 96};
-                
-                LZSS comp = new LZSS();
-                DataFile output = comp.Compress(inputFile);
-                byte[] actual = output.GetBytes(0, output.Length);
-                
+
+                var comp = new LZSS();
+                var output = comp.Compress(inputFile);
+                var actual = output.GetBytes(0, output.Length);
+
                 Assert.AreEqual(expected, actual);
             }
-            
+
             [Test]
             public void CompressSimpleTextNoPointersDataFile() {
-                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
-                DataFile inputFile = new DataFile(inputPath);
+                var inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile1";
+                var inputFile = new DataFile(inputPath);
                 byte[] expectedData = {48, 152, 140, 96};
-                DataFile expected = new DataFile();
+                var expected = new DataFile();
                 expected.LoadBytes(expectedData);
-                
-                LZSS comp = new LZSS();
-                DataFile actual = comp.Compress(inputFile);
-                
+
+                var comp = new LZSS();
+                var actual = comp.Compress(inputFile);
+
                 Assert.IsTrue(DataFile.Compare(expected, actual));
             }
-            
+
             [Test]
             public void CompressSimpleTextPointers() {
-                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
-                DataFile inputFile = new DataFile(inputPath);
+                var inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile3";
+                var inputFile = new DataFile(inputPath);
                 byte[] expectedData = {48, 152, 140, 102, 72, 1, 152};
-                DataFile expected = new DataFile();
+                var expected = new DataFile();
                 expected.LoadBytes(expectedData);
-                
-                LZSS comp = new LZSS();
-                DataFile actual = comp.Compress(inputFile);
-                
+
+                var comp = new LZSS();
+                var actual = comp.Compress(inputFile);
+
                 Assert.AreEqual(expected.GetBytes(0, expected.Length), actual.GetBytes(0, actual.Length));
             }
         }
@@ -66,15 +68,17 @@ namespace UnitTesting.LZ {
         public class DecompressTests {
             [Test]
             public void DecompressSimpleText() {
-                string inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/compressedTestFile";
-                string expectedPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
-                DataFile expectedFile = new DataFile(expectedPath);
-                DataFile inputFile = new DataFile(inputPath);
-            
-                LZSS comp = new LZSS();
-                DataFile actualFile = comp.Decompress(inputFile);
-            
-                Assert.AreEqual(expectedFile.GetBytes(0,expectedFile.Length), actualFile.GetBytes(0, actualFile.Length));;
+                var inputPath = TestContext.CurrentContext.TestDirectory + "../../../res/compressedTestFile";
+                var expectedPath = TestContext.CurrentContext.TestDirectory + "../../../res/testfile2";
+                var expectedFile = new DataFile(expectedPath);
+                var inputFile = new DataFile(inputPath);
+
+                var comp = new LZSS();
+                var actualFile = comp.Decompress(inputFile);
+
+                Assert.AreEqual(expectedFile.GetBytes(0, expectedFile.Length),
+                    actualFile.GetBytes(0, actualFile.Length));
+                ;
             }
         }
     }

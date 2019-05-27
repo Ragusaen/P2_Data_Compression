@@ -1,22 +1,28 @@
 using Compression.ByteStructures;
-using Xceed.Wpf.AvalonDock.Themes;
 
 namespace Compression {
     /// <summary>
-    /// This class is an abstraction over reading a byte array bit by bit. 
+    ///     This class is an abstraction over reading a byte array bit by bit.
     /// </summary>
     public class BitIndexer {
         // The array the holds the bytes
-        private byte[] _bytes;
-        // The current index in bits
-        private int _currentIndex = 0;
+        private readonly byte[] _bytes;
 
-        public int Remaining {
-            get { return _bytes.Length * 8 - _currentIndex; }
-        }
+        // The current index in bits
+        private int _currentIndex;
 
         public BitIndexer(byte[] array) {
             _bytes = array;
+        }
+
+        public int Remaining => _bytes.Length * 8 - _currentIndex;
+
+        public UnevenByte this[int index] {
+            get {
+                var b = _bytes[index / 8];
+                var bitIndex = index % 8;
+                return new UnevenByte(((uint) b >> (7 - bitIndex)) & 1, 1);
+            }
         }
 
         public UnevenByte GetNext() {
@@ -36,22 +42,12 @@ namespace Compression {
             _currentIndex += length;
             return ub;
         }
-        
-        public UnevenByte this[int index] {
-            get {
-                byte b = _bytes[index / 8];
-                int bitIndex = index % 8;
-                return new UnevenByte(((uint)b >> (7 - bitIndex)) & 1, 1);
-            }
-        }
 
         public UnevenByte GetRange(int index, int length) {
-            UnevenByte ub = new UnevenByte(0,0);
-            
-            for (int i = 0; i < length; ++i) {
-                ub += this[index + i];
-            }
-            
+            var ub = new UnevenByte(0, 0);
+
+            for (var i = 0; i < length; ++i) ub += this[index + i];
+
             return ub;
         }
     }

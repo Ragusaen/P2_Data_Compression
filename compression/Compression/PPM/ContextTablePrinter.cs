@@ -1,22 +1,19 @@
 using System;
 using System.Collections.Generic;
 
-namespace Compression.PPM{
+namespace Compression.PPM {
     public class ContextTablePrinter {
         public void ConsolePrint(ContextTable CTP) {
             Console.WriteLine("Context | Symbol | Count | Cum_Count");
             foreach (var t in CTP) {
-                char[] cArr = new char[t.Key.Length];
-                
-                for(int i = 0; i < t.Key.Length; i++) {
-                    cArr[i] = (char) t.Key[i];
-                }
+                var cArr = new char[t.Key.Length];
 
-                string context = new string(cArr);
+                for (var i = 0; i < t.Key.Length; i++) cArr[i] = (char) t.Key[i];
 
-                foreach (var u in t.Value) {
-                    PrintLine(context, ((char)u.Key).ToString(), u.Value.Count, u.Value.CumulativeCount);
-                }
+                var context = new string(cArr);
+
+                foreach (var u in t.Value)
+                    PrintLine(context, ((char) u.Key).ToString(), u.Value.Count, u.Value.CumulativeCount);
 
                 PrintLine(context, "<esc>", t.Value.EscapeInfo.Count, t.Value.EscapeInfo.CumulativeCount);
                 Console.WriteLine("".PadLeft(14, '-') + " Total Count " + t.Value.TotalCount);
@@ -31,10 +28,10 @@ namespace Compression.PPM{
         }
 
         public void PrintAll(List<ContextTable> ppmTables) {
-            int i = 0;
-            
+            var i = 0;
+
             foreach (var t in ppmTables) {
-                Console.WriteLine("Order is: " + (i++-1));
+                Console.WriteLine("Order is: " + (i++ - 1));
                 ConsolePrint(t);
             }
         }
