@@ -146,7 +146,7 @@ namespace Gui {
                         new TableCell(new Label{Text = "Compression Speed"}, true),
                         new TableCell()
                     ),new TableRow(
-                        new TableCell(),
+                        new TableCell(typeOfCompressionLabel),
                         new TableCell(filenameTableLabel),
                         new TableCell(compressionRatioLabel),
                         new TableCell(compressionSpeedlabel),
