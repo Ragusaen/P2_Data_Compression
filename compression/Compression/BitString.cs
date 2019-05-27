@@ -9,21 +9,19 @@ namespace Compression {
     /// </summary>
     public class BitString {
         // The list that holds all the data
-        private List<byte> _bytes = new List<byte>();
+        private readonly List<byte> _bytes = new List<byte>();
         
         // The index of the next bit in the last byte of the list. This is used to insert new bits
         // at the correct location
-        private int _bitIndex = 0;
+        private int _bitIndex;
 
         public BitString() {
             // There should always be a non-full byte at the end of the list.
             _bytes.Add(0);
         }
 
-        public int Length {
-            get { return _bytes.Count - (8 - _bitIndex); }
-        }
-        
+        public int Length => _bytes.Count - (8 - _bitIndex);
+
         /// <summary>
         /// This method appends any UnevenByte to the bitstring.
         /// </summary>

@@ -1,5 +1,4 @@
 using Compression.ByteStructures;
-using Xceed.Wpf.AvalonDock.Themes;
 
 namespace Compression {
     /// <summary>
@@ -7,13 +6,11 @@ namespace Compression {
     /// </summary>
     public class BitIndexer {
         // The array the holds the bytes
-        private byte[] _bytes;
+        private readonly byte[] _bytes;
         // The current index in bits
-        private int _currentIndex = 0;
+        private int _currentIndex;
 
-        public int Remaining {
-            get { return _bytes.Length * 8 - _currentIndex; }
-        }
+        public int Remaining => _bytes.Length * 8 - _currentIndex;
 
         public BitIndexer(byte[] array) {
             _bytes = array;
