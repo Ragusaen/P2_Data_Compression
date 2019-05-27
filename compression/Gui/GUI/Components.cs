@@ -4,14 +4,14 @@ using Compression.PPM;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace Gui {
-    partial class Form1 {
+namespace Gui{
+    partial class Form1{
         private ProgressBar _progressBar;
         private bool comp = true;
-        private bool decomp = false;    
+        private bool decomp = false;
 
 
-        private void InitializeComponent() {
+        private void InitializeComponent(){
             #region Client
 
             Title = "Compression";
@@ -21,9 +21,9 @@ namespace Gui {
 
             #region Commands
 
-            var openFileCommand = new Command {MenuText = "Open"};
-            var aboutCommand = new Command {MenuText = "About..."};
-            var quitCommand = new Command {
+            var openFileCommand = new Command{MenuText = "Open"};
+            var aboutCommand = new Command{MenuText = "About..."};
+            var quitCommand = new Command{
                 MenuText = "Quit",
                 Shortcut = Application.Instance.CommonModifier | Keys.Q
             };
@@ -37,7 +37,7 @@ namespace Gui {
 
             // About dialog executor
             aboutCommand.Executed += (sender, e) => {
-                new Dialog {
+                new Dialog{
                     Content = new Label
                         {Text = "Visit https://github.com/Ragusaen/P2_Data_Compression/blob/master/README.md"},
                     ClientSize = new Size(200, 50)
@@ -48,10 +48,10 @@ namespace Gui {
 
             #region Buttons
 
-            var openfileButton = new Button {Text = "Open"};
+            var openfileButton = new Button{Text = "Open"};
             openfileButton.Click += OpenFileClick;
 
-            var _runButton = new Button {Text = "Run"};
+            var _runButton = new Button{Text = "Run"};
             _runButton.BindDataContext(c => c.BackgroundColor, (ButtonColor m) => m.ButtonBackgroundColor);
             _runButton.BindDataContext(c => c.Command, (ButtonColor m) => m.ChangeColorCommand);
 
@@ -62,86 +62,66 @@ namespace Gui {
             _compressor = new LZSS();
             _typeOfCompression = "LZSS";
             _runButton.Click += Compress;
-            
-            Control Selectbutton() {
+
+            Control Selectbutton(){
                 var selecButton = new DropDown();
-<<<<<<< HEAD
-                
+
                 selecButton.Items.Add("LzSS compression", "a");
                 selecButton.Items.Add("Prediction by Partial Matching", "b");
                 selecButton.Items.Add("Huffman encoder", "c");
-                selecButton.SelectedIndex = 0; 
-                Console.WriteLine(comp + " and " + decomp);
-                selecButton.SelectedIndexChanged += (sender, args) => {
-                    if (selecButton.SelectedKey == "a") {
-                        Console.WriteLine(comp + " and " + decomp);
-                        _compressor = new LZSS();
-                        _typeOfCompression = "LZSS";
-                        if (comp) {
-                            _runButton.Click += Compress;
-                        }else if (decomp) {
-                            _runButton.Click += Decompress;
-                        }
-                    }
-                    else if (selecButton.SelectedKey == "b") {
-                        _compressor =  new PredictionByPartialMatching();
-                        _typeOfCompression = "PPM";
-                        if (comp) {
-                            _runButton.Click += Compress;
-                        }else if (decomp) {
-                            _runButton.Click += Decompress;
-                        }
-=======
-                selecButton.Items.Add("Prediction by Partial Matching", "a");
-                selecButton.Items.Add("Huffman encoder", "b");
-                selecButton.Items.Add("LzSS compression", "c");
                 selecButton.SelectedIndex = 0;
                 selecButton.SelectedIndexChanged += (sender, args) => {
-                    if (selecButton.SelectedKey == "a") {
-                        _compressor = new PredictionByPartialMatching();
-                        _typeOfCompression = "PPM";
-                        _runButton.Click += Compress;
->>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
-                    }
-                    else if (selecButton.SelectedKey == "c") {
-                        
-                        _compressor = new HuffmanCompressor();
-                        _typeOfCompression = "HM";
-                        if (comp) {
+                    if (selecButton.SelectedKey == "a"){
+                        _compressor = new LZSS();
+                        _typeOfCompression = "LZSS";
+                        if (comp){
                             _runButton.Click += Compress;
-                        }else if (decomp) {
+                        }
+                        else if (decomp){
                             _runButton.Click += Decompress;
                         }
+                    }
+                    else if (selecButton.SelectedKey == "b"){
+                        _compressor = new PredictionByPartialMatching();
+                        _typeOfCompression = "PPM";
+                        if (comp){
+                            _runButton.Click += Compress;
+                        }
+                        else if (decomp){
+                            _runButton.Click += Decompress;
+                        }
+
+
                     }
                 };
                 return selecButton;
             }
 
-            Control Indeterminate() {
-                var control = new ProgressBar {
+            Control Indeterminate(){
+                var control = new ProgressBar{
                     Indeterminate = _isRunning
                 };
                 return control;
             }
 
-            Control selectCompButton() {
+            Control selectCompButton(){
                 var selectComp = new DropDown();
                 selectComp.Items.Add("Compress", "d");
                 selectComp.Items.Add("Decompress", "e");
                 selectComp.SelectedIndex = 0;
                 selectComp.SelectedIndexChanged += (sender, args) => {
-                    if (selectComp.SelectedKey == "d") {
+                    if (selectComp.SelectedKey == "d"){
                         comp = true;
                         decomp = false;
                     }
-                    else if (selectComp.SelectedKey == "e") {
+                    else if (selectComp.SelectedKey == "e"){
                         decomp = true;
                         comp = false;
                     }
                 };
-                return selectComp; 
+                return selectComp;
             }
-            
+
             var textlabel = new Label();
             textlabel.Text = "Compression Name";
 
@@ -150,16 +130,16 @@ namespace Gui {
             #region Menu
 
             // create menu
-            Menu = new MenuBar {
+            Menu = new MenuBar{
                 Items = {
                     // File submenu
-                    new ButtonMenuItem {Text = "&File", Items = {openFileCommand}}
+                    new ButtonMenuItem{Text = "&File", Items = {openFileCommand}}
                     // new ButtonMenuItem { Text = "&Edit", Items = { /* commands/items */ } },
                     // new ButtonMenuItem { Text = "&View", Items = { /* commands/items */ } },
                 },
                 ApplicationItems = {
                     // application (OS X) or file menu (others)
-                    new ButtonMenuItem {Text = "&Preferences..."}
+                    new ButtonMenuItem{Text = "&Preferences..."}
                 },
                 QuitItem = quitCommand,
                 AboutItem = aboutCommand
@@ -169,39 +149,26 @@ namespace Gui {
 
             #region Content
 
-            Content = new TableLayout {
+            Content = new TableLayout{
                 Spacing = new Size(5, 5),
                 Padding = new Padding(10, 10, 10, 2),
                 Rows = {
                     new TableRow(
-<<<<<<< HEAD
-                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Compress or Decompress"}, true),
-                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Please select file"}, true),
-                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Please select compression method"}, true),
-                        new Label{TextAlignment = TextAlignment.Center, Text = "Run"}
-                        
-=======
-                        new TableCell(new Label {TextAlignment = TextAlignment.Center, Text = "Please select file"},
+                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Compress or Decompress"},
+                            true),
+                        new TableCell(new Label{TextAlignment = TextAlignment.Center, Text = "Please select file"},
                             true),
                         new TableCell(
-                            new Label {TextAlignment = TextAlignment.Center, Text = "Please select compression method"},
+                            new Label{TextAlignment = TextAlignment.Center, Text = "Please select compression method"},
                             true),
-                        new Label {TextAlignment = TextAlignment.Center, Text = "Run"},
-                        new TableCell()
->>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
+                        new Label{TextAlignment = TextAlignment.Center, Text = "Run"}
                     ),
                     new TableRow(
                         selectCompButton(),
                         openfileButton,
                         Selectbutton(),
-<<<<<<< HEAD
-                        _runButton
-                        
-
-=======
                         _runButton,
                         _progressBar
->>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
                     ),
                     new TableRow(
                         new TableCell(_filetextArea)
@@ -214,36 +181,26 @@ namespace Gui {
                     ),
                     new TableRow(
                         new TableCell(
-<<<<<<< HEAD
                             new Label{Text = "Compression type"}, true),
-                            new TableCell(new Label{Text = "Filename"}, true),
-                        new TableCell(new Label{Text = "Compression Ratio"}, true), 
+                        new TableCell(new Label{Text = "Filename"}, true),
+                        new TableCell(new Label{Text = "Compression Ratio"}, true),
                         new TableCell(new Label{Text = "Compression Time"}, true),
-                        new TableCell()
-                    ),new TableRow(
-                        new TableCell(_typeOfCompressionLabel),
-=======
-                            new Label {Text = "Compression type"}, true),
-                        new TableCell(new Label {Text = "Filename"}, true),
-                        new TableCell(new Label {Text = "Compression Ratio"}, true),
-                        new TableCell(new Label {Text = "Compression Speed"}, true),
                         new TableCell()
                     ),
                     new TableRow(
-                        new TableCell(typeOfCompressionLabel),
->>>>>>> 619261780abfd319cf6724cbf9c5ad090945f065
-                        new TableCell(filenameTableLabel),
+                        new TableCell(_typeOfCompressionLabel),
+                        new TableCell(_filenameTableLabel),
                         new TableCell(_compressionRatioLabel),
                         new TableCell(_compressionSpeedlabel),
                         new TableCell()
                     ),
-                    new TableRow {ScaleHeight = true}
-                }
+                    new TableRow{ScaleHeight = true}
+                },
             };
+                DataContext = new ButtonColor();
 
-            DataContext = new ButtonColor();
-
-            #endregion
+                #endregion
+            }
         }
     }
-}
+
