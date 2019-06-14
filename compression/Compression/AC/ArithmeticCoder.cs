@@ -41,8 +41,8 @@ namespace Compression.AC {
                     }
                     else { // ExpansionType is Zero
                         toEncode = UnevenByte.Zero;
-                        _bitString.Append(toEncode);
                     }
+                    _bitString.Append(toEncode);
 
                     // If there are any follow bits, encode the complement of the bit follow bit times
                         for (; _followBits > 0; --_followBits)

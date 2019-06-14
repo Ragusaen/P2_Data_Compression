@@ -28,6 +28,7 @@ namespace Compression.PPM {
                         ac.Encode(encodeInfo.Count, encodeInfo.CumulativeCount, encodeInfo.TotalCount);
                     entry.NextContext();
                 }
+                ac.Encode(encodeInfo.Count, encodeInfo.CumulativeCount, encodeInfo.TotalCount);
             }
 
             ac.FinalizeInterval();
