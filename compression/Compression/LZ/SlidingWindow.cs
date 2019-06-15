@@ -80,5 +80,9 @@ namespace Compression.LZ {
                 length = _bytes.Length - _currentIndex;
             return new ByteArrayIndexer(_bytes, _currentIndex, length);
         }
+
+        public int GetStatus() {
+            return _currentIndex;
+        }
     }
 }

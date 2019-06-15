@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Compression.ByteStructures;
 
 namespace Compression.Huffman {
-    public class HuffmanDecoder {
+    public class HuffmanDecoder{
+        public int RemainingBits;
+        
         /// <summary>
         /// This class implements Huffman decoding. It creates a decoding dictionary from BitIndexer until
         /// Huffman tree is complete. 
@@ -55,6 +57,8 @@ namespace Compression.Huffman {
             var ub = default(UnevenByte);
 
             while (!_bitIndexer.AtEnd()) {
+                RemainingBits = _bitIndexer.Remaining;
+                
                 ub += ub == default(UnevenByte)? _bitIndexer.GetNextRange(shortestKey) : _bitIndexer.GetNext();
 
                 if (_decodeDictionary.ContainsKey(ub)) {
@@ -63,6 +67,7 @@ namespace Compression.Huffman {
                 }
             }
 
+            RemainingBits = 0;
             return output.ToArray();
         }
     }

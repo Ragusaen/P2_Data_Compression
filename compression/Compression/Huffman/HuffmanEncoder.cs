@@ -5,7 +5,8 @@ namespace Compression.Huffman {
     ///     This class implements Huffman Encoding. It creates a BitString and inserts the encoded
     ///     dictionary and all the encoded bytes.
     /// </summary>
-    public class HuffmanEncoder {
+    public class HuffmanEncoder{
+        public int Progress;
         public byte[] EncodeAllBytes(HuffmanTree huffmanTree, byte[] data) {
             var bitString = new BitString();
 
@@ -19,8 +20,12 @@ namespace Compression.Huffman {
                 bitString.Append(huffmanTree.EncodedTreeList[i]);
 
             // Encode all the bytes
-            for (var i = 0; i < data.Length; i++) bitString.Append(huffmanTree.CodeDictionary[data[i]]);
+            for (var i = 0; i < data.Length; i++) {
+                Progress = i;
+                bitString.Append(huffmanTree.CodeDictionary[data[i]]);
+            }
 
+            Progress = data.Length;
             return bitString.ToArray();
         }
 

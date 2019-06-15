@@ -5,6 +5,8 @@ namespace Compression.PPM {
     public class PredictionByPartialMatching : ICompressor {
         private readonly int _maxOrder;
         private readonly int _cleanUpLimit;
+        private int i;
+        private int _fileLength;
         
         public PredictionByPartialMatching(int maxOrder = 5, int cleanUpLimit = 100000) {
             _maxOrder = maxOrder;
@@ -14,8 +16,9 @@ namespace Compression.PPM {
         public DataFile Compress(DataFile toCompress) {
             var ppmTables = new PPMTables(_maxOrder);
             var ac = new ArithmeticCoder();
+            _fileLength = toCompress.Length;
 
-            for (var i = 0; i < toCompress.Length; i++) {
+            for (i = 0; i < toCompress.Length; i++) {
                 if (i % _cleanUpLimit == 0) ppmTables.CleanUp();
 
                 var entry = new Entry(toCompress.GetByte(i), GetContextFromFile(toCompress, i));
@@ -33,12 +36,19 @@ namespace Compression.PPM {
 
             ac.FinalizeInterval();
             var output = ac.GetEncodedBitString().ToArray();
-
+            i = _fileLength;
             return new DataFile(output);
         }
 
         public DataFile Decompress(DataFile toDecompress) {
             throw new NotImplementedException();
+        }
+
+        public double GetStatus() {
+            if (i == 0)
+                return 0.0;
+
+            return (double) i / _fileLength;
         }
 
         private byte[] GetContextFromFile(DataFile file, int i) {
