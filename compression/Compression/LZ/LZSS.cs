@@ -1,5 +1,4 @@
 using Compression.ByteStructures;
-using MonoMac.Foundation;
 
 namespace Compression.LZ {
     /// <summary>
